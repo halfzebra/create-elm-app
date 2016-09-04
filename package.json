@@ -1,0 +1,42 @@
+{
+  "name": "elm-app-create",
+  "version": "0.1.0",
+  "description": "Elm apps with zero configuration",
+  "keywords": [
+    "elm",
+    "cli"
+  ],
+  "author": "Eduard Kyvenko <duardeco@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "bin": {
+    "elm-app": "./bin/global-cli.js",
+    "create-elm-app": "./bin/create-elm-app-cli.js"
+  },
+  "files": [
+    "bin",
+    "config",
+    "scripts",
+    "template",
+    "README.md"
+  ],
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "clean-webpack-plugin": "^0.1.10",
+    "cli-table": "0.3.1",
+    "cross-spawn": "^4.0.0",
+    "elm": "^0.17.1",
+    "elm-hot-loader": "^0.3.3",
+    "elm-webpack-loader": "^3.0.5",
+    "fs-extra": "^0.30.0",
+    "html-webpack-plugin": "^2.22.0",
+    "install": "0.8.1",
+    "minimist": "^1.2.0",
+    "opn": "^4.0.2",
+    "path-exists": "^3.0.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "1.15.1"
+  }
+}
