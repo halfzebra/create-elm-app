@@ -2,11 +2,11 @@
 
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
-const spawn = require('cross-spawn');
-const version = require('../package.json').version;
 const commands = argv._;
-const paths = require('../config/paths');
+const spawn = require('cross-spawn');
 const executablePaths = require('elm/platform').executablePaths;
+const version = require('../package.json').version;
+const paths = require('../config/paths');
 
 function help (version) {
   console.log('\nUsage: elm-app <command>\n');
