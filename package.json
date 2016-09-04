@@ -31,6 +31,7 @@
     "clean-webpack-plugin": "^0.1.10",
     "cli-table": "0.3.1",
     "cross-spawn": "^4.0.0",
+    "css-loader": "0.24.0",
     "elm": "^0.17.1",
     "elm-hot-loader": "^0.3.3",
     "elm-webpack-loader": "^3.0.5",
@@ -40,6 +41,7 @@
     "minimist": "^1.2.0",
     "opn": "^4.0.2",
     "path-exists": "^3.0.0",
+    "style-loader": "0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "1.15.1"
   }
