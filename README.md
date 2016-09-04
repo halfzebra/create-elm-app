@@ -4,8 +4,8 @@
 
 ```sh
 npm install create-elm-app -g
-elm-app-create my-elm-app
-cd my-elm-app/
+create-elm-app my-app
+cd my-app/
 elm-app start
 ```
 
