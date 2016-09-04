@@ -91,3 +91,4 @@ repl-temp-*
 # create-elm-app
 template/dist
 template/package.json
+template/elm-package.json
