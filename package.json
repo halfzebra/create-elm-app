@@ -1,5 +1,5 @@
 {
-  "name": "elm-app-create",
+  "name": "create-elm-app",
   "version": "0.1.0",
   "description": "Elm apps with zero configuration",
   "keywords": [
@@ -14,6 +14,10 @@
   "bin": {
     "elm-app": "./bin/global-cli.js",
     "create-elm-app": "./bin/create-elm-app-cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halfzebra/create-elm-app"
   },
   "files": [
     "bin",
