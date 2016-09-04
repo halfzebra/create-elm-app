@@ -44,16 +44,11 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: [ /elm-stuff/, /node_modules/ ],
-        loader: 'elm-hot!elm-webpack',
-        query: {
-          pathToMake: paths.elmMake,
-          verbose: true,
-          warn: true
-        }
+        loader: 'elm-hot!elm-webpack?verbose=true&warn=&true&pathToMake' + paths.elmMake
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        loader: 'style!css'
       }
     ]
   },
