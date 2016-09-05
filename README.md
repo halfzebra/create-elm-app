@@ -76,7 +76,7 @@ Create Elm App adds a tool for optimizing production builds and running a develo
 
 All of that, combined with all the  basic functionality of [elm-platform](https://github.com/elm-lang/elm-platform) is bundled within a single command line tool, which you might use as a dependency or `eject` any time.
 
-## Whatn a custom setup?
+## Want a custom setup?
 
 If you are a power user and you are not happy with the default configuration, you can `elm-app eject` anytime.
 
