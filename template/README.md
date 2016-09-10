@@ -4,12 +4,15 @@ Below you will find some information on how to perform common tasks.
 You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
 
 ## Table of Contents
-- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
   - [elm-app eject](#elm-app-eject)
   - [elm-app package](#elm-app-package)
+  - [elm-app repl](#elm-app-package)
+  - [elm-app make](#elm-app-package)
+  - [elm-app reactor](#elm-app-package)
+- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Available scripts
 In the project directory you can run:
