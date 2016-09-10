@@ -5,11 +5,11 @@ const WebpackDevServer = require('webpack-dev-server');
 const config = require('../config/webpack.config.dev');
 const opn = require('opn');
 
+process.env.NODE_ENV = 'development';
+
 function clear () {
   console.log('\x1Bc');
 }
-
-process.env.NODE_ENV = 'development';
 
 if (pathExists.sync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
@@ -32,6 +32,7 @@ compiler.plugin('done', function (stats) {
   let hasWarnings = stats.hasWarnings();
 
   if (!hasErrors && !hasWarnings) {
+
     console.log(chalk.green('Compiled successfully!'));
     console.log('\nThe app is running at:');
     console.log('\n    ' + chalk.cyan('http://localhost:' + port + '/'));

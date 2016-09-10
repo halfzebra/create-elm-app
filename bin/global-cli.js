@@ -6,13 +6,15 @@ const commands = argv._;
 const spawn = require('cross-spawn');
 const executablePaths = require('elm/platform').executablePaths;
 const version = require('../package.json').version;
+const elmPlatformVersion = require('../node_modules/elm/package.json').version;
 const paths = require('../config/paths');
 
 function help (version) {
   console.log('\nUsage: elm-app <command>\n');
   console.log('where <command> is one of:');
   console.log('    create, build, start, package, reactor, make, repl\n');
-  console.log('elm-app@' + version + ' ' + path.resolve(__dirname, '..'));
+  console.log('\nElm ' + elmPlatformVersion + '\n');
+  console.log('create-elm-app@' + version + ' ' + path.resolve(__dirname, '..'));
 }
 
 if (commands.length === 0) {
