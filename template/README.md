@@ -4,15 +4,50 @@ Below you will find some information on how to perform common tasks.
 You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
 
 ## Table of Contents
+- [Sending feedback](#sending-feedback)
+- [Folder structure](#folder-structure)
+- [Installing Elm packages](#installing-elm-packages)
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
   - [elm-app eject](#elm-app-eject)
-  - [elm-app package](#elm-app-package)
-  - [elm-app repl](#elm-app-package)
-  - [elm-app make](#elm-app-package)
-  - [elm-app reactor](#elm-app-package)
+  - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
+    - [package](#package)
+    - [repl](#repl)
+    - [make](#make)
+    - [reactor](#reactor)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
+
+## Sending feedback
+You are very velcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
+
+## Installing Elm packages
+
+```sh
+elm-app package install <package-name>
+```
+
+## Folder structure
+```
+my-app/
+  README.md
+  elm-package.json
+  src/
+    favicon.ico
+    index.html
+    index.js
+    main.css
+    Main.elm
+```
+For the project to build, these files must exist with exact filenames:
+
+- `src/index.html` is the page template;
+- `src/favicon.ico` is the icon you see in the browser tab;
+- `src/index.js` is the JavaScript entry point.
+
+You can delete or rename the other files.
+
+You may create subdirectories inside src.
 
 ## Available scripts
 In the project directory you can run:
@@ -38,7 +73,22 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### `elm-app package`
+### `elm-app <elm-platform-comand>`
+Create Elm App does not rely on global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
+
+#### `package`
+Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
+
+Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
+
+#### `repl`
+Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
+
+#### `make`
+Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
+
+#### `reactor`
+Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 ## IDE setup for Hot Module Replacement
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStrom.
