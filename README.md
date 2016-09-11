@@ -1,5 +1,7 @@
 # Create Elm App
 
+[![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app)
+
 Create Elm apps with no build configuration.
 
 * [Getting Started](#getting-started) – How to create a new app.
