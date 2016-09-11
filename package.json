@@ -4,7 +4,8 @@
   "description": "Elm apps with zero configuration",
   "keywords": [
     "elm",
-    "cli"
+    "cli",
+    "webpack"
   ],
   "author": "Eduard Kyvenko <duardeco@gmail.com>",
   "license": "MIT",
@@ -46,6 +47,7 @@
     "minimist": "^1.2.0",
     "opn": "^4.0.2",
     "path-exists": "^3.0.0",
+    "prompt": "1.0.0",
     "style-loader": "0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "1.15.1"
