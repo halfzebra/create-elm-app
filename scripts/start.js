@@ -20,12 +20,12 @@ if (pathExists.sync('elm-package.json') === false) {
 let compiler = webpack(config);
 let port = 3000;
 
-compiler.plugin('invalid', function () {
+compiler.plugin('invalid', () => {
   clear();
   console.log('Compiling...');
 });
 
-compiler.plugin('done', function (stats) {
+compiler.plugin('done', stats => {
   clear();
 
   let hasErrors = stats.hasErrors();
@@ -61,7 +61,7 @@ const devServer = new WebpackDevServer(compiler, {
 });
 
 // Launch WebpackDevServer.
-devServer.listen(port, (err) => {
+devServer.listen(port, err => {
   if (err) {
     return console.log(err);
   }

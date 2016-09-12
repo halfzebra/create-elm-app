@@ -17,7 +17,7 @@ module.exports = {
     paths.entry
   ],
   output: {
-
+    
     pathinfo: true,
 
     // The build folder.

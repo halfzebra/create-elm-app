@@ -14,7 +14,7 @@ function extendOmittingProps(deps, deleteProps = []) {
 
   deps = extend({}, deps);
 
-  deleteProps.forEach(function (name) {
+  deleteProps.forEach(name => {
     delete deps[ name ];
   });
 
@@ -41,7 +41,7 @@ function diffTable (target, mixin, head = [ chalk.grey('Name'), chalk.yellow('Ol
 }
 
 function promptYesOrNo () {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     let property = {
       name: 'answer',
       message: chalk.yellow('Would you like to continue? [Y/n]')
@@ -50,7 +50,7 @@ function promptYesOrNo () {
     prompt.start();
     prompt.message = '';
 
-    prompt.get(property, function (err, result) {
+    prompt.get(property, (err, result) => {
       if (result.answer.search(/^y(es)?$/i) !== -1) {
         resolve();
       } else {
@@ -115,7 +115,7 @@ if (pathExists.sync('./package.json') === true) {
   let pkgEjected = JSON.parse(readFileSync('./package.json'));
 
   Promise.resolve()
-    .then(function () {
+    .then(() => {
       if (pkgEjected.hasOwnProperty('devDependencies')) {
         let diff = diffTable(pkgEjected.devDependencies, devDependencies);
         if (diff.length !== 0) {
@@ -125,7 +125,7 @@ if (pathExists.sync('./package.json') === true) {
         }
       }
     })
-    .then(function() {
+    .then(() => {
       if (pkgEjected.hasOwnProperty('scripts') && Object.keys(pkgEjected.scripts).length === 0) {
         let diff = diffTable(pkgEjected.scripts, scripts);
         if (diff.length !== 0) {
@@ -135,7 +135,7 @@ if (pathExists.sync('./package.json') === true) {
         }
       }
     })
-    .then(function () {
+    .then(() => {
       pkgEjected.devDependencies = extend({}, devDependencies, pkgEjected.devDependencies);
       pkgEjected.scripts = extend({}, scripts, pkgEjected.scripts);
       performEject(pkgEjected);
