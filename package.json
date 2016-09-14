@@ -17,7 +17,7 @@
     "create-elm-app": "./bin/create-elm-app-cli.js"
   },
   "scripts": {
-    "test": "mocha tests/ci.js --reporter spec --timeout 15000"
+    "test": "mocha tests/ci.js --reporter spec"
   },
   "repository": {
     "type": "git",
