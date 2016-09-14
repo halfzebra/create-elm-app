@@ -6,6 +6,21 @@ const dircompare = require('dir-compare');
 
 const testAppName = 'test-app';
 
+function objectIntersect (objectA, objectB) {
+  var properties = Object.keys(objectA);
+  var intersection = properties.filter(function (property) {
+    return objectA[ property ] === objectB[ property ];
+  });
+
+  return intersection.length === properties.length;
+}
+
+function concatsStringBuffers (buffers) {
+  return buffers.map(function (out) {
+    return (out !== null) ? out.toString() : '';
+  }).join('');
+}
+
 describe('Test command line interface functionality', function () {
   after(function () {
     rimraf.sync(testAppName);
