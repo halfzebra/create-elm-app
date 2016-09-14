@@ -8,7 +8,6 @@ cache:
   - node_modules
 
 install:
-  - npm install
-  - npm link ../create-elm-app
+  - npm install ../create-elm-app -g
 
 script: npm test
