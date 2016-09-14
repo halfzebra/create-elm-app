@@ -4,32 +4,41 @@ const chalk = require('chalk');
 const extend = require('extend');
 const pathExists = require('path-exists');
 const prompt = require('prompt');
-const { copySync } = require('fs-extra');
-const { writeFileSync, readFileSync } = require('fs');
+const copySync = require('fs-extra').copySync;
+const fs = require('fs');
 const Table = require('cli-table');
 const Promise = require('bluebird');
 const pkgOwn = require(path.join(__dirname, '../package.json'));
 
-function extendOmittingProps(deps, deleteProps = []) {
+function extendOmittingProps(deps, deleteProps) {
+
+  if (typeof deleteProps === 'undefined') {
+    deleteProps = [];
+  }
 
   deps = extend({}, deps);
 
-  deleteProps.forEach(name => {
+  deleteProps.forEach(function (name) {
     delete deps[ name ];
   });
 
   return deps;
 }
 
-function diffTable (target, mixin, head = [ chalk.grey('Name'), chalk.yellow('Old'), chalk.green('New') ]) {
-  let table = new Table({
+function diffTable (target, mixin, head) {
+
+  if (typeof head === 'undefined') {
+    head = [ chalk.grey('Name'), chalk.yellow('Old'), chalk.green('New') ];
+  }
+
+  var table = new Table({
     head: head
   });
 
-  for (let propName in target) {
+  for (var propName in target) {
     if (propName in mixin) {
-      let targetPropValue = target[ propName ];
-      let mixinPropValue = mixin[ propName ];
+      var targetPropValue = target[ propName ];
+      var mixinPropValue = mixin[ propName ];
       // If found and is not equal
       if (targetPropValue !== mixinPropValue) {
         table.push([ propName, targetPropValue, mixinPropValue ]);
@@ -41,8 +50,8 @@ function diffTable (target, mixin, head = [ chalk.grey('Name'), chalk.yellow('Ol
 }
 
 function promptYesOrNo () {
-  return new Promise((resolve, reject) => {
-    let property = {
+  return new Promise(function (resolve, reject) {
+    var property = {
       name: 'answer',
       message: chalk.yellow('Would you like to continue? [Y/n]')
     };
@@ -50,7 +59,7 @@ function promptYesOrNo () {
     prompt.start();
     prompt.message = '';
 
-    prompt.get(property, (err, result) => {
+    prompt.get(property, function (err, result) {
       if (result.answer.search(/^y(es)?$/i) !== -1) {
         resolve();
       } else {
@@ -73,7 +82,7 @@ function performEject (pkg) {
   }
 
   // Update or create new package.json
-  writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+  fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
 
   // Install npm packages
   spawn.sync(
@@ -112,12 +121,12 @@ if (pathExists.sync('elm-package.json') === false) {
 
 if (pathExists.sync('./package.json') === true) {
   console.log('Found existing package.json');
-  let pkgEjected = JSON.parse(readFileSync('./package.json'));
+  var pkgEjected = JSON.parse(fs.readFileSync('./package.json'));
 
   Promise.resolve()
-    .then(() => {
+    .then(function () {
       if (pkgEjected.hasOwnProperty('devDependencies')) {
-        let diff = diffTable(pkgEjected.devDependencies, devDependencies);
+        var diff = diffTable(pkgEjected.devDependencies, devDependencies);
         if (diff.length !== 0) {
           console.log(diff.toString());
           console.log('Ejecting wil overwrite your "devDependencies" in package.json\n');
@@ -125,9 +134,9 @@ if (pathExists.sync('./package.json') === true) {
         }
       }
     })
-    .then(() => {
+    .then(function () {
       if (pkgEjected.hasOwnProperty('scripts') && Object.keys(pkgEjected.scripts).length === 0) {
-        let diff = diffTable(pkgEjected.scripts, scripts);
+        var diff = diffTable(pkgEjected.scripts, scripts);
         if (diff.length !== 0) {
           console.log(diff.toString());
           console.log('Ejecting wil overwrite your "scripts" in package.json\n');
@@ -135,12 +144,12 @@ if (pathExists.sync('./package.json') === true) {
         }
       }
     })
-    .then(() => {
+    .then(function () {
       pkgEjected.devDependencies = extend({}, devDependencies, pkgEjected.devDependencies);
       pkgEjected.scripts = extend({}, scripts, pkgEjected.scripts);
       performEject(pkgEjected);
     })
-    .catch(error => {
+    .catch(function (error) {
       console.log(error);
       process.exit(1);
     });
