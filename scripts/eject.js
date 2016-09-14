@@ -4,8 +4,8 @@ const chalk = require('chalk');
 const extend = require('extend');
 const pathExists = require('path-exists');
 const prompt = require('prompt');
-const copySync = require('fs-extra').copySync;
 const fs = require('fs');
+const copySync = require('fs-extra').copySync;
 const Table = require('cli-table');
 const Promise = require('bluebird');
 const pkgOwn = require(path.join(__dirname, '../package.json'));
@@ -84,7 +84,7 @@ function performEject (pkg) {
   // Update or create new package.json
   fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
 
-  console.log('\nPlease wait for npm to install all required dependencies.');
+  console.log('\nPlease wait for npm to install all required dependencies...');
 
   // Install npm packages
   spawn.sync(
@@ -93,7 +93,7 @@ function performEject (pkg) {
     { stdio: 'inherit' }
   );
 
-  console.log('\nEjected successfully!');
+  console.log(chalk.green('\nEjected successfully!'));
 }
 
 // The following dependencies will be removed:
@@ -123,7 +123,7 @@ if (pathExists.sync('elm-package.json') === false) {
 
 if (pathExists.sync('./package.json') === true) {
   console.log('Found existing package.json');
-  var pkgEjected = JSON.parse(fs.readFileSync('./package.json'));
+  var pkgEjected = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }));
 
   Promise.resolve()
     .then(function () {
