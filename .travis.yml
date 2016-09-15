@@ -13,3 +13,7 @@ install:
   - npm link ../create-elm-app
 
 script: npm test
+
+notifications:
+  email:
+    - duardeco@gmail.com
