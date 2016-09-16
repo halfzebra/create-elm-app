@@ -88,7 +88,7 @@ describe('Test command line interface functionality', function () {
       expect(result.status).to.be.equal(0);
       expect(outputString).to.have.string('build is ready in `dist/`');
       done();
-    }).timeout(60 * 1000);
+    }).timeout(12 * 60 * 1000);
   });
 
   describe('Ejecting Elm application', function () {
