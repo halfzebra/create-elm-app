@@ -58,8 +58,12 @@ describe('Test command line interface functionality', function () {
       expect(pathExists.sync(path.resolve(testAppName, 'elm-package.json'))).to.be.equal(true);
     });
 
+    it('`' + testAppName + '` should have .gitignore file', function () {
+      expect(pathExists.sync(path.resolve(testAppName, '.gitignore'))).to.be.equal(true);
+    });
+
     it('`' + testAppName + '` should have the same file structure as template', function () {
-      var options = { excludeFilter: 'elm-stuff, elm-package.json' };
+      var options = { excludeFilter: 'elm-stuff, elm-package.json, gitignore, .gitignore' };
       var path1 = path.resolve('template');
       var path2 = path.resolve(testAppName);
       var same = dircompare.compareSync(path1, path2, options).same;
