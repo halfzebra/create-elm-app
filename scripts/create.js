@@ -1,3 +1,4 @@
+const renameSync = require('fs').renameSync;
 const copySync = require('fs-extra').copySync;
 const path = require('path');
 const chalk = require('chalk');
@@ -27,6 +28,7 @@ function createElmApp (name) {
 
     try {
       copySync(template, root);
+      renameSync(path.resolve(root, 'gitignore'), path.resolve(root, '.gitignore'));
     } catch (err) {
       console.log(err);
       process.exit(1);
