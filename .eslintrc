@@ -1,9 +1,8 @@
 {
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {}
+    "ecmaVersion": 5,
+    "sourceType": "module"
   },
   "rules": {
     "semi": 2,
@@ -12,7 +11,7 @@
       "single",
       {
         "avoidEscape": true,
-        "allowTemplateLiterals": true
+        "allowTemplateLiterals": false
       }
     ],
     "eqeqeq": [
@@ -22,7 +21,7 @@
     "no-console": 0
   },
   "env": {
-    "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true
   }
 }

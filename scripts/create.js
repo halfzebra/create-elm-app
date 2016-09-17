@@ -1,3 +1,4 @@
+const renameSync = require('fs').renameSync;
 const copySync = require('fs-extra').copySync;
 const path = require('path');
 const chalk = require('chalk');
@@ -18,22 +19,23 @@ createElmApp(commands[ 0 ]);
 
 function createElmApp (name) {
 
-  console.log(`\nCreating ${name} project...\n`);
+  console.log('\nCreating ' + name + ' project...\n');
 
-  let root = path.resolve(name);
-  let template = path.join(__dirname, '../template');
+  var root = path.resolve(name);
+  var template = path.join(__dirname, '../template');
 
   if (!pathExists.sync(name)) {
 
     try {
       copySync(template, root);
+      renameSync(path.resolve(root, 'gitignore'), path.resolve(root, '.gitignore'));
     } catch (err) {
       console.log(err);
       process.exit(1);
     }
 
   } else {
-    console.log(`'The directory ${name} already exists. Aborting.`);
+    console.log('The directory ' + name + ' already exists. Aborting.');
     process.exit(1);
   }
 
@@ -42,5 +44,5 @@ function createElmApp (name) {
   // Run initial `elm-package install -y`
   spawnSync(executablePaths[ 'elm-package' ], [ 'install', '-y' ], { stdio: 'inherit' });
 
-  console.log(chalk.green(`\nProject is successfully created in \`${root}\`.`));
+  console.log(chalk.green('\nProject is successfully created in `' + root + '`.'));
 }

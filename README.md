@@ -1,6 +1,7 @@
 # Create Elm App
 
 [![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app)
+[![Build Status](https://travis-ci.org/halfzebra/create-elm-app.svg?branch=tests)](https://travis-ci.org/halfzebra/create-elm-app)
 
 Create Elm apps with no build configuration.
 

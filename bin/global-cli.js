@@ -22,7 +22,7 @@ if (commands.length === 0) {
   process.exit(1);
 }
 
-let script = commands[ 0 ];
+var script = commands[ 0 ];
 
 switch (script) {
   case 'create':
@@ -59,7 +59,7 @@ switch (script) {
 
     // Proxy elm-platform cli commands.
     if ([ 'package', 'reactor', 'make', 'repl' ].indexOf(script) !== -1) {
-      let executable = executablePaths[ 'elm-' + script ];
+      var executable = executablePaths[ 'elm-' + script ];
 
       spawn.sync(
         path.normalize(executable),

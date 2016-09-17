@@ -9,3 +9,6 @@ repl-temp-*
 
 # Dependency directories
 node_modules
+
+# Desktop Services Store on macOS
+.DS_Store

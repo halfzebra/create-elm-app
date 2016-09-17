@@ -17,19 +17,19 @@ if (pathExists.sync('elm-package.json') === false) {
 }
 
 // http://webpack.github.io/docs/node.js-api.html#the-long-way
-let compiler = webpack(config);
-let port = 3000;
+var compiler = webpack(config);
+var port = 3000;
 
-compiler.plugin('invalid', () => {
+compiler.plugin('invalid', function () {
   clear();
   console.log('Compiling...');
 });
 
-compiler.plugin('done', stats => {
+compiler.plugin('done', function (stats) {
   clear();
 
-  let hasErrors = stats.hasErrors();
-  let hasWarnings = stats.hasWarnings();
+  var hasErrors = stats.hasErrors();
+  var hasWarnings = stats.hasWarnings();
 
   if (!hasErrors && !hasWarnings) {
 
@@ -46,7 +46,7 @@ compiler.plugin('done', stats => {
 
     var json = stats.toJson({}, true);
 
-    json.errors.forEach(message => {
+    json.errors.forEach(function (message) {
       console.log(message);
       console.log();
     });
@@ -61,7 +61,7 @@ const devServer = new WebpackDevServer(compiler, {
 });
 
 // Launch WebpackDevServer.
-devServer.listen(port, err => {
+devServer.listen(port, function (err) {
   if (err) {
     return console.log(err);
   }
