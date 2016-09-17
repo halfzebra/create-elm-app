@@ -35,6 +35,8 @@ create-elm-app my-app
 cd my-app/
 ```
 
+![create-elm-app](https://cloud.githubusercontent.com/assets/3983879/18608348/157f6532-7ce7-11e6-9739-a09f44ae9644.png)
+
 This will create a new `my-app` folder with files for your future project.
 
 ```
@@ -54,6 +56,8 @@ When installation is done, you can run other commands from the project directory
 ### `elm-app start`
 Runs the app in development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+![elm-app-start](https://cloud.githubusercontent.com/assets/3983879/18608347/157e88ec-7ce7-11e6-8924-a046a95f6381.png)
 
 The page will reload if you make edits.
 You will see the build errors and lint warnings in the console.
