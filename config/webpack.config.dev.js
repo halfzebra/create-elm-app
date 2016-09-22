@@ -17,7 +17,7 @@ module.exports = {
     paths.entry
   ],
   output: {
-    
+
     pathinfo: true,
 
     // The build folder.
@@ -49,6 +49,14 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css'
+      },
+      {
+        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+        exclude: /\/favicon.ico$/,
+        loader: 'file',
+        query: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
       }
     ]
   },
