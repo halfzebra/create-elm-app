@@ -1,13 +1,15 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const paths = require('../config/paths');
+const merge = require('webpack-merge');
 
-module.exports = {
+const paths = require('../config/paths');
+const baseConfig = require('./webpack.config.base');
+
+module.exports = merge(baseConfig, {
 
   devtool: 'eval',
 
   entry: [
-
     // WebpackDevServer client.
     require.resolve('webpack-dev-server/client') + '?/',
 
@@ -17,46 +19,19 @@ module.exports = {
     paths.entry
   ],
   output: {
-
     pathinfo: true,
-
-    // The build folder.
-    path: paths.dist,
 
     // Generated JS files.
     filename: 'dist/js/bundle.js',
 
     publicPath: '/'
   },
-  resolveLoader: {
-
-    // Look for loadres in own node_modules
-    root: paths.ownModules,
-    moduleTemplates: [ '*-loader' ]
-  },
-  resolve: {
-    modulesDirectories: [ 'node_modules' ],
-    extensions: [ '', '.js', '.elm' ]
-  },
   module: {
-    noParse: /\.elm$/,
     loaders: [
       {
         test: /\.elm$/,
         exclude: [ /elm-stuff/, /node_modules/ ],
         loader: 'elm-hot!elm-webpack?verbose=true&warn=true&pathToMake=' + paths.elmMake
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
-        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        exclude: /\/favicon.ico$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
       }
     ]
   },
@@ -68,4 +43,4 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
-};
+});
