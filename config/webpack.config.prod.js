@@ -1,57 +1,29 @@
 const webpack = require('webpack');
-const paths = require('../config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+
+const paths = require('../config/paths');
+const baseConfig = require('./webpack.config.base');
 
 const root = process.cwd();
 
-module.exports = {
+module.exports = merge(baseConfig, {
   bail: true,
   entry: [
     paths.entry
   ],
   output: {
 
-    // The build folder.
-    path: paths.dist,
-
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
   },
-  resolveLoader: {
-
-    // Look for loaders in own ./node_modules
-    root: paths.ownModules,
-    moduleTemplates: [ '*-loader' ]
-  },
-  resolve: {
-    modulesDirectories: [ 'node_modules' ],
-    extensions: [ '', '.js', '.elm' ]
-  },
   module: {
-    noParse: /\.elm$/,
     loaders: [
       {
         test: /\.elm$/,
         exclude: [ /elm-stuff/, /node_modules/ ],
-
-        // Use the local installation of elm-make
-        loader: 'elm-webpack',
-        query: {
-          pathToMake: paths.elmMake
-        }
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
-        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        exclude: /\/favicon.ico$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+        loader: 'elm-webpack?pathToMake=' + paths.elmMake
       }
     ]
   },
@@ -92,4 +64,4 @@ module.exports = {
       }
     })
   ]
-};
+});
