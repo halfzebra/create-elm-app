@@ -30,7 +30,7 @@ module.exports = {
   },
   resolveLoader: {
 
-    // Look for loadres in own node_modules
+    // Look for loaders in own node_modules
     root: paths.ownModules,
     moduleTemplates: [ '*-loader' ]
   },
