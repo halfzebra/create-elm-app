@@ -1,6 +1,6 @@
 {
   "name": "create-elm-app",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Elm apps with zero configuration",
   "keywords": [
     "elm",
@@ -45,7 +45,7 @@
     "clean-webpack-plugin": "^0.1.10",
     "cli-table": "0.3.1",
     "cross-spawn": "^4.0.0",
-    "css-loader": "0.24.0",
+    "css-loader": "0.25.0",
     "elm": "^0.17.1",
     "elm-hot-loader": "^0.3.3",
     "elm-webpack-loader": "^3.0.5",
