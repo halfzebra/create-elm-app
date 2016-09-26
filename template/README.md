@@ -7,7 +7,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Sending feedback](#sending-feedback)
 - [Folder structure](#folder-structure)
 - [Installing Elm packages](#installing-elm-packages)
-- [Installing JS packages](#installing-js-packages)
+- [Installing JavaScript packages](#installing-js-packages)
 - [Testing](#testing)
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
@@ -29,14 +29,15 @@ You are very velcome with any [feedback](https://github.com/halfzebra/create-elm
 elm-app package install <package-name>
 ```
 
-## Installing JS packages
+## Installing JavaScript packages
 
-To use JS libraries from npm, you'll need to add a package.json, install the dependencies and you're ready to go.
+To use JavaScript packages from npm, you'll need to add a `package.json`, install the dependencies and you're ready to go.
 
 ```sh
 npm init -y # Add package.json
 npm install --save-dev pouchdb-browser # Install library from npm
 ```
+
 ```js
 // Use in your JS code
 var PouchDB = require('pouchdb-browser');
