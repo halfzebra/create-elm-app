@@ -141,7 +141,7 @@ if (pathExists.sync('./package.json') === true) {
         var diff = diffTable(pkgEjected.scripts, scripts);
         if (diff.length !== 0) {
           console.log(diff.toString());
-          console.log('Ejecting wil overwrite your "scripts" in package.json\n');
+          console.log('Ejecting will overwrite your "scripts" in package.json\n');
           return promptYesOrNo();
         }
       }
