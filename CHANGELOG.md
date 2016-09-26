@@ -1,3 +1,9 @@
+## 0.1.5 (Sep 26, 2016)
+
+* Webpack support for importing images and fonts
+* Updates for documentation
+* Typo fixes
+
 ## 0.1.4 (Sep 17, 2016)
 
 * Downgrade to ES5
