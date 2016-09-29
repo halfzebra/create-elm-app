@@ -58,6 +58,13 @@ describe('Test command line interface functionality', function () {
       expect(pathExists.sync(path.resolve(testAppName, 'elm-package.json'))).to.be.equal(true);
     });
 
+    var elmPkg = fs.readFileSync('./elm-package.json', { encoding: 'utf-8' });
+    var elmPkgConfig = JSON.parse(elmPkg);
+
+    it('`' + testAppName + '` should have elm-package.json file', function () {
+      expect(elmPkgConfig[ 'source-directories' ].indexOf('src/')).to.be.equal(1);
+    });
+
     it('`' + testAppName + '` should have .gitignore file', function () {
       expect(pathExists.sync(path.resolve(testAppName, '.gitignore'))).to.be.equal(true);
     });
