@@ -1,6 +1,8 @@
+const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const paths = require('../config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const root = process.cwd();
@@ -43,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css'
+        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer!postcss')
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
@@ -54,6 +56,18 @@ module.exports = {
         }
       }
     ]
+  },
+  postcss: function() {
+    return [
+      autoprefixer({
+        browsers: [
+          '>1%',
+          'last 4 versions',
+          'Firefox ESR',
+          'not ie < 9'
+        ]
+      })
+    ];
   },
   plugins: [
 
@@ -90,6 +104,8 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true
       }
-    })
+    }),
+
+    new ExtractTextPlugin('css/[name].[contenthash:8].css')
   ]
 };
