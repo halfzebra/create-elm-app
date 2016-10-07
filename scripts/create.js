@@ -1,6 +1,7 @@
 const renameSync = require('fs').renameSync;
 const copySync = require('fs-extra').copySync;
 const path = require('path');
+const fs = require('fs');
 const chalk = require('chalk');
 const pathExists = require('path-exists');
 const spawnSync = require('child_process').spawnSync;
@@ -42,7 +43,24 @@ function createElmApp (name) {
   process.chdir(root);
 
   // Run initial `elm-package install -y`
-  spawnSync(executablePaths[ 'elm-package' ], [ 'install', '-y' ], { stdio: 'inherit' });
+  var spawnElmPkgResult = spawnSync(executablePaths[ 'elm-package' ], [ 'install', '-y' ], { stdio: 'inherit' });
+
+  if (spawnElmPkgResult.status === null) {
+    console.log(chalk.red('\nFailed to install elm packages'));
+    console.log('\nPlease, make sure you have internet connection!');
+    console.log('\nIn case if you are running Unix OS, you might look in to this issue:');
+    console.log('\n    https://github.com/halfzebra/create-elm-app/issues/10');
+    process.exit(1);
+  }
+
+  try {
+    var elmPkg = JSON.parse(fs.readFileSync('elm-package.json', { encoding: 'utf-8' }));
+    elmPkg[ 'source-directories' ].push('src/');
+    fs.writeFileSync('elm-package.json', JSON.stringify(elmPkg, null, 2));
+  } catch (e) {
+    console.log(chalk.red('Failed to add "./src" to source directories in elm-package.json'));
+    process.exit(1);
+  }
 
   console.log(chalk.green('\nProject is successfully created in `' + root + '`.'));
 }
