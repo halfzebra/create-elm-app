@@ -56,7 +56,7 @@ module.exports = {
         exclude: /\/favicon.ico$/,
         loader: 'file',
         query: {
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: 'media/[name].[hash:8].[ext]'
         }
       }
     ]
