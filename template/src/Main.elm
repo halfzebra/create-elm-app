@@ -1,8 +1,9 @@
 module Main exposing (..)
 
-import Html exposing (text, Html)
+import App exposing (..)
+import Html.App exposing (program)
 
 
-main : Html msg
+main : Program Never
 main =
-    text "Hello World!"
+    program { view = view, init = init, update = update, subscriptions = subscriptions }
