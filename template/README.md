@@ -12,6 +12,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
+  - [elm-app test](#elm-app-test)
   - [elm-app eject](#elm-app-eject)
   - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
     - [package](#package)
@@ -47,6 +48,7 @@ var db = new PouchDB('mydb');
 ## Folder structure
 ```
 my-app/
+  .gitignore
   README.md
   elm-package.json
   src/
@@ -55,6 +57,10 @@ my-app/
     index.js
     main.css
     Main.elm
+  tests/
+    elm-package.json
+    Main.elm
+    Tests.elm
 ```
 For the project to build, these files must exist with exact filenames:
 
@@ -85,6 +91,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.  
 You will also see any lint errors in the console.
+
+### `elm-app test`
+Run tests with [node-test-runner](https://github.com/rtfeldman/node-test-runner/tree/master)
 
 ### `elm-app eject`
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**

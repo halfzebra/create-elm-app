@@ -43,6 +43,7 @@ This will create a new `my-app` folder with files for your future project.
 
 ```
 my-app/
+  .gitignore
   README.md
   elm-package.json
   src/
@@ -51,6 +52,10 @@ my-app/
     index.js
     main.css
     Main.elm
+  tests/
+    elm-package.json
+    Main.elm
+    Tests.elm
 ```
 
 When installation is done, you can run other commands from the project directory.
