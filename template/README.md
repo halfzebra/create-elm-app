@@ -8,7 +8,6 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Folder structure](#folder-structure)
 - [Installing Elm packages](#installing-elm-packages)
 - [Installing JavaScript packages](#installing-js-packages)
-- [Testing](#testing)
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
@@ -71,11 +70,6 @@ For the project to build, these files must exist with exact filenames:
 You can delete or rename the other files.
 
 You may create subdirectories inside src.
-
-## Testing
-We recommend using [node-test-runner](https://github.com/rtfeldman/node-test-runner) for testing.
-
-It is a command line tool, which helps you to start writing unit tests for your Elm code.
 
 ## Available scripts
 In the project directory you can run:
