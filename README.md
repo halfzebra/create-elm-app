@@ -28,6 +28,10 @@ Node >=4 is required only as a build dependency.
 
 `npm install create-elm-app -g`
 
+If you are running Linux OS, you should install it as superuser:
+
+`sudo npm install create-elm-app -g`
+
 ### Creating an App
 
 To create a new app, run:
@@ -43,6 +47,7 @@ This will create a new `my-app` folder with files for your future project.
 
 ```
 my-app/
+  .gitignore
   README.md
   elm-package.json
   src/
@@ -51,6 +56,10 @@ my-app/
     index.js
     main.css
     Main.elm
+  tests/
+    elm-package.json
+    Main.elm
+    Tests.elm
 ```
 
 When installation is done, you can run other commands from the project directory.

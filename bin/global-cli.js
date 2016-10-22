@@ -55,6 +55,14 @@ switch (script) {
       { stdio: 'inherit' }
     );
     break;
+
+  case 'test':
+    spawn.sync(
+      path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
+      [ '--compiler', path.normalize(executablePaths['elm-make']) ],
+      { stdio: 'inherit' }
+    );
+    break;
   default:
 
     // Proxy elm-platform cli commands.
