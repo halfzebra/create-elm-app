@@ -1,6 +1,6 @@
 {
   "name": "create-elm-app",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Elm apps with zero configuration",
   "keywords": [
     "elm",
