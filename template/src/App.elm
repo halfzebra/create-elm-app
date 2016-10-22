@@ -16,4 +16,4 @@ init =
 
 
 view model =
-    div [] []
+    div [] [ text "Your Elm App is working!" ]
