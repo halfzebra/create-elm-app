@@ -58,6 +58,7 @@
     "path-exists": "^3.0.0",
     "postcss-loader": "^1.0.0",
     "prompt": "1.0.0",
+    "react-dev-utils": "^0.3.0",
     "style-loader": "0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "1.16.2"
