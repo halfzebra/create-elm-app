@@ -5,7 +5,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const config = require('../config/webpack.config.dev');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const clearConsole = require('react-dev-utils/clearConsole');
-const opn = require('opn');
+const openBrowser = require('react-dev-utils/openBrowser');
 
 process.env.NODE_ENV = 'development';
 
@@ -65,6 +65,6 @@ devServer.listen(port, function (err) {
   }
 });
 
-opn('http://localhost:' + port + '/');
+openBrowser('http://localhost:' + port + '/');
 
 

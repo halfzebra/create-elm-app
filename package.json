@@ -54,7 +54,6 @@
     "html-webpack-plugin": "^2.24.0",
     "install": "0.8.1",
     "minimist": "^1.2.0",
-    "opn": "^4.0.2",
     "path-exists": "^3.0.0",
     "postcss-loader": "^1.0.0",
     "prompt": "1.0.0",
