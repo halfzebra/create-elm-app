@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('../config/webpack.config.dev');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const opn = require('opn');
 
 process.env.NODE_ENV = 'development';
@@ -44,7 +45,7 @@ compiler.plugin('done', function (stats) {
   if (hasErrors) {
     console.log(chalk.red('Compilation failed.\n'));
 
-    var json = stats.toJson({}, true);
+    var json = formatWebpackMessages(stats.toJson({}, true));
 
     json.errors.forEach(function (message) {
       console.log(message);
