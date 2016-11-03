@@ -113,7 +113,8 @@ const scripts = {
   package: 'elm-package',
   make: 'elm-make',
   repl: 'elm-repl',
-  reactor: 'elm-reactor'
+  reactor: 'elm-reactor',
+  test: 'elm-test'
 };
 
 if (pathExists.sync('elm-package.json') === false) {
