@@ -1,13 +1,13 @@
 {
   "name": "create-elm-app",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Elm apps with zero configuration",
   "keywords": [
     "elm",
     "cli",
     "webpack"
   ],
-  "author": "Eduard Kyvenko <duardeco@gmail.com>",
+  "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "license": "MIT",
   "engines": {
     "node": ">=4"
