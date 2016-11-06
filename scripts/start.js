@@ -3,13 +3,11 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('../config/webpack.config.dev');
-const opn = require('opn');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
+const clearConsole = require('react-dev-utils/clearConsole');
+const openBrowser = require('react-dev-utils/openBrowser');
 
 process.env.NODE_ENV = 'development';
-
-function clear () {
-  console.log('\x1Bc');
-}
 
 if (pathExists.sync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
@@ -21,12 +19,12 @@ var compiler = webpack(config);
 var port = 3000;
 
 compiler.plugin('invalid', function () {
-  clear();
+  clearConsole();
   console.log('Compiling...');
 });
 
 compiler.plugin('done', function (stats) {
-  clear();
+  clearConsole();
 
   var hasErrors = stats.hasErrors();
   var hasWarnings = stats.hasWarnings();
@@ -44,7 +42,7 @@ compiler.plugin('done', function (stats) {
   if (hasErrors) {
     console.log(chalk.red('Compilation failed.\n'));
 
-    var json = stats.toJson({}, true);
+    var json = formatWebpackMessages(stats.toJson({}, true));
 
     json.errors.forEach(function (message) {
       console.log(message);
@@ -67,6 +65,6 @@ devServer.listen(port, function (err) {
   }
 });
 
-opn('http://localhost:' + port + '/');
+openBrowser('http://localhost:' + port + '/');
 
 

@@ -10,7 +10,7 @@ module.exports = {
   entry: [
 
     // WebpackDevServer client.
-    require.resolve('webpack-dev-server/client') + '?/',
+    require.resolve('react-dev-utils/webpackHotDevClient'),
 
     // Replacement runtime.
     require.resolve('webpack/hot/dev-server'),
