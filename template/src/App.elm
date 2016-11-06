@@ -1,19 +1,31 @@
 module App exposing (..)
 
-import Html exposing (text, div)
+import Html exposing (Html, text, div)
 
 
-subscriptions model =
-    Sub.none
+type alias Model =
+    {}
 
 
+init : ( Model, Cmd Msg )
+init =
+    ( {}, Cmd.none )
+
+
+type Msg
+    = NoOp
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     ( model, Cmd.none )
 
 
-init =
-    ( (), Cmd.none )
-
-
+view : Model -> Html Msg
 view model =
     div [] [ text "Your Elm App is working!" ]
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
