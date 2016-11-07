@@ -8,11 +8,12 @@ const executablePaths = require('elm/platform').executablePaths;
 const version = require('../package.json').version;
 const elmPlatformVersion = require('../node_modules/elm/package.json').version;
 const paths = require('../config/paths');
+const chokidar = require('chokidar');
 
 function help (version) {
   console.log('\nUsage: elm-app <command>\n');
   console.log('where <command> is one of:');
-  console.log('    create, build, start, package, reactor, make, repl\n');
+  console.log('    create, build, start, package, reactor, make, repl, test\n');
   console.log('\nElm ' + elmPlatformVersion + '\n');
   console.log('create-elm-app@' + version + ' ' + path.resolve(__dirname, '..'));
 }
@@ -23,6 +24,14 @@ if (commands.length === 0) {
 }
 
 var script = commands[ 0 ];
+
+function runTests() {
+    spawn.sync(
+      path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
+      [ '--compiler', path.normalize(executablePaths['elm-make']) ],
+      { stdio: 'inherit' }
+    );
+}
 
 switch (script) {
   case 'create':
@@ -57,11 +66,23 @@ switch (script) {
     break;
 
   case 'test':
-    spawn.sync(
-      path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
-      [ '--compiler', path.normalize(executablePaths['elm-make']) ],
-      { stdio: 'inherit' }
-    );
+    if (argv.w === true || argv.watch === true) {
+      const watcher = chokidar.watch(argv.watchGlob || '**/*.elm', {
+        ignored: /elm-stuff/,
+        awaitWriteFinish: {
+          stabilityThreshold: 150,
+        }
+      });
+
+      console.log('Watching your files for changes before running any tests.');
+
+      watcher.on('change', function(path) {
+        console.log('File', path, 'changed, rerunning tests.');
+        runTests();
+      });
+    } else {
+      runTests();
+    }
     break;
   default:
 
