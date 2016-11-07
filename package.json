@@ -1,6 +1,6 @@
 {
   "name": "create-elm-app",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Elm apps with zero configuration",
   "keywords": [
     "elm",
@@ -26,7 +26,7 @@
   },
   "bugs": {
     "url": "https://github.com/halfzebra/create-elm-app/issues",
-    "email": "duardeco@gmail.com"
+    "email": "eduard.kyvenko@gmail.com"
   },
   "files": [
     "bin",
@@ -54,10 +54,10 @@
     "html-webpack-plugin": "^2.24.1",
     "install": "0.8.1",
     "minimist": "^1.2.0",
-    "opn": "^4.0.2",
     "path-exists": "^3.0.0",
     "postcss-loader": "^1.1.0",
     "prompt": "1.0.0",
+    "react-dev-utils": "^0.3.0",
     "style-loader": "0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "1.16.2"
