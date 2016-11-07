@@ -17,7 +17,7 @@
     "create-elm-app": "./bin/create-elm-app-cli.js"
   },
   "scripts": {
-    "precommit": "eslint bin/ config/ scripts/",
+    "precommit": "./node_modules/.bin/eslint bin/ config/ scripts/",
     "test": "mocha tests/ci.js --reporter spec --timeout 15000"
   },
   "repository": {
@@ -65,6 +65,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "dir-compare": "^1.1.0",
+    "eslint": "3.9.1",
     "husky": "^0.11.9",
     "mocha": "^3.0.2",
     "rimraf": "^2.5.4"
