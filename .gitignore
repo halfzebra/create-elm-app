@@ -94,3 +94,5 @@ template/package.json
 
 # Desktop Services Store on macOS
 .DS_Store
+
+/test-app/
