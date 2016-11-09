@@ -3,12 +3,16 @@ module Tests exposing (..)
 import Test exposing (..)
 import Expect
 import String
+import App
 
 
 all : Test
 all =
     describe "A Test Suite"
-        [ test "Addition" <|
+        [ test "App.model.message should be set properly" <|
+            \() ->
+                Expect.equal (fst App.init |> .message) "Your Elm App is working!"
+        , test "Addition" <|
             \() ->
                 Expect.equal (3 + 7) 10
         , test "String.left" <|
