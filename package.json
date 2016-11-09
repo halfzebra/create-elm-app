@@ -45,6 +45,7 @@
     "cli-table": "0.3.1",
     "cross-spawn": "5.0.1",
     "css-loader": "0.25.0",
+    "detect-port": "^1.0.5",
     "elm": "^0.18.0",
     "elm-hot-loader": "0.4.2",
     "elm-test": "0.18.0",
