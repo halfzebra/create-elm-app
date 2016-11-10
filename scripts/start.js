@@ -17,7 +17,7 @@ if (pathExists.sync('elm-package.json') === false) {
 
 // http://webpack.github.io/docs/node.js-api.html#the-long-way
 var compiler = webpack(config);
-var port = 3000;
+var DEFAULT_PORT = 3000;
 
 compiler.plugin('invalid', function () {
   clearConsole();
@@ -34,7 +34,8 @@ compiler.plugin('done', function (stats) {
 
     console.log(chalk.green('Compiled successfully!'));
     console.log('\nThe app is running at:');
-    console.log('\n    ' + chalk.cyan('http://localhost:' + port + '/'));
+    // TODO: display the correct port, if the default is busy.
+    console.log('\n    ' + chalk.cyan('http://localhost:' + DEFAULT_PORT + '/'));
     console.log('\nTo create production build, run:');
     console.log('\n    elm-app build');
     return;
@@ -59,22 +60,25 @@ const devServer = new WebpackDevServer(compiler, {
   quiet: true
 });
 
-detect(port, function (err, _port) {
+detect(DEFAULT_PORT, function (err, unoccupiedPort) {
 
   if (err) {
     console.log(err);
   }
 
-  var usePort = (port === _port) ? port : _port;
+  // TODO: add a prompt, so this message is flushed and user is aware of the port change.
+  if (DEFAULT_PORT !== unoccupiedPort) {
+    console.log(chalk.yellow('Default DEFAULT_PORT ' + DEFAULT_PORT + ' is already busy, we will use ' + unoccupiedPort));
+  }
 
   // Launch WebpackDevServer.
-  devServer.listen(usePort, function (err) {
+  devServer.listen(unoccupiedPort, function (err) {
     if (err) {
       return console.log(err);
     }
   });
 
-  openBrowser('http://localhost:' + usePort + '/');
+  openBrowser('http://localhost:' + unoccupiedPort + '/');
 });
 
 
