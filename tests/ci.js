@@ -8,21 +8,6 @@ const dircompare = require('dir-compare');
 
 const testAppName = 'test-app';
 
-function objectIntersect (objectA, objectB) {
-  var properties = Object.keys(objectA);
-  var intersection = properties.filter(function (property) {
-    return objectA[ property ] === objectB[ property ];
-  });
-
-  return intersection.length === properties.length;
-}
-
-function concatsStringBuffers (buffers) {
-  return buffers.map(function (out) {
-    return (out !== null) ? out.toString() : '';
-  }).join('');
-}
-
 describe('Test command line interface functionality', function () {
   after(function () {
     rimraf.sync(testAppName);
@@ -48,10 +33,9 @@ describe('Test command line interface functionality', function () {
   });
 
   describe('Create Elm application with `create-elm-app` command', function () {
-    it('`create-elm-app ' + testAppName + '` should succeed', function (done) {
+    it('`create-elm-app ' + testAppName + '` should succeed', function () {
       var status = spawn.sync('create-elm-app', [ testAppName ]).status;
       expect(status).to.be.equal(0);
-      done();
     }).timeout(60 * 1000);
 
     it('`' + testAppName + '` should have elm-package.json file', function () {
@@ -80,15 +64,30 @@ describe('Test command line interface functionality', function () {
       process.chdir(path.resolve('..'));
     });
 
-    it('`elm-app build` should succeed in `' + testAppName + '`', function (done) {
+    it('`elm-app build` should succeed in `' + testAppName + '`', function () {
       var result = spawn.sync('elm-app', [ 'build' ]);
       var outputString = result.output.map(function (out) {
         return (out !== null) ? out.toString() : '';
       }).join('');
       expect(result.status).to.be.equal(0);
       expect(outputString).to.have.string('build is ready in `dist/`');
-      done();
     }).timeout(12 * 60 * 1000);
+
+    it('`elm-app build` should exit with non zero status code when build failed', function () {
+      const normalFile = path.resolve('src/Main.elm');
+      const malformedFile = path.resolve('../tests/data/Main.elm');
+
+      copyFileSync(normalFile, 'Main.elm-normal');
+      copyFileSync(malformedFile, normalFile)
+
+      const result = spawn.sync('elm-app', [ 'build' ]);
+
+      const oldNormalFile = path.resolve('Main.elm-normal');
+      copyFileSync(oldNormalFile, normalFile);
+      fs.unlink(oldNormalFile);
+
+      expect(result.status).to.be.at.least(1);
+    });
   });
 
   describe('Ejecting Elm application', function () {
@@ -100,14 +99,13 @@ describe('Test command line interface functionality', function () {
       process.chdir(path.resolve('..'));
     });
 
-    it('`elm-app eject` should succeed in `' + testAppName + '`', function (done) {
+    it('`elm-app eject` should succeed in `' + testAppName + '`', function () {
       var result = spawn.sync('elm-app', [ 'eject' ]);
       var outputString = result.output.map(function (out) {
         return (out !== null) ? out.toString() : '';
       }).join('');
       expect(result.status).to.be.equal(0);
       expect(outputString).to.have.string('Ejected successfully!');
-      done();
     }).timeout(10 * 60 * 1000); // ~ 8 minutes to install npm dependencies.
 
     it('Ejected application should have `package.json` with scripts from Create Elm App', function () {
@@ -137,14 +135,33 @@ describe('Test command line interface functionality', function () {
       expect(same).to.be.equal(true);
     });
 
-    it('It should be possible to build ejected applitaction, using npm scripts', function (done) {
+    it('It should be possible to build ejected applitaction, using npm scripts', function () {
       var result = spawn.sync('npm', [ 'run', 'build' ]);
       var outputString = result.output.map(function (out) {
         return (out !== null) ? out.toString() : '';
       }).join('');
       expect(result.status).to.be.equal(0);
       expect(outputString).to.have.string('build is ready in `dist/`');
-      done();
     }).timeout(60 * 1000);
   });
 });
+
+function objectIntersect (objectA, objectB) {
+  var properties = Object.keys(objectA);
+  var intersection = properties.filter(function (property) {
+    return objectA[ property ] === objectB[ property ];
+  });
+
+  return intersection.length === properties.length;
+}
+
+function concatsStringBuffers (buffers) {
+  return buffers.map(function (out) {
+    return (out !== null) ? out.toString() : '';
+  }).join('');
+}
+
+function copyFileSync(from, to) {
+  const fromData = fs.readFileSync(from);
+  fs.writeFileSync(to, fromData);
+}
