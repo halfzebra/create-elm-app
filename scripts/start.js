@@ -73,12 +73,13 @@ detect(DEFAULT_PORT, function (err, unoccupiedPort) {
 
   // Launch WebpackDevServer.
   devServer.listen(unoccupiedPort, function (err) {
+
     if (err) {
       return console.log(err);
     }
-  });
 
-  openBrowser('http://localhost:' + unoccupiedPort + '/');
+    openBrowser('http://localhost:' + unoccupiedPort + '/');
+  });
 });
 
 
