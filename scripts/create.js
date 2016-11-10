@@ -53,4 +53,25 @@ function createElmApp (name) {
   }
 
   console.log(chalk.green('\nProject is successfully created in `' + root + '`.'));
+  console.log();
+  console.log('Inside that directory, you can run several commands:');
+  console.log();
+  console.log(chalk.cyan('  elm-app start'));
+  console.log('    Starts the development server.');
+  console.log();
+  console.log(chalk.cyan('  elm-app build'));
+  console.log('    Bundles the app into static files for production.');
+  console.log();
+  console.log(chalk.cyan('  elm-app test'));
+  console.log('    Starts the test runner.');
+  console.log();
+  console.log(chalk.cyan('  elm-app eject'));
+  console.log('    Removes this tool and copies build dependencies, configuration files');
+  console.log('    and scripts into the app directory. If you do this, you can’t go back!');
+  console.log();
+  console.log('We suggest that you begin by typing:');
+  console.log();
+  console.log(chalk.cyan('  cd'), name);
+  console.log('  ' + chalk.cyan('elm-app start'));
+  console.log();
 }
