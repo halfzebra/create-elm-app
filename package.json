@@ -13,12 +13,14 @@
     "node": ">=4"
   },
   "bin": {
-    "elm-app": "./bin/global-cli.js",
+    "elm-app": "./bin/elm-app-cli.js",
     "create-elm-app": "./bin/create-elm-app-cli.js"
   },
   "scripts": {
-    "precommit": "./node_modules/.bin/eslint bin/ config/ scripts/",
-    "test": "mocha tests/ci.js --reporter spec --timeout 15000"
+    "precommit": "./node_modules/.bin/eslint bin/ config/ scripts/ tests/",
+    "test": "npm run -s test:cli && npm run -s test:functional",
+    "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
+    "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000"
   },
   "repository": {
     "type": "git",
