@@ -30,9 +30,18 @@ switch (script) {
     break;
 
   case 'test': {
+    let args = [];
+    Object.keys(argv || {}).forEach(function(key) {
+      if (key !== '_' && key !== 'compiler') {
+        args = args.concat([`--${key}`, argv[key]]);
+      }
+    });
+
+    args = args.concat(['--compiler', path.normalize(executablePaths['elm-make'])]);
+
     const cp = spawn.sync(
       path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
-      [ '--compiler', path.normalize(executablePaths['elm-make']) ],
+      args,
       { stdio: 'inherit' }
     );
 
