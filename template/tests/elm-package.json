@@ -9,10 +9,10 @@
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-lang/core": "4.0.0 <= v < 5.0.0",
-        "elm-lang/html": "1.1.0 <= v < 2.0.0",
-        "elm-community/elm-test": "2.0.0 <= v < 3.0.0",
-        "rtfeldman/node-test-runner": "2.0.0 <= v < 3.0.0"
+        "elm-community/elm-test": "3.0.0 <= v < 4.0.0",
+        "elm-lang/core": "5.0.0 <= v < 6.0.0",
+        "elm-lang/html": "2.0.0 <= v < 3.0.0",
+        "rtfeldman/node-test-runner": "3.0.0 <= v < 4.0.0"
     },
-    "elm-version": "0.17.0 <= v < 0.18.0"
+    "elm-version": "0.18.0 <= v < 0.19.0"
 }
