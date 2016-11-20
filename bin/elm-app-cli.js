@@ -17,11 +17,12 @@ if (commands.length === 0) {
   process.exit(1);
 }
 
-const script = commands[0];
+const script = commands[ 0 ];
 const scriptPath = path.resolve(paths.scripts, script);
 const scriptArgs = commands.splice(1);
 
 switch (script) {
+
   case 'create':
   case 'build':
   case 'eject':
@@ -30,14 +31,14 @@ switch (script) {
     break;
 
   case 'test': {
-    let args = [];
-    Object.keys(argv || {}).forEach(function(key) {
+    var args = [];
+    Object.keys(argv || {}).forEach(function (key) {
       if (key !== '_' && key !== 'compiler') {
-        args = args.concat([`--${key}`, argv[key]]);
+        args = args.concat([ '--' + key, argv[ key ] ]);
       }
     });
 
-    args = args.concat(['--compiler', path.normalize(executablePaths['elm-make'])]);
+    args = args.concat([ '--compiler', path.normalize(executablePaths[ 'elm-make' ]) ]);
 
     const cp = spawn.sync(
       path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
@@ -76,7 +77,7 @@ switch (script) {
  * @param  {string} version [description]
  * @return {undefined}
  */
-function help (version) {
+function help(version) {
   console.log('\nUsage: elm-app <command>\n');
   console.log('where <command> is one of:');
   console.log('    create, build, start, package, reactor, make, repl\n');
@@ -92,9 +93,10 @@ function help (version) {
  * @return {undefined}
  */
 function spawnSyncNode(script, args) {
+
   const cp = spawn.sync(
     'node',
-    [script].concat(args || []),
+    [ script ].concat(args || []),
     { stdio: 'inherit' }
   );
 
