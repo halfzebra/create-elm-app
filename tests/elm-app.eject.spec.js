@@ -31,14 +31,14 @@ describe('Ejecting Elm application. (Please wait...)', function () {
   });
 
   it('`elm-app eject` should succeed in `' + testAppName + '`', function () {
-    const result = spawn.sync('node', [elmAppCmd, 'eject' ]);
+    const result = spawn.sync('node', [ elmAppCmd, 'eject' ]);
     const outputString = result.output.map(function (out) {
       return (out !== null) ? out.toString() : '';
     }).join('');
 
     expect(result.status).to.be.equal(0);
     expect(outputString).to.have.string('Ejected successfully!');
-  }).timeout(10 * 60 * 1000); // ~ 8 minutes to install npm dependencies.
+  }).timeout(10 * 60 * 1000);
 
   it('Ejected application should have `package.json` with scripts from Create Elm App', function () {
     const testAppPkg = path.join(testAppDir, './package.json');
@@ -75,5 +75,5 @@ describe('Ejecting Elm application. (Please wait...)', function () {
 
     expect(result.status).to.be.equal(0);
     expect(outputString).to.have.string('build is ready in `dist/`');
-  }).timeout(2 * 60 * 1000);
+  }).timeout(5 * 60 * 1000);
 });
