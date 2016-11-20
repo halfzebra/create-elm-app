@@ -11,7 +11,7 @@ all =
     describe "A Test Suite"
         [ test "App.model.message should be set properly" <|
             \() ->
-                Expect.equal (fst App.init |> .message) "Your Elm App is working!"
+                Expect.equal (Tuple.first App.init |> .message) "Your Elm App is working!"
         , test "Addition" <|
             \() ->
                 Expect.equal (3 + 7) 10
