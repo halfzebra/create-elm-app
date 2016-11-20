@@ -1,3 +1,8 @@
+## 0.2.1 (November 20, 2016)
+
+* Running tests in watch mode ([@jackfranklin](https://github.com/jackfranklin) in [#59](https://github.com/halfzebra/create-elm-app/pull/59))
+* Enable Elm debugger in development mode ([@kraklin](https://github.com/kraklin) in [#58](https://github.com/halfzebra/create-elm-app/pull/58))
+
 ## 0.2.0 (November 14, 2016)
 
 ### Upgrade from 0.17.1 to 0.18.0
