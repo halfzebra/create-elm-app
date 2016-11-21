@@ -89,6 +89,11 @@ You will also see any lint errors in the console.
 ### `elm-app test`
 Run tests with [node-test-runner](https://github.com/rtfeldman/node-test-runner/tree/master)
 
+You can make test runner watch project files by running:
+```sh
+elm-app test --watch
+```
+
 ### `elm-app eject`
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
