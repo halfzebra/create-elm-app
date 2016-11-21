@@ -18,7 +18,9 @@
       "error",
       "always"
     ],
-    "no-console": 0
+    "no-console": 0,
+    "array-bracket-spacing": [2, "always"],
+    "computed-property-spacing": [2, "always"]
   },
   "env": {
     "node": true,
