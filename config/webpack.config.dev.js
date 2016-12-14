@@ -54,7 +54,7 @@ module.exports = {
       {
         exclude: [
           /\.html$/,
-          /\.(js)$/,
+          /\.js$/,
           /\.css$/,
           /\.json$/,
           /\.svg$/
@@ -62,6 +62,14 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      },
+      // "file" loader for svg
+      {
+        test: /\.svg$/,
+        loader: 'file',
+        query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
       }
