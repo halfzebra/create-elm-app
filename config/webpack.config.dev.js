@@ -52,8 +52,22 @@ module.exports = {
         loader: 'style!css!postcss'
       },
       {
-        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        exclude: /\/favicon.ico$/,
+        exclude: [
+          /\.html$/,
+          /\.js$/,
+          /\.css$/,
+          /\.json$/,
+          /\.svg$/
+        ],
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      },
+      // "file" loader for svg
+      {
+        test: /\.svg$/,
         loader: 'file',
         query: {
           name: 'static/media/[name].[hash:8].[ext]'

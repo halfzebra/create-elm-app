@@ -18,6 +18,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [repl](#repl)
     - [make](#make)
     - [reactor](#reactor)
+- [Adding Images and Fonts](#adding-images-and-fonts)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
@@ -119,6 +120,35 @@ Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 
 #### `reactor`
 Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
+
+## Adding Images and Fonts
+
+With Webpack, using static assets like images and fonts works similarly to CSS.
+
+By requiring an image in JavaScript code, you tell Webpack to add a file to the build of your application. The variable will contain a unique path to the said file.
+
+Here is an example:
+
+```js
+require('./main.css');
+var logoPath = require('./logo.svg'); // Tell Webpack this JS file uses this image
+var Elm = require('./Main.elm');
+
+var root = document.getElementById('root');
+
+Elm.Main.embed(root, logoPath); // Pass image path as a flag.
+```
+Later on, you can use the image path in your view for displaying it in the DOM.
+
+```elm
+view : Model -> Html Msg
+view model =
+    div []
+        [ img [ src model.logo ] []
+        , div [] [ text model.message ]
+        ]
+```
+
 
 ## IDE setup for Hot Module Replacement
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStrom.
