@@ -1,6 +1,6 @@
-This project was bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
+This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
 
-Below you will find some information on how to perform common tasks.  
+Below you will find some information on how to perform basic tasks.  
 You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
 
 ## Table of Contents
@@ -22,7 +22,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
-You are very velcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
+You are very welcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
 
 ## Installing Elm packages
 
@@ -32,7 +32,7 @@ elm-app package install <package-name>
 
 ## Installing JavaScript packages
 
-To use JavaScript packages from npm, you'll need to add a `package.json`, install the dependencies and you're ready to go.
+To use JavaScript packages from npm, you'll need to add a `package.json`, install the dependencies, and you're ready to go.
 
 ```sh
 npm init -y # Add package.json
@@ -77,7 +77,7 @@ In the project directory you can run:
 ### `elm-app build`
 Builds the app for production to the `dist` folder.  
 
-The build is minified and the filenames include the hashes.  
+The build is minified, and the filenames include the hashes.  
 Your app is ready to be deployed!
 
 ### `elm-app start`
@@ -100,12 +100,12 @@ elm-app test --watch
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Elm Platform, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Elm Platform, etc.) right into your project, so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point, you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You don’t have to use 'eject' The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ### `elm-app <elm-platform-comand>`
-Create Elm App does not rely on global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
+Create Elm App does not rely on the global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
 
 #### `package`
 Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
