@@ -19,7 +19,7 @@ cd my-app/
 elm-app start
 ```
 
-When you are done developing, create a production build with `elm-app build`
+Create a production build with `elm-app build`
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ Node >=4 is required only as a build dependency.
 
 `npm install create-elm-app -g`
 
-If you are running Linux OS, you should install it as superuser:
+If you are running Linux OS, you should install it as the superuser:
 
 `sudo npm install create-elm-app -g`
 
@@ -43,7 +43,7 @@ cd my-app/
 
 ![create-elm-app](https://cloud.githubusercontent.com/assets/3983879/18608348/157f6532-7ce7-11e6-9739-a09f44ae9644.png)
 
-This will create a new `my-app` folder with files for your future project.
+Create a new `my-app` folder with files for your future project.
 
 ```
 my-app/
@@ -62,51 +62,49 @@ my-app/
     Tests.elm
 ```
 
-When installation is done, you can run other commands from the project directory.
+You are ready to employ the full power of Create Elm App!
 
 ### `elm-app start`
-Runs the app in development mode.
+Run the app in development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ![elm-app-start](https://cloud.githubusercontent.com/assets/3983879/18608347/157e88ec-7ce7-11e6-8924-a046a95f6381.png)
 
 The page will reload if you make edits.
-You will see the build errors and lint warnings in the console.
+You will see the build errors and lint warnings in the console and the browser window.
 
 ### `elm-app build`
 Builds the app for production to the `build` folder.
 It bundles Elm app and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.
+The build is minified, and the filenames include the hashes.
 
 ## Guide
 Every generated project will contain a readme with guidelines for future development. 
-The latest version is avalilable [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md)
+The latest version is available [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md)
 
 ## Why use this?
-Developing with [elm-platform](https://github.com/elm-lang/elm-platform) is fun and easy, but at some point you will hit a couple limitations.
+Developing with [elm-platform](https://github.com/elm-lang/elm-platform) is fun and easy, but at some point, you will hit a couple of limitations.
 
 - [elm-make](https://github.com/elm-lang/elm-make) does not provide an efficient build tool for optimizing your project.
-- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps, that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html) 
+- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html) 
 - You can not use [Hot Module Replacement.](https://webpack.github.io/docs/hot-module-replacement.html)
 
 Create Elm App adds a tool for optimizing production builds and running a development server with your app, which supports HMR.
 
-All of that, combined with all the  basic functionality of [elm-platform](https://github.com/elm-lang/elm-platform) is bundled within a single command line tool, which you might use as a dependency or `eject` any time.
+All of that, combined with all the basic functionality of [elm-platform](https://github.com/elm-lang/elm-platform) in a single command line tool, which you might use as a dependency or `eject` anytime.
 
 ## Want a custom setup?
 
-If you are a power user and you are not happy with the default configuration, you can `elm-app eject` anytime.
+Not happy with the default configuration? Use `elm-app eject` and customize your process.
 
-That way, you can use Create Elm App as a tool for boilerplate generation.
-
-This operation will make changes to your project, which are hard to revert, if you will want to go back.
+That way, you can use Create Elm App as a tool for a boilerplate generation.
 
 ## Philosophy
 
 Inspired by [create-react-app](https://github.com/facebookincubator/create-react-app)
 
-* **One Dependency:** There is just one build dependency. It uses  Elm Platform, Webpack and other amazing projects, but provides a cohesive curated experience on top of them.
+* **One Dependency:** There is just one build dependency. It uses  Elm Platform, Webpack, and other amazing projects, but provides a cohesive curated experience on top of them.
 
 * **Zero Configuration:** There are no configuration files or command line options. Configuring both development and production builds is handled for you so you can focus on writing code.
 
