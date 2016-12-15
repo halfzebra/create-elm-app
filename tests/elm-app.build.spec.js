@@ -30,7 +30,7 @@ describe('Building Elm application with `elm-app build`', function () {
   });
 
   it('`elm-app build` should succeed in `' + testAppName + '`', function () {
-    var result = spawn.sync('node', [elmAppCmd, 'build' ]);
+    var result = spawn.sync('node', [ elmAppCmd, 'build' ]);
     var outputString = result.output.map(function (out) {
       return (out !== null) ? out.toString() : '';
     }).join('');

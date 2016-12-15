@@ -17,7 +17,7 @@ describe('Create Elm application with `create-elm-app` command', function () {
   });
 
   it('`create-elm-app ' + testAppName + '` should succeed', function () {
-    const status = spawn.sync('node', [createElmAppCmd, testAppName ]).status;
+    const status = spawn.sync('node', [ createElmAppCmd, testAppName ]).status;
     expect(status).to.be.equal(0);
   }).timeout(60 * 1000);
 
