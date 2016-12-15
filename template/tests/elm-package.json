@@ -9,7 +9,7 @@
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-community/elm-test": "3.0.0 <= v < 4.0.0",
+        "elm-community/elm-test": "3.1.0 <= v < 4.0.0",
         "elm-lang/core": "5.0.0 <= v < 6.0.0",
         "elm-lang/html": "2.0.0 <= v < 3.0.0",
         "rtfeldman/node-test-runner": "3.0.0 <= v < 4.0.0"
