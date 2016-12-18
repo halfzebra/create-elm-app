@@ -1,5 +1,9 @@
 language: node_js
 sudo: required
+node_js:
+  - '7'
+  - '6'
+  - '4'
 before_install: # if "install" is overridden
   # Repo for Yarn
   - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
@@ -10,17 +14,10 @@ script: npm test
 cache:
   yarn: true
   directories:
-    - $HOME/.yarn-cache
-    - node_modules
+    - $HOME/.yarn-cachegi
 install:
-  - yarn install
+  - yarn
   - npm link ../create-elm-app
-notifications:
-  email: false
-node_js:
-  - '7'
-  - '6'
-  - '4'
 before_script:
   - npm prune
 after_success:
@@ -28,3 +25,5 @@ after_success:
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+notifications:
+  email: false
