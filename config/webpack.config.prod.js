@@ -4,6 +4,7 @@ const paths = require('../config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const getClientEnvironment = require('./env');
 
 const root = process.cwd();
 
@@ -84,6 +85,7 @@ module.exports = {
     ];
   },
   plugins: [
+    new webpack.DefinePlugin(getClientEnvironment()),
 
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin([ 'dist' ], {

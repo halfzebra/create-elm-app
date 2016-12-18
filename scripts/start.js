@@ -10,7 +10,9 @@ const openBrowser = require('react-dev-utils/openBrowser');
 const historyApiFallback = require('connect-history-api-fallback');
 const httpProxyMiddleware = require('http-proxy-middleware');
 
-process.env.NODE_ENV = 'development';
+// Load environment variables from .env file.
+// Suppress warnings if this file is missing.
+require('dotenv').config({silent: true});
 
 if (pathExists.sync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
