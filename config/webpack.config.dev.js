@@ -2,6 +2,7 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const paths = require('../config/paths');
+const getClientEnvironment = require('./env');
 
 module.exports = {
 
@@ -88,6 +89,7 @@ module.exports = {
     ];
   },
   plugins: [
+    new webpack.DefinePlugin(getClientEnvironment()),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.template,

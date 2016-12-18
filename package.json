@@ -45,6 +45,7 @@
     "cli-table": "0.3.1",
     "cross-spawn": "5.0.1",
     "css-loader": "0.26.1",
+    "dotenv": "^2.0.0",
     "elm": "^0.18.0",
     "elm-hot-loader": "0.5.3",
     "elm-test": "0.18.2",
