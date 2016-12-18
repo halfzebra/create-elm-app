@@ -1,3 +1,8 @@
+process.env.NODE_ENV = 'development';
+// Load environment variables from .env file.
+// Suppress warnings if this file is missing.
+require('dotenv').config({silent: true});
+
 const pathExists = require('path-exists');
 const chalk = require('chalk');
 const webpack = require('webpack');
@@ -6,8 +11,6 @@ const config = require('../config/webpack.config.dev');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const clearConsole = require('react-dev-utils/clearConsole');
 const openBrowser = require('react-dev-utils/openBrowser');
-
-process.env.NODE_ENV = 'development';
 
 if (pathExists.sync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
@@ -67,5 +70,3 @@ devServer.listen(port, function (err) {
 });
 
 openBrowser('http://localhost:' + port + '/');
-
-

@@ -3,6 +3,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const paths = require('../config/paths');
 
+const defineEnv = Object
+  .keys(process.env)
+  .reduce((acc, current) => {
+    acc[ `process.env.${current}` ] = `"${process.env[ current ]}"`;
+    return acc;
+  }, {});
+
 module.exports = {
 
   devtool: 'eval',
@@ -88,6 +95,7 @@ module.exports = {
     ];
   },
   plugins: [
+    new webpack.DefinePlugin(defineEnv),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.template,
