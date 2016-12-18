@@ -1,5 +1,4 @@
 const fs = require('fs');
-const pathExists = require('path-exists');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
@@ -14,7 +13,7 @@ const httpProxyMiddleware = require('http-proxy-middleware');
 // Suppress warnings if this file is missing.
 require('dotenv').config({silent: true});
 
-if (pathExists.sync('elm-package.json') === false) {
+if (fs.existsSync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
   process.exit(0);
 }

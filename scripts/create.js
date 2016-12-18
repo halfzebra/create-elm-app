@@ -1,8 +1,7 @@
-const renameSync = require('fs').renameSync;
+const fs = require('fs');
 const copySync = require('fs-extra').copySync;
 const path = require('path');
 const chalk = require('chalk');
-const pathExists = require('path-exists');
 const spawnSync = require('child_process').spawnSync;
 const argv = require('minimist')(process.argv.slice(2));
 const commands = argv._;
@@ -24,11 +23,11 @@ function createElmApp (name) {
   var root = path.resolve(name);
   var template = path.join(__dirname, '../template');
 
-  if (!pathExists.sync(name)) {
+  if (!fs.existsSync(name)) {
 
     try {
       copySync(template, root);
-      renameSync(path.resolve(root, 'gitignore'), path.resolve(root, '.gitignore'));
+      fs.renameSync(path.resolve(root, 'gitignore'), path.resolve(root, '.gitignore'));
     } catch (err) {
       console.log(err);
       process.exit(1);

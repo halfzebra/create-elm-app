@@ -2,10 +2,8 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const chalk = require('chalk');
 const extend = require('extend');
-const pathExists = require('path-exists');
 const prompt = require('prompt');
-const fs = require('fs');
-const copySync = require('fs-extra').copySync;
+const fs = require('fs-extra');
 const Table = require('cli-table');
 const Promise = require('bluebird');
 const pkgOwn = require(path.join(__dirname, '../package.json'));
@@ -72,9 +70,9 @@ function promptYesOrNo () {
 function performEject (pkg) {
   // Copy the configuration and start/build scripts.
   try {
-    copySync(path.resolve(__dirname, 'build.js'), './scripts/build.js');
-    copySync(path.resolve(__dirname, 'start.js'), './scripts/start.js');
-    copySync(path.resolve(__dirname, '../config'), './config');
+    fs.copySync(path.resolve(__dirname, 'build.js'), './scripts/build.js');
+    fs.copySync(path.resolve(__dirname, 'start.js'), './scripts/start.js');
+    fs.copySync(path.resolve(__dirname, '../config'), './config');
   } catch (err) {
     console.log(chalk.red('Failed to copy scripts, the error is:\n'));
     console.log(err);
@@ -100,7 +98,6 @@ function performEject (pkg) {
 const unusedDependencies = [
   'cross-spawn',
   'fs-extra',
-  'minimist',
   'cli-table',
   'extend',
   'prompt',
@@ -117,12 +114,12 @@ const scripts = {
   test: 'elm-test'
 };
 
-if (pathExists.sync('elm-package.json') === false) {
+if (fs.existsSync('elm-package.json') === false) {
   console.log('Please, run the eject script from project root directory');
   process.exit(1);
 }
 
-if (pathExists.sync('./package.json') === true) {
+if (fs.existsSync('./package.json') === true) {
   console.log('Found existing package.json');
   var pkgEjected = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }));
 

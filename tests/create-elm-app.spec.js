@@ -2,7 +2,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const spawn = require('cross-spawn');
 const dircompare = require('dir-compare');
-const pathExists = require('path-exists');
+const fs = require('fs');
 const rimraf = require('rimraf');
 
 
@@ -22,11 +22,11 @@ describe('Create Elm application with `create-elm-app` command', function () {
   }).timeout(60 * 1000);
 
   it('`' + testAppName + '` should have elm-package.json file', function () {
-    expect(pathExists.sync(path.join(testAppDir, 'elm-package.json'))).to.be.equal(true);
+    expect(fs.existsSync(path.join(testAppDir, 'elm-package.json'))).to.be.equal(true);
   });
 
   it('`' + testAppName + '` should have .gitignore file', function () {
-    expect(pathExists.sync(path.join(testAppDir, '.gitignore'))).to.be.equal(true);
+    expect(fs.existsSync(path.join(testAppDir, '.gitignore'))).to.be.equal(true);
   });
 
   it('`' + testAppName + '` should have the same file structure as template', function () {

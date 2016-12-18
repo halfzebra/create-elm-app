@@ -60,7 +60,6 @@
     "html-webpack-plugin": "2.24.1",
     "http-proxy-middleware": "^0.17.3",
     "minimist": "1.2.0",
-    "path-exists": "3.0.0",
     "postcss-loader": "1.2.1",
     "prompt": "1.0.0",
     "react-dev-utils": "0.4.2",

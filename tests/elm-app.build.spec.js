@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
-const pathExists = require('path-exists');
 const expect = require('chai').expect;
 
 
@@ -36,7 +35,7 @@ describe('Building Elm application with `elm-app build`', function () {
     }).join('');
     expect(result.status).to.be.equal(0, 'Incorrect exit status code');
     expect(outputString).to.have.string('build is ready in `dist/`');
-    expect(pathExists.sync(path.join(testAppDir, 'dist'))).to.be.equal(true);
+    expect(fs.existsSync(path.join(testAppDir, 'dist'))).to.be.equal(true);
   }).timeout(12 * 60 * 1000);
 
   it('`elm-app build` should exit with non zero status code when build failed', function () {

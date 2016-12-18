@@ -3,7 +3,6 @@ const path = require('path');
 const expect = require('chai').expect;
 const spawn = require('cross-spawn');
 const dircompare = require('dir-compare');
-const pathExists = require('path-exists');
 const rimraf = require('rimraf');
 
 
@@ -54,9 +53,9 @@ describe('Ejecting Elm application. (Please wait...)', function () {
   });
 
   it('Ejected application should have build and start scripts', function () {
-    expect(pathExists.sync(path.join(testAppDir, './scripts/build.js')))
+    expect(fs.existsSync(path.join(testAppDir, './scripts/build.js')))
       .to.be.equal(true);
-    expect(pathExists.sync(path.join(testAppDir, './scripts/start.js')))
+    expect(fs.existsSync(path.join(testAppDir, './scripts/start.js')))
       .to.be.equal(true);
   });
 
