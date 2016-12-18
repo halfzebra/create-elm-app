@@ -1,3 +1,7 @@
+// Load environment variables from .env file.
+// Suppress warnings if this file is missing.
+require('dotenv').config({silent: true});
+
 const pathExists = require('path-exists');
 const chalk = require('chalk');
 const webpack = require('webpack');
