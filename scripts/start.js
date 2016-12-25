@@ -1,3 +1,7 @@
+// Load environment variables from .env file.
+// Suppress warnings if this file is missing.
+require('dotenv').config({silent: true});
+
 const fs = require('fs');
 const chalk = require('chalk');
 const webpack = require('webpack');
@@ -8,10 +12,6 @@ const clearConsole = require('react-dev-utils/clearConsole');
 const openBrowser = require('react-dev-utils/openBrowser');
 const historyApiFallback = require('connect-history-api-fallback');
 const httpProxyMiddleware = require('http-proxy-middleware');
-
-// Load environment variables from .env file.
-// Suppress warnings if this file is missing.
-require('dotenv').config({silent: true});
 
 if (fs.existsSync('elm-package.json') === false) {
   console.log('Please, run the build script from project root directory');
@@ -119,21 +119,25 @@ function addMiddleware(devServer) {
 
     // Pass the scope regex both to Express and to the middleware for proxying
     // of both HTTP and WebSockets to work without false positives.
-    var hpm = httpProxyMiddleware(pathname => mayProxy.test(pathname), {
-      target: proxy,
-      logLevel: 'silent',
-      onProxyReq: function(proxyReq) {
-        // Browers may send Origin headers even with same-origin
-        // requests. To prevent CORS issues, we have to change
-        // the Origin to match the target URL.
-        if (proxyReq.getHeader('origin')) {
-          proxyReq.setHeader('origin', proxy);
-        }
+    var hpm = httpProxyMiddleware(
+      function (pathname) {
+        return mayProxy.test(pathname);
       },
-      onError: onProxyError(proxy),
-      secure: false,
-      changeOrigin: true,
-      ws: true
+      {
+        target: proxy,
+        logLevel: 'silent',
+        onProxyReq: function (proxyReq) {
+          // Browers may send Origin headers even with same-origin
+          // requests. To prevent CORS issues, we have to change
+          // the Origin to match the target URL.
+          if (proxyReq.getHeader('origin')) {
+            proxyReq.setHeader('origin', proxy);
+          }
+        },
+        onError: onProxyError(proxy),
+        secure: false,
+        changeOrigin: true,
+        ws: true
     });
     devServer.use(mayProxy, hpm);
 
