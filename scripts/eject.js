@@ -29,14 +29,14 @@ function diffTable (target, mixin, head) {
     head = [ chalk.grey('Name'), chalk.yellow('Old'), chalk.green('New') ];
   }
 
-  var table = new Table({
+  const table = new Table({
     head: head
   });
 
-  for (var propName in target) {
+  for (const propName in target) {
     if (propName in mixin) {
-      var targetPropValue = target[ propName ];
-      var mixinPropValue = mixin[ propName ];
+      const targetPropValue = target[ propName ];
+      const mixinPropValue = mixin[ propName ];
       // If found and is not equal
       if (targetPropValue !== mixinPropValue) {
         table.push([ propName, targetPropValue, mixinPropValue ]);
@@ -49,7 +49,7 @@ function diffTable (target, mixin, head) {
 
 function promptYesOrNo () {
   return new Promise(function (resolve, reject) {
-    var property = {
+    const property = {
       name: 'answer',
       message: chalk.yellow('Would you like to continue? [Y/n]')
     };
@@ -121,12 +121,12 @@ if (fs.existsSync('elm-package.json') === false) {
 
 if (fs.existsSync('./package.json') === true) {
   console.log('Found existing package.json');
-  var pkgEjected = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }));
+  const pkgEjected = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }));
 
   Promise.resolve()
     .then(function () {
       if (pkgEjected.hasOwnProperty('devDependencies')) {
-        var diff = diffTable(pkgEjected.devDependencies, devDependencies);
+        const diff = diffTable(pkgEjected.devDependencies, devDependencies);
         if (diff.length !== 0) {
           console.log(diff.toString());
           console.log('Ejecting wil overwrite your "devDependencies" in package.json\n');
@@ -136,7 +136,7 @@ if (fs.existsSync('./package.json') === true) {
     })
     .then(function () {
       if (pkgEjected.hasOwnProperty('scripts') && Object.keys(pkgEjected.scripts).length === 0) {
-        var diff = diffTable(pkgEjected.scripts, scripts);
+        const diff = diffTable(pkgEjected.scripts, scripts);
         if (diff.length !== 0) {
           console.log(diff.toString());
           console.log('Ejecting will overwrite your "scripts" in package.json\n');
