@@ -19,8 +19,8 @@ if (fs.existsSync('elm-package.json') === false) {
 }
 
 // http://webpack.github.io/docs/node.js-api.html#the-long-way
-var compiler = webpack(config);
-var port = 3000;
+const compiler = webpack(config);
+const port = 3000;
 
 compiler.plugin('invalid', function () {
   clearConsole();
@@ -30,8 +30,8 @@ compiler.plugin('invalid', function () {
 compiler.plugin('done', function (stats) {
   clearConsole();
 
-  var hasErrors = stats.hasErrors();
-  var hasWarnings = stats.hasWarnings();
+  const hasErrors = stats.hasErrors();
+  const hasWarnings = stats.hasWarnings();
 
   if (!hasErrors && !hasWarnings) {
 
@@ -46,7 +46,7 @@ compiler.plugin('done', function (stats) {
   if (hasErrors) {
     console.log(chalk.red('Compilation failed.\n'));
 
-    var json = formatWebpackMessages(stats.toJson({}, true));
+    const json = formatWebpackMessages(stats.toJson({}, true));
 
     json.errors.forEach(function (message) {
       console.log(message);
@@ -60,7 +60,7 @@ compiler.plugin('done', function (stats) {
 // It allows us to log custom error messages on the console.
 function onProxyError(proxy) {
   return function(err, req, res){
-    var host = req.headers && req.headers.host;
+    const host = req.headers && req.headers.host;
     console.log(
       chalk.red('Proxy error:') + ' Could not proxy request ' + chalk.cyan(req.url) +
       ' from ' + chalk.cyan(host) + ' to ' + chalk.cyan(proxy) + '.'
@@ -74,7 +74,7 @@ function onProxyError(proxy) {
     // And immediately send the proper error response to the client.
     // Otherwise, the request will eventually timeout with ERR_EMPTY_RESPONSE on the client side.
     if (res.writeHead && !res.headersSent) {
-        res.writeHead(500);
+      res.writeHead(500);
     }
     res.end('Proxy error: Could not proxy request ' + req.url + ' from ' +
       host + ' to ' + proxy + ' (' + err.code + ').'
@@ -85,7 +85,7 @@ function onProxyError(proxy) {
 function addMiddleware(devServer) {
   // `proxy` lets you to specify a fallback server during development.
   // Every unrecognized request will be forwarded to it.
-  var proxy = JSON.parse(fs.readFileSync('elm-package.json', 'utf-8')).proxy;
+  const proxy = JSON.parse(fs.readFileSync('elm-package.json', 'utf-8')).proxy;
   devServer.use(historyApiFallback({
     // Paths with dots should still use the history fallback.
     // See https://github.com/facebookincubator/create-react-app/issues/387.
@@ -115,11 +115,11 @@ function addMiddleware(devServer) {
     // - /*.hot-update.json (WebpackDevServer uses this too for hot reloading)
     // - /sockjs-node/* (WebpackDevServer uses this for hot reloading)
     // Tip: use https://jex.im/regulex/ to visualize the regex
-    var mayProxy = /^(?!\/(index\.html$|.*\.hot-update\.json$|sockjs-node\/)).*$/;
+    const mayProxy = /^(?!\/(index\.html$|.*\.hot-update\.json$|sockjs-node\/)).*$/;
 
     // Pass the scope regex both to Express and to the middleware for proxying
     // of both HTTP and WebSockets to work without false positives.
-    var hpm = httpProxyMiddleware(
+    const hpm = httpProxyMiddleware(
       function (pathname) {
         return mayProxy.test(pathname);
       },
@@ -138,7 +138,7 @@ function addMiddleware(devServer) {
         secure: false,
         changeOrigin: true,
         ws: true
-    });
+      });
     devServer.use(mayProxy, hpm);
 
     // Listen for the websocket 'upgrade' event and upgrade the connection.

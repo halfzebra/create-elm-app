@@ -33,24 +33,39 @@ module.exports = {
   resolveLoader: {
 
     // Look for loaders in own node_modules
-    root: paths.ownModules,
-    moduleTemplates: [ '*-loader' ]
+    modules: [ paths.ownModules ],
+    moduleExtensions: [ '-loader' ]
   },
   resolve: {
-    modulesDirectories: [ 'node_modules' ],
-    extensions: [ '', '.js', '.elm' ]
+    modules: [ 'node_modules' ],
+    extensions: [ '.js', '.elm' ]
   },
   module: {
     noParse: /\.elm$/,
-    loaders: [
+    rules: [
       {
         test: /\.elm$/,
         exclude: [ /elm-stuff/, /node_modules/ ],
-        loader: 'elm-hot!elm-webpack?verbose=true&warn=true&debug=true&pathToMake=' + paths.elmMake
+        use: [
+          {loader: 'elm-hot-loader'},
+          {
+            loader: 'elm-webpack-loader',
+            options: {
+              verbose: true,
+              warn: true,
+              debug: true,
+              pathToMake: paths.elmMake
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+          {loader: 'postcss-loader'}
+        ]
       },
       {
         exclude: [
@@ -61,7 +76,7 @@ module.exports = {
           /\.svg$/
         ],
         loader: 'url',
-        query: {
+        options: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
         }
@@ -69,24 +84,12 @@ module.exports = {
       // "file" loader for svg
       {
         test: /\.svg$/,
-        loader: 'file',
-        query: {
+        loader: 'file-loader',
+        options: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
       }
     ]
-  },
-  postcss: function() {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9'
-        ]
-      })
-    ];
   },
   plugins: [
     new webpack.DefinePlugin(getClientEnvironment()),
@@ -95,6 +98,20 @@ module.exports = {
       template: paths.template,
       favicon: paths.favicon
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          autoprefixer({
+            browsers: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 9'
+            ]
+          })
+        ]
+      }
+    }),
   ]
 };
