@@ -156,7 +156,8 @@ const devServer = new WebpackDevServer(compiler, {
   hot: true,
   inline: true,
   publicPath: '/',
-  quiet: true
+  quiet: true,
+  historyApiFallback: true
 });
 
 addMiddleware(devServer);
