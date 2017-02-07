@@ -16,10 +16,8 @@ cache:
   directories:
     - $HOME/.yarn-cachegi
 install:
-  - yarn
+  - yarn install
   - npm link ../create-elm-app
-before_script:
-  - npm prune
 after_success:
   - npm run semantic-release
 branches:
