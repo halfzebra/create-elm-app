@@ -10,7 +10,7 @@
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=4"
+    "node": ">=6.0.0"
   },
   "bin": {
     "elm-app": "./bin/elm-app-cli.js",
