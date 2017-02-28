@@ -6,7 +6,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const executablePaths = require('elm/platform').executablePaths;
 
 const version = require('../package.json').version;
-const elmPlatformVersion = require('../node_modules/elm/package.json').version;
+const elmPlatformVersion = require('elm/package.json').version;
 const paths = require('../config/paths');
 
 
