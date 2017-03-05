@@ -31,7 +31,7 @@ switch (script) {
     break;
 
   case 'test': {
-    var args = [];
+    let args = [];
     Object.keys(argv || {}).forEach(function (key) {
       if (key !== '_' && key !== 'compiler') {
         args = args.concat([ '--' + key, argv[ key ] ]);

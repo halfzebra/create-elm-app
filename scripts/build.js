@@ -17,16 +17,20 @@ console.log('\nStarting production build...\n');
 // Initialize webpack, using the long way: http://webpack.github.io/docs/node.js-api.html#the-long-way
 webpack(config).run(function (err, stats) {
 
-  if (err !== null) {
-    console.log(chalk.red(err));
+  if (stats.compilation.errors.length > 0) {
+    console.log(stats.toString({
+      chunks: false,
+      colors: true,
+      assets: false,
+    }));
     process.exit(1);
   } else {
-    var statsFormatted = stats.toString({
+    const statsFormatted = stats.toString({
       chunks: false,
       colors: true
     });
 
-    console.log(chalk.green('\n' + statsFormatted));
+    console.log(statsFormatted);
     console.log(chalk.green('\n' + 'Production build is ready in `dist/` folder'));
   }
 });

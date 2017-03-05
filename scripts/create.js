@@ -20,8 +20,8 @@ function createElmApp (name) {
 
   console.log('\nCreating ' + name + ' project...\n');
 
-  var root = path.resolve(name);
-  var template = path.join(__dirname, '../template');
+  const root = path.resolve(name);
+  const template = path.join(__dirname, '../template');
 
   if (!fs.existsSync(name)) {
 
@@ -41,7 +41,7 @@ function createElmApp (name) {
   process.chdir(root);
 
   // Run initial `elm-package install -y`
-  var spawnElmPkgResult = spawnSync(executablePaths[ 'elm-package' ], [ 'install', '-y' ], { stdio: 'inherit' });
+  const spawnElmPkgResult = spawnSync(executablePaths[ 'elm-package' ], [ 'install', '-y' ], { stdio: 'inherit' });
 
   if (spawnElmPkgResult.status === null) {
     console.log(chalk.red('\nFailed to install elm packages'));
