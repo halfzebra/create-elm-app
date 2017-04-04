@@ -1,5 +1,4 @@
 const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -22,7 +21,7 @@ module.exports = {
     path: paths.dist,
 
     // Append leading slash when production assets are referenced in the html.
-    publicPath: '/',
+    publicPath: process.env.SERVED_PATH || '/',
 
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
