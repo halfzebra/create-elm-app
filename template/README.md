@@ -20,6 +20,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [reactor](#reactor)
 - [Adding Images and Fonts](#adding-images-and-fonts)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
+- [Deploying to GitHub Pages](#deploying-to-github-pages)
 
 ## Sending feedback
 You are very welcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
@@ -152,3 +153,25 @@ view model =
 
 ## IDE setup for Hot Module Replacement
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
+
+## Deploying to GitHub Pages
+
+#### Step 1: install [gh-pages](https://github.com/tschaub/gh-pages)
+```sh
+npm install gh-pages -g
+```
+
+#### Step 2: configure `SERVED_PATH` environment variable
+Create a `.env` file in the root of your project to specify the `SERVED_PATH` environment variable.
+
+```
+SERVED_PATH=./
+```
+
+The path must be `./` so the assets are served using relative paths.
+
+#### Step 3: build the project and deploy it to GitHub Pages
+```sh
+elm-app build
+gh-pages -d dist
+```
