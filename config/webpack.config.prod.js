@@ -1,11 +1,13 @@
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const paths = require('../config/paths');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const getClientEnvironment = require('./env');
+const paths = require('../config/paths');
 
 const root = process.cwd();
 
@@ -53,8 +55,25 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
           loader: [
-            {loader: 'css-loader'},
-            {loader: 'postcss-loader'}
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                plugins: () => [
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9'
+                    ]
+                  })
+                ]
+              }
+            }
           ]
         })
       },
@@ -86,7 +105,7 @@ module.exports = {
 
     new AssetsPlugin({ path: paths.dist }),
 
-    new webpack.DefinePlugin(getClientEnvironment()),
+    new DefinePlugin(getClientEnvironment()),
 
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin([ 'dist' ], {
@@ -96,27 +115,12 @@ module.exports = {
     }),
 
     // Minify the compiled JavaScript.
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJsPlugin({
       compress: {
         warnings: false
       },
       output: {
         comments: false
-      }
-    }),
-
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          autoprefixer({
-            browsers: [
-              '>1%',
-              'last 4 versions',
-              'Firefox ESR',
-              'not ie < 9'
-            ]
-          })
-        ]
       }
     }),
 

@@ -1,8 +1,9 @@
 const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
+const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const paths = require('../config/paths');
 const getClientEnvironment = require('./env');
+const paths = require('../config/paths');
 
 module.exports = {
 
@@ -43,6 +44,7 @@ module.exports = {
   module: {
     noParse: /\.elm$/,
     rules: [
+
       {
         test: /\.elm$/,
         exclude: [ /elm-stuff/, /node_modules/ ],
@@ -59,14 +61,34 @@ module.exports = {
           }
         ]
       },
+
       {
         test: /\.css$/,
         use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader'},
-          {loader: 'postcss-loader'}
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader', options: {
+            ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+            plugins: () => [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9'
+                ]
+              })
+            ]
+          }
+          }
         ]
       },
+
       {
         exclude: [
           /\.html$/,
@@ -81,6 +103,7 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         }
       },
+
       // "file" loader for svg
       {
         test: /\.svg$/,
@@ -92,26 +115,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(getClientEnvironment()),
+
+    new DefinePlugin(getClientEnvironment()),
+
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.template,
       favicon: paths.favicon
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          autoprefixer({
-            browsers: [
-              '>1%',
-              'last 4 versions',
-              'Firefox ESR',
-              'not ie < 9'
-            ]
-          })
-        ]
-      }
-    }),
+
+    new HotModuleReplacementPlugin(),
   ]
 };
