@@ -51,11 +51,11 @@ my-app/
   README.md
   elm-package.json
   src/
+    App.elm
     favicon.ico
     index.html
     index.js
     main.css
-    Main.elm
   tests/
     elm-package.json
     Main.elm

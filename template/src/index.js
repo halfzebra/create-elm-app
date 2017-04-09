@@ -1,6 +1,6 @@
 require('./main.css');
 var logoPath = require('./logo.svg');
-var Elm = require('./Main.elm');
+var Elm = require('./App.elm');
 
 var root = document.getElementById('root');
 

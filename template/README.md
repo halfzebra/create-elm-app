@@ -53,11 +53,11 @@ my-app/
   README.md
   elm-package.json
   src/
+    App.elm
     favicon.ico
     index.html
     index.js
     main.css
-    Main.elm
   tests/
     elm-package.json
     Main.elm
@@ -133,7 +133,7 @@ Here is an example:
 ```js
 require('./main.css');
 var logoPath = require('./logo.svg'); // Tell Webpack this JS file uses this image
-var Elm = require('./Main.elm');
+var Elm = require('./App.elm');
 
 var root = document.getElementById('root');
 

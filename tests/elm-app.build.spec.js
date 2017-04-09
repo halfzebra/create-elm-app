@@ -39,15 +39,15 @@ describe('Building Elm application with `elm-app build`', function () {
   }).timeout(12 * 60 * 1000);
 
   it('`elm-app build` should exit with non zero status code when build failed', function () {
-    const normalFile = path.join(testAppDir, 'src/Main.elm');
-    const malformedFile = path.join(rootDir, './tests/data/Main.elm');
+    const normalFile = path.join(testAppDir, 'src/App.elm');
+    const malformedFile = path.join(rootDir, './tests/data/App.elm');
 
-    copyFileSync(normalFile, 'Main.elm-normal');
+    copyFileSync(normalFile, 'App.elm-normal');
     copyFileSync(malformedFile, normalFile);
 
     const result = spawn.sync('node', [ elmAppCmd, 'build' ]);
 
-    const oldNormalFile = path.resolve('Main.elm-normal');
+    const oldNormalFile = path.resolve('App.elm-normal');
     copyFileSync(oldNormalFile, normalFile);
     fs.unlink(oldNormalFile);
 
