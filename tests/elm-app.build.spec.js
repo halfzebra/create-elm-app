@@ -29,8 +29,8 @@ describe('Building Elm application with `elm-app build`', function () {
   });
 
   it('`elm-app build` should succeed in `' + testAppName + '`', function () {
-    var result = spawn.sync('node', [ elmAppCmd, 'build' ]);
-    var outputString = result.output.map(function (out) {
+    const result = spawn.sync('node', [ elmAppCmd, 'build' ]);
+    const outputString = result.output.map(function (out) {
       return (out !== null) ? out.toString() : '';
     }).join('');
     expect(result.status).to.be.equal(0, 'Incorrect exit status code');
