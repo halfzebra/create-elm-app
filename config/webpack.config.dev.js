@@ -56,7 +56,8 @@ module.exports = {
               verbose: true,
               warn: true,
               debug: true,
-              pathToMake: paths.elmMake
+              pathToMake: paths.elmMake,
+              forceWatch: true
             }
           }
         ]
