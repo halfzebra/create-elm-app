@@ -1,74 +1,70 @@
 #!/usr/bin/env node
 
-const path = require('path');
-const spawn = require('cross-spawn');
-const argv = require('minimist')(process.argv.slice(2));
-const executablePaths = require('elm/platform').executablePaths;
+const path = require('path')
+const spawn = require('cross-spawn')
+const argv = require('minimist')(process.argv.slice(2))
+const executablePaths = require('elm/platform').executablePaths
 
-const version = require('../package.json').version;
-const elmPlatformVersion = require('elm/package.json').version;
-const paths = require('../config/paths');
+const version = require('../package.json').version
+const elmPlatformVersion = require('elm/package.json').version
+const paths = require('../config/paths')
 
-
-const commands = argv._;
+const commands = argv._
 
 if (commands.length === 0) {
-  help(version);
-  process.exit(1);
+  help(version)
+  process.exit(1)
 }
 
-const script = commands[ 0 ];
-const scriptPath = path.resolve(paths.scripts, script);
-const scriptArgs = commands.splice(1);
+const script = commands[ 0 ]
+const scriptPath = path.resolve(paths.scripts, script)
+const scriptArgs = commands.splice(1)
 
 switch (script) {
-
   case 'create':
   case 'build':
   case 'eject':
   case 'start':
-    spawnSyncNode(scriptPath, scriptArgs);
-    break;
+    spawnSyncNode(scriptPath, scriptArgs)
+    break
 
   case 'test': {
-    let args = [];
+    let args = []
     Object.keys(argv || {}).forEach(function (key) {
       if (key !== '_' && key !== 'compiler') {
-        args = args.concat([ '--' + key, argv[ key ] ]);
+        args = args.concat([ '--' + key, argv[ key ] ])
       }
-    });
+    })
 
-    args = args.concat([ '--compiler', path.normalize(executablePaths[ 'elm-make' ]) ]);
+    args = args.concat([ '--compiler', path.normalize(executablePaths[ 'elm-make' ]) ])
 
     const cp = spawn.sync(
       path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
       args,
       { stdio: 'inherit' }
-    );
+    )
 
     if (cp.status !== 0) {
-      process.exit(cp.status);
+      process.exit(cp.status)
     }
 
-    break;
+    break
   }
   default:
     // Proxy elm-platform cli commands.
     if ([ 'package', 'reactor', 'make', 'repl' ].indexOf(script) !== -1) {
-      const executable = executablePaths[ 'elm-' + script ];
+      const executable = executablePaths[ 'elm-' + script ]
 
       spawn.sync(
         path.normalize(executable),
         process.argv.slice(3),
         { stdio: 'inherit' }
-      );
-      break;
+      )
+      break
     } else {
-      help(version);
-      process.exit(1);
+      help(version)
+      process.exit(1)
     }
-
-    break;
 }
 
 /**
@@ -77,12 +73,12 @@ switch (script) {
  * @param  {string} version [description]
  * @return {undefined}
  */
-function help(version) {
-  console.log('\nUsage: elm-app <command>\n');
-  console.log('where <command> is one of:');
-  console.log('    create, build, start, package, reactor, make, repl\n');
-  console.log('\nElm ' + elmPlatformVersion + '\n');
-  console.log('create-elm-app@' + version + ' ' + path.resolve(__dirname, '..'));
+function help (version) {
+  console.log('\nUsage: elm-app <command>\n')
+  console.log('where <command> is one of:')
+  console.log('    create, build, start, package, reactor, make, repl\n')
+  console.log('\nElm ' + elmPlatformVersion + '\n')
+  console.log('create-elm-app@' + version + ' ' + path.resolve(__dirname, '..'))
 }
 
 /**
@@ -92,15 +88,14 @@ function help(version) {
  * @param  {Arrays} args   Script arguments
  * @return {undefined}
  */
-function spawnSyncNode(script, args) {
-
+function spawnSyncNode (script, args) {
   const cp = spawn.sync(
     'node',
     [ script ].concat(args || []),
     { stdio: 'inherit' }
-  );
+  )
 
   if (cp.status !== 0) {
-    process.exit(cp.status);
+    process.exit(cp.status)
   }
 }

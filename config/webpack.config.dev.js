@@ -1,9 +1,9 @@
-const autoprefixer = require('autoprefixer');
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const getClientEnvironment = require('./env');
-const paths = require('../config/paths');
+const autoprefixer = require('autoprefixer')
+const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin')
+const DefinePlugin = require('webpack/lib/DefinePlugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const getClientEnvironment = require('./env')
+const paths = require('../config/paths')
 
 module.exports = {
 
@@ -31,25 +31,32 @@ module.exports = {
 
     publicPath: '/'
   },
+
   resolveLoader: {
 
     // Look for loaders in own node_modules
     modules: [ paths.ownModules ],
     moduleExtensions: [ '-loader' ]
   },
+
   resolve: {
     modules: [ 'node_modules' ],
     extensions: [ '.js', '.elm' ]
   },
+
   module: {
+
     noParse: /\.elm$/,
+
     rules: [
 
       {
         test: /\.elm$/,
-        exclude: [ /elm-stuff/, /node_modules/ ],
+        exclude: [/elm-stuff/, /node_modules/],
         use: [
-          {loader: 'elm-hot-loader'},
+          {
+            loader: 'elm-hot-loader'
+          },
           {
             loader: 'elm-webpack-loader',
             options: {
@@ -73,19 +80,20 @@ module.exports = {
             loader: 'css-loader'
           },
           {
-            loader: 'postcss-loader', options: {
-            ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-            plugins: () => [
-              autoprefixer({
-                browsers: [
-                  '>1%',
-                  'last 4 versions',
-                  'Firefox ESR',
-                  'not ie < 9'
-                ]
-              })
-            ]
-          }
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9'
+                  ]
+                })
+              ]
+            }
           }
         ]
       },
@@ -99,7 +107,7 @@ module.exports = {
           /\.json$/,
           /\.svg$/
         ],
-        loader: 'url',
+        loader: 'url-loader',
         options: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
@@ -116,6 +124,7 @@ module.exports = {
       }
     ]
   },
+
   plugins: [
 
     new DefinePlugin(getClientEnvironment()),
@@ -126,6 +135,6 @@ module.exports = {
       favicon: paths.favicon
     }),
 
-    new HotModuleReplacementPlugin(),
+    new HotModuleReplacementPlugin()
   ]
-};
+}

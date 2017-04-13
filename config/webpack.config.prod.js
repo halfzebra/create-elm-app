@@ -1,20 +1,23 @@
-const autoprefixer = require('autoprefixer');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
-const getClientEnvironment = require('./env');
-const paths = require('../config/paths');
+const autoprefixer = require('autoprefixer')
+const DefinePlugin = require('webpack/lib/DefinePlugin')
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
+const getClientEnvironment = require('./env')
+const paths = require('../config/paths')
 
-const root = process.cwd();
+const root = process.cwd()
 
 module.exports = {
+
   bail: true,
+
   entry: [
     paths.entry
   ],
+
   output: {
 
     // The build folder.
@@ -26,18 +29,23 @@ module.exports = {
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
   },
+
   resolveLoader: {
 
     // Look for loaders in own ./node_modules
     modules: [ paths.ownModules ],
     moduleExtensions: [ '-loader' ]
   },
+
   resolve: {
     modules: [ 'node_modules' ],
     extensions: [ '.js', '.elm' ]
   },
+
   module: {
+
     noParse: /\.elm$/,
+
     rules: [
       {
         test: /\.elm$/,
@@ -106,6 +114,7 @@ module.exports = {
       }
     ]
   },
+
   plugins: [
 
     new AssetsPlugin({ path: paths.dist }),
@@ -149,4 +158,4 @@ module.exports = {
 
     new ExtractTextPlugin('css/[name].[contenthash:8].css')
   ]
-};
+}
