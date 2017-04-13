@@ -124,7 +124,7 @@ module.exports = {
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin([ 'dist' ], {
       root: root,
-      verbose: true,
+      verbose: false,
       dry: false
     }),
 
