@@ -137,7 +137,7 @@ var Elm = require('./App.elm');
 
 var root = document.getElementById('root');
 
-Elm.Main.embed(root, logoPath); // Pass image path as a flag.
+Elm.App.embed(root, logoPath); // Pass image path as a flag.
 ```
 Later on, you can use the image path in your view for displaying it in the DOM.
 
