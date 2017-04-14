@@ -4,4 +4,4 @@ var Elm = require('./App.elm')
 
 var root = document.getElementById('root')
 
-Elm.Main.embed(root, logoPath)
+Elm.App.embed(root, logoPath)
