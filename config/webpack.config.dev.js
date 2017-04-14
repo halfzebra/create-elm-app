@@ -1,6 +1,7 @@
 const autoprefixer = require('autoprefixer')
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getClientEnvironment = require('./env')
 const paths = require('../config/paths')
@@ -135,6 +136,8 @@ module.exports = {
       favicon: paths.favicon
     }),
 
-    new HotModuleReplacementPlugin()
+    new HotModuleReplacementPlugin(),
+
+    new NamedModulesPlugin()
   ]
 }
