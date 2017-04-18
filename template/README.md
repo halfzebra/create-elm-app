@@ -7,7 +7,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Sending feedback](#sending-feedback)
 - [Folder structure](#folder-structure)
 - [Installing Elm packages](#installing-elm-packages)
-- [Installing JavaScript packages](#installing-js-packages)
+- [Installing JavaScript packages](#installing-javascript-packages)
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
