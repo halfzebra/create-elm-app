@@ -8,8 +8,6 @@ const AssetsPlugin = require('assets-webpack-plugin')
 const getClientEnvironment = require('./env')
 const paths = require('../config/paths')
 
-const root = process.cwd()
-
 module.exports = {
 
   bail: true,
@@ -24,7 +22,7 @@ module.exports = {
     path: paths.dist,
 
     // Append leading slash when production assets are referenced in the html.
-    publicPath: process.env.SERVED_PATH || '/',
+    publicPath: './' || process.env.SERVED_PATH,
 
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
@@ -38,7 +36,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: [ 'node_modules' ],
+    modules: paths.resolveLoaderModules,
     extensions: [ '.js', '.elm' ]
   },
 
@@ -123,7 +121,7 @@ module.exports = {
 
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin([ 'dist' ], {
-      root: root,
+      root: paths.appRoot,
       verbose: false,
       dry: false
     }),

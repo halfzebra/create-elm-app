@@ -20,6 +20,7 @@ module.exports = {
 
     paths.entry
   ],
+
   output: {
 
     pathinfo: true,
@@ -36,7 +37,7 @@ module.exports = {
   resolveLoader: {
 
     // Look for loaders in own node_modules
-    modules: [ paths.ownModules ],
+    modules: paths.resolveLoaderModules,
     moduleExtensions: [ '-loader' ]
   },
 
