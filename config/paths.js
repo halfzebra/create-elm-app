@@ -6,7 +6,7 @@ const appRoot = process.cwd()
 const paths = {
   appRoot,
   entry: path.resolve('./src/index.js'),
-  dist: path.resolve('./build'),
+  dist: path.resolve('./dist'),
   template: path.resolve('./src/index.html'),
   favicon: path.resolve('./src/favicon.ico'),
   elmPkg: path.resolve('elm-package.json'),
