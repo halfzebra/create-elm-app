@@ -31,12 +31,12 @@ module.exports = {
   resolveLoader: {
 
     // Look for loaders in own ./node_modules
-    modules: [ paths.ownModules ],
+    modules: paths.resolveLoaderModules,
     moduleExtensions: [ '-loader' ]
   },
 
   resolve: {
-    modules: paths.resolveLoaderModules,
+    modules: [ 'node_modules' ],
     extensions: [ '.js', '.elm' ]
   },
 
