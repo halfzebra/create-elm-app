@@ -17,7 +17,7 @@ const paths = {
 }
 
 // If installed globally by yarn, attemt to resolve loaders from the directory above.
-if (isGlobal) {
+if (isGlobal(__dirname)) {
   paths.resolveLoaderModules.push(path.resolve(__dirname, '../../'))
 }
 
