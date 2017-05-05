@@ -1,6 +1,6 @@
 import './main.css'
 const logoPath = require('./logo.svg')
-const Elm = require('./App.elm')
+const Elm = require('../src/App.elm')
 
 const root = document.getElementById('root')
 
