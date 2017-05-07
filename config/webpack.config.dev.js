@@ -7,11 +7,9 @@ const getClientEnvironment = require('./env')
 const paths = require('../config/paths')
 
 module.exports = {
-
   devtool: 'eval',
 
   entry: [
-
     // WebpackDevServer client.
     require.resolve('react-dev-utils/webpackHotDevClient'),
 
@@ -22,7 +20,6 @@ module.exports = {
   ],
 
   output: {
-
     pathinfo: true,
 
     // The build folder.
@@ -35,22 +32,29 @@ module.exports = {
   },
 
   resolveLoader: {
-
     // Look for loaders in own node_modules
     modules: paths.resolveLoaderModules,
-    moduleExtensions: [ '-loader' ]
+    moduleExtensions: ['-loader']
   },
 
   resolve: {
-    modules: [ 'node_modules' ],
-    extensions: [ '.js', '.elm' ]
+    modules: ['node_modules'],
+    extensions: ['.js', '.elm']
   },
 
   module: {
-
     noParse: /\.elm$/,
 
     rules: [
+
+      {
+        test: /\.js$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'es2016', 'es2017']
+        }
+      },
 
       {
         test: /\.elm$/,
@@ -101,14 +105,7 @@ module.exports = {
       },
 
       {
-        exclude: [
-          /\.html$/,
-          /\.js$/,
-          /\.elm$/,
-          /\.css$/,
-          /\.json$/,
-          /\.svg$/
-        ],
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -128,7 +125,6 @@ module.exports = {
   },
 
   plugins: [
-
     new DefinePlugin(getClientEnvironment()),
 
     new HtmlWebpackPlugin({

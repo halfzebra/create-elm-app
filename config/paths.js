@@ -4,7 +4,7 @@ const isGlobal = require('installed-by-yarn-globally')
 const appRoot = process.cwd()
 const ownModules = path.resolve(__dirname, '../node_modules')
 
-const paths = {
+let paths = {
   appRoot,
   entry: path.resolve('./src/index.js'),
   dist: path.resolve('./dist'),

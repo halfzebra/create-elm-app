@@ -9,15 +9,11 @@ const getClientEnvironment = require('./env')
 const paths = require('../config/paths')
 
 module.exports = {
-
   bail: true,
 
-  entry: [
-    paths.entry
-  ],
+  entry: [paths.entry],
 
   output: {
-
     // The build folder.
     path: paths.dist,
 
@@ -29,25 +25,33 @@ module.exports = {
   },
 
   resolveLoader: {
-
     // Look for loaders in own ./node_modules
     modules: paths.resolveLoaderModules,
-    moduleExtensions: [ '-loader' ]
+    moduleExtensions: ['-loader']
   },
 
   resolve: {
-    modules: [ 'node_modules' ],
-    extensions: [ '.js', '.elm' ]
+    modules: ['node_modules'],
+    extensions: ['.js', '.elm']
   },
 
   module: {
-
     noParse: /\.elm$/,
 
     rules: [
+
+      {
+        test: /\.js$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'es2016', 'es2017']
+        }
+      },
+
       {
         test: /\.elm$/,
-        exclude: [ /elm-stuff/, /node_modules/ ],
+        exclude: [/elm-stuff/, /node_modules/],
 
         // Use the local installation of elm-make
         loader: 'elm-webpack-loader',
@@ -88,14 +92,7 @@ module.exports = {
       },
 
       {
-        exclude: [
-          /\.html$/,
-          /\.js$/,
-          /\.elm$/,
-          /\.css$/,
-          /\.json$/,
-          /\.svg$/
-        ],
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -114,13 +111,12 @@ module.exports = {
   },
 
   plugins: [
-
-    new AssetsPlugin({ path: paths.dist }),
+    new AssetsPlugin({path: paths.dist}),
 
     new DefinePlugin(getClientEnvironment()),
 
     // Remove the content of the ./dist/ folder.
-    new CleanWebpackPlugin([ 'dist' ], {
+    new CleanWebpackPlugin(['dist'], {
       root: paths.appRoot,
       verbose: false,
       dry: false
