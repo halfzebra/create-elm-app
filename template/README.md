@@ -113,6 +113,12 @@ Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
 
 Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
 
+To use packages in tests, you also need to install them in `tests` directory.
+```sh
+cd tests
+elm-app package install xxx/yyy
+```
+
 #### `repl`
 Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
 
