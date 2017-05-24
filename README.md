@@ -16,10 +16,10 @@ Create Elm apps with no build configuration.
 npm install create-elm-app -g
 create-elm-app my-app
 cd my-app/
-elm-app start
+npm start
 ```
 
-Create a production build with `elm-app build`
+Create a production build with `npm run build`
 
 ## Getting Started
 
@@ -64,7 +64,7 @@ my-app/
 
 You are ready to employ the full power of Create Elm App!
 
-### `elm-app start`
+### `npm start`
 Run the app in development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -73,7 +73,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.
 You will see the build errors and lint warnings in the console and the browser window.
 
-### `elm-app build`
+### `npm run build`
 Builds the app for production to the `build` folder.
 It bundles Elm app and optimizes the build for the best performance.
 

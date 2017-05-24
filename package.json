@@ -17,6 +17,10 @@
     "create-elm-app": "./bin/create-elm-app-cli.js"
   },
   "scripts": {
+    "start": "elm-app start",
+    "build": "elm-app build",
+    "eject": "elm-app eject",
+    "create": "elm-app create",
     "commit": "git-cz",
     "precommit": "standard --verbose | snazzy",
     "test": "npm run -s test:cli && npm run -s test:functional",
