@@ -158,7 +158,7 @@ view model =
 ```
 
 ## Setting up API Proxy
-In the development server, to configure a proxy for API calls, add a proxy to the `elm-package.json` in the top level json object.
+To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
 
 ```json
 {
@@ -168,7 +168,9 @@ In the development server, to configure a proxy for API calls, add a proxy to th
 }
 ```
 
-Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`, as otherwise development server may not proxy the request properly.
+Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`.
+The development server has heuristics, to handle it's own flow, which may interfere with proxying of 
+other html and javascript content types.
 
 ```sh
  curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
