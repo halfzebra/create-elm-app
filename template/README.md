@@ -19,7 +19,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [make](#make)
     - [reactor](#reactor)
 - [Adding Images and Fonts](#adding-images-and-fonts)
-- [Setting up API Proxy](#setting-up-proxy)
+- [Setting up API Proxy](#setting-up-api-proxy)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 - [Deploying to GitHub Pages](#deploying-to-github-pages)
 
