@@ -1,5 +1,13 @@
 # Contributing to Create Elm App
 
+Thank you for considering contributing to Create Elm App!
+
+Would you like to get involved?
+
+Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
+
+Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue or assessing patches and features.
+
 ## Setting Up a Local Copy
 
 1. Fork the repo and clone with `git clone git@github.com:%YOUR_USERNAME%/create-elm-app.git`
