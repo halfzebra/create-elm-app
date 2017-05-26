@@ -19,6 +19,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [make](#make)
     - [reactor](#reactor)
 - [Adding Images and Fonts](#adding-images-and-fonts)
+- [Setting up API Proxy](#setting-up-api-proxy)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 - [Deploying to GitHub Pages](#deploying-to-github-pages)
 
@@ -156,6 +157,24 @@ view model =
         ]
 ```
 
+## Setting up API Proxy
+To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
+
+```json
+{
+    ...
+    "proxy" : "http://localhost:1313",
+    ...
+}
+```
+
+Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`.
+The development server has heuristics, to handle it's own flow, which may interfere with proxying of 
+other html and javascript content types.
+
+```sh
+ curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
+```
 
 ## IDE setup for Hot Module Replacement
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
