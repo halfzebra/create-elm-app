@@ -6,6 +6,7 @@ const ownModules = path.resolve(__dirname, '../node_modules')
 
 let paths = {
   appRoot,
+  ownModules,
   entry: path.resolve('./src/index.js'),
   dist: path.resolve('./dist'),
   template: path.resolve('./src/index.html'),

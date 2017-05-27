@@ -1,3 +1,4 @@
+const path = require('path')
 const autoprefixer = require('autoprefixer')
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
@@ -52,7 +53,11 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'es2016', 'es2017']
+          presets: [
+            'es2015',
+            'es2016',
+            'es2017'
+          ].map(preset => path.resolve(paths.ownModules, `babel-preset-${preset}`))
         }
       },
 
