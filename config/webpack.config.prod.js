@@ -1,4 +1,3 @@
-const path = require('path')
 const autoprefixer = require('autoprefixer')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
@@ -47,10 +46,10 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: [
-            'es2015',
-            'es2016',
-            'es2017'
-          ].map(preset => path.resolve(paths.ownModules, `babel-preset-${preset}`))
+            require.resolve('babel-preset-es2015'),
+            require.resolve('babel-preset-es2016'),
+            require.resolve('babel-preset-es2017')
+          ]
         }
       },
 
