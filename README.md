@@ -1,9 +1,4 @@
-# Create Elm App
-
-[![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app)
-[![Build Status](https://travis-ci.org/halfzebra/create-elm-app.svg?branch=tests)](https://travis-ci.org/halfzebra/create-elm-app)
-[![dependencies Status](https://david-dm.org/halfzebra/create-elm-app/status.svg)](https://david-dm.org/halfzebra/create-elm-app)
-[![devDependencies Status](https://david-dm.org/halfzebra/create-elm-app/dev-status.svg)](https://david-dm.org/halfzebra/create-elm-app?type=dev)
+# Create Elm App [![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app) [![Build Status](https://travis-ci.org/halfzebra/create-elm-app.svg?branch=tests)](https://travis-ci.org/halfzebra/create-elm-app)
 
 Create Elm apps with no build configuration.
 
