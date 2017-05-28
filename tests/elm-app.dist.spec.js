@@ -14,7 +14,7 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js')
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js')
 
 describe('Creating and making a dist build of Elm application', function () {
-  this.timeout(10000)
+  this.timeout(25000)
 
   before(done => {
     spawn('node', [createElmAppCmd, testAppName]).on('close', status => {
