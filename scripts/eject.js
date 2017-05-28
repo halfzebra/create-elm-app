@@ -1,7 +1,6 @@
 const path = require('path')
 const spawn = require('cross-spawn')
 const chalk = require('chalk')
-const extend = require('extend')
 const prompt = require('prompt')
 const fs = require('fs-extra')
 const Table = require('cli-table')
@@ -12,10 +11,10 @@ function extendOmittingProps (deps, deleteProps) {
     deleteProps = []
   }
 
-  deps = extend({}, deps)
+  deps = Object.assign({}, deps)
 
   deleteProps.forEach(function (name) {
-    delete deps[ name ]
+    delete deps[name]
   })
 
   return deps
@@ -23,7 +22,7 @@ function extendOmittingProps (deps, deleteProps) {
 
 function diffTable (target, mixin, head) {
   if (typeof head === 'undefined') {
-    head = [ chalk.grey('Name'), chalk.yellow('Old'), chalk.green('New') ]
+    head = [chalk.grey('Name'), chalk.yellow('Old'), chalk.green('New')]
   }
 
   const table = new Table({
@@ -32,11 +31,11 @@ function diffTable (target, mixin, head) {
 
   for (const propName in target) {
     if (propName in mixin) {
-      const targetPropValue = target[ propName ]
-      const mixinPropValue = mixin[ propName ]
+      const targetPropValue = target[propName]
+      const mixinPropValue = mixin[propName]
       // If found and is not equal
       if (targetPropValue !== mixinPropValue) {
-        table.push([ propName, targetPropValue, mixinPropValue ])
+        table.push([propName, targetPropValue, mixinPropValue])
       }
     }
   }
@@ -84,8 +83,8 @@ function performEject (pkg) {
   // Install npm packages
   spawn.sync(
     'npm',
-    [ 'install' ],
-    { stdio: 'inherit' }
+    ['install'],
+    {stdio: 'inherit'}
   )
 
   console.log(chalk.green('\nEjected successfully!'))
@@ -96,7 +95,6 @@ const unusedDependencies = [
   'cross-spawn',
   'fs-extra',
   'cli-table',
-  'extend',
   'prompt'
 ]
 const devDependencies = extendOmittingProps(pkgOwn.dependencies, unusedDependencies)
@@ -117,7 +115,7 @@ if (fs.existsSync('elm-package.json') === false) {
 
 if (fs.existsSync('./package.json') === true) {
   console.log('Found existing package.json')
-  const pkgEjected = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }))
+  const pkgEjected = JSON.parse(fs.readFileSync('./package.json', {encoding: 'utf-8'}))
 
   Promise.resolve()
     .then(function () {
@@ -141,8 +139,8 @@ if (fs.existsSync('./package.json') === true) {
       }
     })
     .then(function () {
-      pkgEjected.devDependencies = extend({}, devDependencies, pkgEjected.devDependencies)
-      pkgEjected.scripts = extend({}, scripts, pkgEjected.scripts)
+      pkgEjected.devDependencies = Object.assign({}, devDependencies, pkgEjected.devDependencies)
+      pkgEjected.scripts = Object.assign({}, scripts, pkgEjected.scripts)
       performEject(pkgEjected)
     })
     .catch(function (error) {

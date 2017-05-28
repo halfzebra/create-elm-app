@@ -59,7 +59,6 @@
     "elm-hot-loader": "0.5.4",
     "elm-test": "0.18.2",
     "elm-webpack-loader": "^4.3.0",
-    "extend": "3.0.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.2",
     "file-loader": "0.11.1",
     "fs-extra": "^3.0.1",
