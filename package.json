@@ -17,7 +17,7 @@
     "create-elm-app": "./bin/create-elm-app-cli.js"
   },
   "scripts": {
-    "commit": "git-cz",
+    "cz": "git-cz",
     "precommit": "standard --verbose | snazzy",
     "test": "npm run -s test:cli && npm run -s test:functional",
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
