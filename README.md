@@ -105,6 +105,9 @@ Inspired by [create-react-app](https://github.com/facebookincubator/create-react
 
 * **No Lock-In:** You can “eject” to a custom setup at any time. Run a single command, and all the configuration and build dependencies will be moved directly into your project, so you can pick up right where you left off.
 
+## Contributing
+We would love to get you involved! Please check our [Contributing Guide](CONTRIBUTING.md) to get started!
+
 ## What is inside
 This tool contains a local installation of [elm-platform](https://github.com/elm-lang/elm-platform) and heavily relies on [webpack](https://github.com/webpack/webpack) in the build process.
 
