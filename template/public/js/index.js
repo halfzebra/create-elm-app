@@ -1,8 +1,8 @@
-import '../css/main.css';
+import '../css/main.css'
 
-const logoPath = require('../media/logo.svg');
-const Elm = require('../../src/App.elm');
+const logoPath = require('../media/logo.svg')
+const Elm = require('../../src/App.elm')
 
-const root = document.getElementById('root');
+const root = document.getElementById('root')
 
 Elm.App.embed(root, logoPath)
