@@ -3,6 +3,7 @@
 require('dotenv').config({silent: true})
 
 const fs = require('fs')
+const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -134,7 +135,7 @@ choosePort(HOST, DEFAULT_PORT)
       return
     }
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
-    const appName = require(paths.elmPkg).name
+    const appName = path.basename(path.dirname(paths.elmPkg))
     const urls = prepareUrls(protocol, HOST, port)
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler(webpack, config, appName, urls)
