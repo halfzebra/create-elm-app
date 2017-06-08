@@ -33,6 +33,8 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
+const extractCSS = new ExtractTextPlugin(cssFilename)
+
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
@@ -59,7 +61,7 @@ module.exports = {
   },
 
   module: {
-    noParse: /\.elm$/,
+    noParse: /^((?!Stylesheet).)*\.elm.*$/,
 
     rules: [
       {
@@ -77,7 +79,7 @@ module.exports = {
 
       {
         test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/elm-stuff/, /node_modules/, /Stylesheets\.elm$/],
         use: [
           // string-replace-loader works as InterpolateHtmlPlugin for Elm,
           // it replaces all of the %PUBLIC_URL% with the URL of your
@@ -101,8 +103,31 @@ module.exports = {
       },
 
       {
+        test: /Stylesheets\.elm$/,
+        use: extractCSS.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('string-replace-loader'),
+              query: {
+                search: '%PUBLIC_URL%',
+                replace: publicUrl
+              }
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            'elm-css-webpack-loader'
+          ]
+        })
+      },
+
+      {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract(
+        use: extractCSS.extract(
           Object.assign(
             {
               fallback: require.resolve('style-loader'),
@@ -191,9 +216,7 @@ module.exports = {
       }
     }),
 
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-    new ExtractTextPlugin({
-      filename: cssFilename
-    })
+    // Note: this won't work without extractCSS.extract(..) in `loaders`.
+    extractCSS
   ]
 };
