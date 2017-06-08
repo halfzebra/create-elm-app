@@ -24,12 +24,6 @@ module.exports = {
     filename: 'js/[name].[chunkhash:8].js'
   },
 
-  resolveLoader: {
-    // Look for loaders in own ./node_modules
-    modules: paths.resolveLoaderModules,
-    moduleExtensions: ['-loader']
-  },
-
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.elm']

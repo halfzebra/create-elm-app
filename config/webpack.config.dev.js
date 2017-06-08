@@ -31,12 +31,6 @@ module.exports = {
     publicPath: '/'
   },
 
-  resolveLoader: {
-    // Look for loaders in own node_modules
-    modules: paths.resolveLoaderModules,
-    moduleExtensions: ['-loader']
-  },
-
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.elm']
