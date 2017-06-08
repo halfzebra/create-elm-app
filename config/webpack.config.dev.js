@@ -4,9 +4,10 @@ const DefinePlugin = require('webpack/lib/DefinePlugin')
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getClientEnvironment = require('./env')
-const paths = require('../config/paths')
+const configPaths = require('../config/paths')
+const resolveLoader = require('../config/resolveLoader')
 
-module.exports = {
+module.exports = Object.assign({
   devtool: 'eval',
 
   entry: [
@@ -16,14 +17,14 @@ module.exports = {
     // Replacement runtime.
     require.resolve('webpack/hot/dev-server'),
 
-    paths.entry
+    configPaths.entry
   ],
 
   output: {
     pathinfo: true,
 
     // The build folder.
-    path: paths.dist,
+    path: configPaths.dist,
 
     // Generated JS files.
     filename: 'dist/js/bundle.js',
@@ -67,7 +68,7 @@ module.exports = {
               verbose: true,
               warn: true,
               debug: true,
-              pathToMake: paths.elmMake,
+              pathToMake: configPaths.elmMake,
               forceWatch: true
             }
           }
@@ -127,12 +128,12 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.template,
-      favicon: paths.favicon
+      template: configPaths.template,
+      favicon: configPaths.favicon
     }),
 
     new HotModuleReplacementPlugin(),
 
     new NamedModulesPlugin()
   ]
-}
+}, resolveLoader)

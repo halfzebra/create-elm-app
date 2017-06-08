@@ -5,17 +5,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const AssetsPlugin = require('assets-webpack-plugin')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const getClientEnvironment = require('./env')
-const paths = require('../config/paths')
+const configPaths = require('../config/paths')
+const resolveLoader = require('../config/resolveLoader')
 
-module.exports = {
+module.exports = Object.assign({
   bail: true,
 
-  entry: [paths.entry],
+  entry: [configPaths.entry],
 
   output: {
     // The build folder.
-    path: paths.dist,
+    path: configPaths.dist,
 
     // Append leading slash when production assets are referenced in the html.
     publicPath: './' || process.env.SERVED_PATH,
@@ -54,7 +56,7 @@ module.exports = {
         // Use the local installation of elm-make
         loader: 'elm-webpack-loader',
         options: {
-          pathToMake: paths.elmMake
+          pathToMake: configPaths.elmMake
         }
       },
 
@@ -109,13 +111,18 @@ module.exports = {
   },
 
   plugins: [
-    new AssetsPlugin({path: paths.dist}),
+
+    new InterpolateHtmlPlugin({
+      PUBLIC_URL: 'pidar'
+    }),
+
+    new AssetsPlugin({path: configPaths.dist}),
 
     new DefinePlugin(getClientEnvironment()),
 
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin(['dist'], {
-      root: paths.appRoot,
+      root: configPaths.appRoot,
       verbose: false,
       dry: false
     }),
@@ -132,8 +139,8 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.template,
-      favicon: paths.favicon,
+      template: configPaths.template,
+      favicon: configPaths.favicon,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -150,4 +157,4 @@ module.exports = {
 
     new ExtractTextPlugin('css/[name].[contenthash:8].css')
   ]
-}
+}, resolveLoader)
