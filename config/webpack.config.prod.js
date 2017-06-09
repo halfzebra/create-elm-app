@@ -20,7 +20,7 @@ module.exports = Object.assign({
     path: configPaths.dist,
 
     // Append leading slash when production assets are referenced in the html.
-    publicPath: './' || process.env.SERVED_PATH,
+    publicPath: configPaths.publicPath,
 
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
@@ -113,7 +113,7 @@ module.exports = Object.assign({
   plugins: [
 
     new InterpolateHtmlPlugin({
-      PUBLIC_URL: 'pidar'
+      PUBLIC_URL: publicPath
     }),
 
     new AssetsPlugin({path: configPaths.dist}),

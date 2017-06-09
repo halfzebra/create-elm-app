@@ -10,7 +10,8 @@ let paths = {
   favicon: path.resolve('./src/favicon.ico'),
   elmPkg: path.resolve('elm-package.json'),
   scripts: path.resolve(__dirname, '../scripts'),
-  elmMake: path.resolve(__dirname, '../node_modules/.bin/elm-make')
+  elmMake: path.resolve(__dirname, '../node_modules/.bin/elm-make'),
+  servedPath: './' || process.env.SERVED_PATH
 }
 
 module.exports = paths
