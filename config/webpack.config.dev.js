@@ -2,10 +2,19 @@ const autoprefixer = require('autoprefixer')
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getClientEnvironment = require('./env')
 const configPaths = require('../config/paths')
 const resolveLoader = require('../config/resolveLoader')
+
+// Webpack uses `publicPath` to determine where the app is being served from.
+// In development, we always serve from the root. This makes config easier.
+const publicPath = '/'
+// `publicUrl` is just like `publicPath`, but we will provide it to our app
+// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+// Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
+const publicUrl = ''
 
 module.exports = Object.assign({
   devtool: 'eval',
@@ -29,7 +38,7 @@ module.exports = Object.assign({
     // Generated JS files.
     filename: 'dist/js/bundle.js',
 
-    publicPath: '/'
+    publicPath: publicPath
   },
 
   resolve: {
@@ -125,6 +134,10 @@ module.exports = Object.assign({
 
   plugins: [
     new DefinePlugin(getClientEnvironment()),
+
+    new InterpolateHtmlPlugin({
+      PUBLIC_URL: publicUrl
+    }),
 
     new HtmlWebpackPlugin({
       inject: true,

@@ -10,6 +10,14 @@ const getClientEnvironment = require('./env')
 const configPaths = require('../config/paths')
 const resolveLoader = require('../config/resolveLoader')
 
+// Webpack uses `publicPath` to determine where the app is being served from.
+// It requires a trailing slash, or the file assets will get an incorrect path.
+const publicPath = configPaths.servedPath
+// `publicUrl` is just like `publicPath`, but we will provide it to our app
+// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+// Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
+const publicUrl = publicPath.slice(0, -1)
+
 module.exports = Object.assign({
   bail: true,
 
@@ -20,7 +28,7 @@ module.exports = Object.assign({
     path: configPaths.dist,
 
     // Append leading slash when production assets are referenced in the html.
-    publicPath: configPaths.publicPath,
+    publicPath: publicPath,
 
     // Generated JS files.
     filename: 'js/[name].[chunkhash:8].js'
@@ -113,7 +121,7 @@ module.exports = Object.assign({
   plugins: [
 
     new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicPath
+      PUBLIC_URL: publicUrl
     }),
 
     new AssetsPlugin({path: configPaths.dist}),
