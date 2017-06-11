@@ -1,16 +1,23 @@
-const path = require('path')
+const path = require('path');
+const fs = require('fs');
 
-const appRoot = process.cwd()
+// Make sure any symlinks in the project folder are resolved:
+// https://github.com/facebookincubator/create-react-app/issues/637
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 let paths = {
-  appRoot,
-  entry: path.resolve('./public/js/index.js'),
-  dist: path.resolve('./dist'),
-  template: path.resolve('./public/index.html'),
-  favicon: path.resolve('./public/favicon.ico'),
-  elmPkg: path.resolve('elm-package.json'),
+  appPath: resolveApp('.'),
+  appPublic: resolveApp('./public'),
+  appHtml: resolveApp('./public/index.html'),
+  appIndexJs: resolveApp('./src/index.js'),
+  appSrc: resolveApp('./src'),
+  entry: resolveApp('./src/index.js'),
+  appBuild: resolveApp('./build'),
+  elmPkg: resolveApp('./elm-package.json'),
+  scripts: path.resolve(__dirname, '../scripts'),
   elmMake: require('elm/platform').executablePaths['elm-make'],
   servedPath: './' || process.env.SERVED_PATH
-}
+};
 
-module.exports = paths
+module.exports = paths;

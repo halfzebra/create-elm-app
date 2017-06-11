@@ -1,30 +1,33 @@
-const autoprefixer = require('autoprefixer')
-const DefinePlugin = require('webpack/lib/DefinePlugin')
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const AssetsPlugin = require('assets-webpack-plugin')
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-const getClientEnvironment = require('./env')
-const configPaths = require('../config/paths')
+const autoprefixer = require('autoprefixer');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const getClientEnvironment = require('./env');
+const configPaths = require('../config/paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
-const publicPath = configPaths.servedPath
+const publicPath = paths.servedPath;
+// Some apps do not use client-side routing with pushState.
+// For these, "homepage" can be set to "." to enable relative asset paths.
+const shouldUseRelativeAssetPaths = publicPath === './';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-const publicUrl = publicPath.slice(0, -1)
+const publicUrl = publicPath.slice(0, -1);
 
 module.exports = {
   bail: true,
 
-  entry: [configPaths.entry],
+  entry: [paths.appIndexJs],
 
   output: {
     // The build folder.
-    path: configPaths.dist,
+    path: paths.appBuild,
 
     // Append leading slash when production assets are referenced in the html.
     publicPath: publicPath,
@@ -42,7 +45,6 @@ module.exports = {
     noParse: /\.elm$/,
 
     rules: [
-
       {
         test: /\.js$/,
         exclude: [/elm-stuff/, /node_modules/],
@@ -63,7 +65,7 @@ module.exports = {
         // Use the local installation of elm-make
         loader: require.resolve('elm-webpack-loader'),
         options: {
-          pathToMake: configPaths.elmMake
+          pathToMake: paths.elmMake
         }
       },
 
@@ -118,18 +120,17 @@ module.exports = {
   },
 
   plugins: [
-
     new InterpolateHtmlPlugin({
       PUBLIC_URL: publicUrl
     }),
 
-    new AssetsPlugin({path: configPaths.dist}),
+    new AssetsPlugin({ path: paths.appBuild }),
 
     new DefinePlugin(getClientEnvironment()),
 
     // Remove the content of the ./dist/ folder.
     new CleanWebpackPlugin(['dist'], {
-      root: configPaths.appRoot,
+      root: paths.appPath,
       verbose: false,
       dry: false
     }),
@@ -146,8 +147,7 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       inject: true,
-      template: configPaths.template,
-      favicon: configPaths.favicon,
+      template: paths.appHtml,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -164,4 +164,4 @@ module.exports = {
 
     new ExtractTextPlugin('css/[name].[contenthash:8].css')
   ]
-}
+};
