@@ -159,7 +159,7 @@ if (fs.existsSync('./package.json') === true) {
   console.log(chalk.green('New package.json is created for your project'));
   performEject({
     name: path.basename(process.cwd()),
-    version: '0.0.1',
+    version: '1.0.0',
     private: true,
     scripts: scripts,
     devDependencies: devDependencies
