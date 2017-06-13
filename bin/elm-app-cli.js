@@ -39,7 +39,7 @@ switch (script) {
     args = args.concat([ '--compiler', path.normalize(executablePaths[ 'elm-make' ]) ])
 
     const cp = spawn.sync(
-      path.resolve(__dirname, '..', 'node_modules/elm-test/bin/elm-test'),
+      require.resolve('elm-test/bin/elm-test'),
       args,
       { stdio: 'inherit' }
     )

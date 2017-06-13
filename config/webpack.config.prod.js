@@ -8,7 +8,6 @@ const AssetsPlugin = require('assets-webpack-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const getClientEnvironment = require('./env')
 const configPaths = require('../config/paths')
-const resolveLoader = require('../config/resolveLoader')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -18,7 +17,7 @@ const publicPath = configPaths.servedPath
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = publicPath.slice(0, -1)
 
-module.exports = Object.assign({
+module.exports = {
   bail: true,
 
   entry: [configPaths.entry],
@@ -47,7 +46,7 @@ module.exports = Object.assign({
       {
         test: /\.js$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         query: {
           presets: [
             require.resolve('babel-preset-es2015'),
@@ -62,7 +61,7 @@ module.exports = Object.assign({
         exclude: [/elm-stuff/, /node_modules/],
 
         // Use the local installation of elm-make
-        loader: 'elm-webpack-loader',
+        loader: require.resolve('elm-webpack-loader'),
         options: {
           pathToMake: configPaths.elmMake
         }
@@ -71,16 +70,16 @@ module.exports = Object.assign({
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: require.resolve('style-loader'),
           use: [
             {
-              loader: 'css-loader',
+              loader: require.resolve('css-loader'),
               options: {
                 minimize: true
               }
             },
             {
-              loader: 'postcss-loader',
+              loader: require.resolve('postcss-loader'),
               options: {
                 ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
                 plugins: () => [
@@ -101,7 +100,7 @@ module.exports = Object.assign({
 
       {
         exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
-        loader: 'url-loader',
+        loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
@@ -110,7 +109,7 @@ module.exports = Object.assign({
       // "file" loader for svg
       {
         test: /\.svg$/,
-        loader: 'file-loader',
+        loader: require.resolve('file-loader'),
         options: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
@@ -165,4 +164,4 @@ module.exports = Object.assign({
 
     new ExtractTextPlugin('css/[name].[contenthash:8].css')
   ]
-}, resolveLoader)
+}

@@ -6,7 +6,6 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getClientEnvironment = require('./env')
 const configPaths = require('../config/paths')
-const resolveLoader = require('../config/resolveLoader')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -16,7 +15,7 @@ const publicPath = '/'
 // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
 const publicUrl = ''
 
-module.exports = Object.assign({
+module.exports = {
   devtool: 'eval',
 
   entry: [
@@ -54,7 +53,7 @@ module.exports = Object.assign({
       {
         test: /\.js$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         query: {
           presets: [
             require.resolve('babel-preset-es2015'),
@@ -69,10 +68,10 @@ module.exports = Object.assign({
         exclude: [/elm-stuff/, /node_modules/],
         use: [
           {
-            loader: 'elm-hot-loader'
+            loader: require.resolve('elm-hot-loader')
           },
           {
-            loader: 'elm-webpack-loader',
+            loader: require.resolve('elm-webpack-loader'),
             options: {
               verbose: true,
               warn: true,
@@ -88,13 +87,13 @@ module.exports = Object.assign({
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: require.resolve('style-loader')
           },
           {
-            loader: 'css-loader'
+            loader: require.resolve('css-loader')
           },
           {
-            loader: 'postcss-loader',
+            loader: require.resolve('postcss-loader'),
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
@@ -114,7 +113,7 @@ module.exports = Object.assign({
 
       {
         exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
-        loader: 'url-loader',
+        loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
@@ -124,7 +123,7 @@ module.exports = Object.assign({
       // "file" loader for svg
       {
         test: /\.svg$/,
-        loader: 'file-loader',
+        loader: require.resolve('file-loader'),
         options: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
@@ -149,4 +148,4 @@ module.exports = Object.assign({
 
     new NamedModulesPlugin()
   ]
-}, resolveLoader)
+}
