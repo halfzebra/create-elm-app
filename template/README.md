@@ -77,7 +77,7 @@ You may create subdirectories inside src.
 ## Available scripts
 In the project directory you can run:
 ### `elm-app build`
-Builds the app for production to the `dist` folder.  
+Builds the app for production to the `build` folder.  
 
 The build is minified, and the filenames include the hashes.  
 Your app is ready to be deployed!
@@ -198,5 +198,5 @@ The path must be `./` so the assets are served using relative paths.
 #### Step 3: build the project and deploy it to GitHub Pages
 ```sh
 elm-app build
-gh-pages -d dist
+gh-pages -d build
 ```

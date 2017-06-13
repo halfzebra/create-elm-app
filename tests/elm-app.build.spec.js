@@ -36,8 +36,8 @@ describe('Building Elm application with `elm-app build`', function() {
       })
       .join('');
     expect(result.status).to.be.equal(0, 'Incorrect exit status code');
-    expect(outputString).to.have.string('build is ready in `dist/`');
-    expect(fs.existsSync(path.join(testAppDir, 'dist'))).to.be.equal(true);
+    expect(outputString).to.have.string('Compiled successfully.');
+    expect(fs.existsSync(path.join(testAppDir, 'build'))).to.be.equal(true);
   }).timeout(12 * 60 * 1000);
 
   it(

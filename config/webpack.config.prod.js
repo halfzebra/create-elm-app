@@ -20,7 +20,20 @@ const shouldUseRelativeAssetPaths = publicPath === './';
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = publicPath.slice(0, -1);
 
+// Note: defined here because it will be used more than once.
+const cssFilename = 'static/css/[name].[contenthash:8].css';
+
+// ExtractTextPlugin expects the build output to be flat.
+// (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
+// However, our output is structured with css, js and media folders.
+// To have this structure working with relative paths, we have to use custom options.
+const extractTextPluginOptions = shouldUseRelativeAssetPaths
+  ? // Making sure that the publicPath goes back to to build folder.
+    { publicPath: Array(cssFilename.split('/').length).join('../') }
+  : {};
+
 module.exports = {
+  // Don't attempt to continue if there are any errors.
   bail: true,
 
   entry: [paths.appIndexJs],
@@ -32,8 +45,11 @@ module.exports = {
     // Append leading slash when production assets are referenced in the html.
     publicPath: publicPath,
 
+    // Add /* filename */ comments to generated require()s in the output.
+    pathinfo: true,
+
     // Generated JS files.
-    filename: 'js/[name].[chunkhash:8].js'
+    filename: 'static/js/[name].[chunkhash:8].js'
   },
 
   resolve: {
@@ -71,33 +87,38 @@ module.exports = {
 
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: require.resolve('style-loader'),
-          use: [
+        use: ExtractTextPlugin.extract(
+          Object.assign(
             {
-              loader: require.resolve('css-loader'),
-              options: {
-                minimize: true
-              }
-            },
-            {
-              loader: require.resolve('postcss-loader'),
-              options: {
-                ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-                plugins: () => [
-                  autoprefixer({
-                    browsers: [
-                      '>1%',
-                      'last 4 versions',
-                      'Firefox ESR',
-                      'not ie < 9'
+              fallback: require.resolve('style-loader'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    minimize: true
+                  }
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                    plugins: () => [
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9'
+                        ]
+                      })
                     ]
-                  })
-                ]
-              }
-            }
-          ]
-        })
+                  }
+                }
+              ]
+            },
+            extractTextPluginOptions
+          )
+        )
       },
 
       {
@@ -128,13 +149,6 @@ module.exports = {
 
     new DefinePlugin(getClientEnvironment()),
 
-    // Remove the content of the ./dist/ folder.
-    new CleanWebpackPlugin(['dist'], {
-      root: paths.appPath,
-      verbose: false,
-      dry: false
-    }),
-
     // Minify the compiled JavaScript.
     new UglifyJsPlugin({
       compress: {
@@ -162,6 +176,9 @@ module.exports = {
       }
     }),
 
-    new ExtractTextPlugin('css/[name].[contenthash:8].css')
+    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    new ExtractTextPlugin({
+      filename: cssFilename
+    })
   ]
 };

@@ -89,7 +89,7 @@ elm-stuff
 repl-temp-*
 
 # create-elm-app
-template/dist
+template/build
 template/package.json
 
 # Desktop Services Store on macOS

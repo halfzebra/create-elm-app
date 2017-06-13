@@ -81,7 +81,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
         .join('');
 
       expect(result.status).to.be.equal(0);
-      expect(outputString).to.have.string('build is ready in `dist/`');
+      expect(outputString).to.have.string('build is ready in `build/`');
     }
   ).timeout(5 * 60 * 1000);
 });

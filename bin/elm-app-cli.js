@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
@@ -28,7 +30,7 @@ switch (script) {
 
   case 'test': {
     let args = [];
-    Object.keys(argv || {}).forEach(function(key) {
+    Object.keys(argv || {}).forEach(key => {
       if (key !== '_' && key !== 'compiler') {
         args = args.concat(['--' + key, argv[key]]);
       }

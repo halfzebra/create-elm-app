@@ -13,7 +13,7 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Creating and making a dist build of Elm application', function() {
+describe('Creating and making a build of Elm application', function() {
   this.timeout(25000);
 
   before(done => {
@@ -38,7 +38,7 @@ describe('Creating and making a dist build of Elm application', function() {
 
   it('compiled correctly and renders "Your Elm App is working!" text', done => {
     Nightmare()
-      .goto('file://' + path.resolve(testAppDir, 'dist/index.html'))
+      .goto('file://' + path.resolve(testAppDir, 'build/index.html'))
       .evaluate(() => {
         return document.body.innerText;
       })
