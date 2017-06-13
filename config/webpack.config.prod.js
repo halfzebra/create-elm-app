@@ -1,13 +1,14 @@
+'use strict';
+
 const autoprefixer = require('autoprefixer');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const getClientEnvironment = require('./env');
-const configPaths = require('../config/paths');
+const paths = require('../config/paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.

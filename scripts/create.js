@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const copySync = require('fs-extra').copySync;
 const path = require('path');

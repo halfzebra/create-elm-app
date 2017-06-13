@@ -1,3 +1,5 @@
+'use strict';
+
 // Load environment variables from .env file.
 // Suppress warnings if this file is missing.
 require('dotenv').config({ silent: true });
@@ -83,7 +85,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
 function build(previousFileSizes) {
   console.log('Creating an optimized production build...');
 
-  let compiler = webpack(config);
+  const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) {

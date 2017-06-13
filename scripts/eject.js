@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const spawn = require('cross-spawn');
 const chalk = require('chalk');
@@ -13,7 +15,7 @@ function extendOmittingProps(deps, deleteProps) {
 
   deps = Object.assign({}, deps);
 
-  deleteProps.forEach(function(name) {
+  deleteProps.forEach(name => {
     delete deps[name];
   });
 
@@ -115,7 +117,7 @@ if (fs.existsSync('./package.json') === true) {
   );
 
   Promise.resolve()
-    .then(function() {
+    .then(() => {
       if (pkgEjected.hasOwnProperty('devDependencies')) {
         const diff = diffTable(pkgEjected.devDependencies, devDependencies);
         if (diff.length !== 0) {
@@ -127,7 +129,7 @@ if (fs.existsSync('./package.json') === true) {
         }
       }
     })
-    .then(function() {
+    .then(() => {
       if (
         pkgEjected.hasOwnProperty('scripts') &&
         Object.keys(pkgEjected.scripts).length === 0
@@ -142,7 +144,7 @@ if (fs.existsSync('./package.json') === true) {
         }
       }
     })
-    .then(function() {
+    .then(() => {
       pkgEjected.devDependencies = Object.assign(
         {},
         devDependencies,
@@ -151,7 +153,7 @@ if (fs.existsSync('./package.json') === true) {
       pkgEjected.scripts = Object.assign({}, scripts, pkgEjected.scripts);
       performEject(pkgEjected);
     })
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
       process.exit(1);
     });

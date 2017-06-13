@@ -1,3 +1,5 @@
+'use strict';
+
 // Load environment variables from .env file.
 // Suppress warnings if this file is missing.
 require('dotenv').config({ silent: true });
@@ -163,8 +165,8 @@ choosePort(HOST, DEFAULT_PORT)
       openBrowser(urls.localUrlForBrowser);
     });
 
-    ['SIGINT', 'SIGTERM'].forEach(function(sig) {
-      process.on(sig, function() {
+    ['SIGINT', 'SIGTERM'].forEach(sig => {
+      process.on(sig, () => {
         devServer.close();
         process.exit();
       });
