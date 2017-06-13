@@ -91,6 +91,8 @@ repl-temp-*
 # create-elm-app
 template/build
 template/package.json
+template/scripts/
+template/config/
 
 # Desktop Services Store on macOS
 .DS_Store

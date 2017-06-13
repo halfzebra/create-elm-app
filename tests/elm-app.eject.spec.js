@@ -12,7 +12,7 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Ejecting Elm application. (Please wait...)', function() {
+describe('Ejecting Elm application. (Please wait...)', () => {
   before(function(done) {
     const cmd = spawn.sync('node', [createElmAppCmd, testAppName]);
 
@@ -29,7 +29,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
     rimraf.sync(testAppDir);
   });
 
-  it('`elm-app eject` should succeed in `' + testAppName + '`', function() {
+  it('`elm-app eject` should succeed in `' + testAppName + '`', () => {
     const result = spawn.sync('node', [elmAppCmd, 'eject']);
     const outputString = result.output
       .map(function(out) {
@@ -41,7 +41,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
     expect(outputString).to.have.string('Ejected successfully!');
   }).timeout(10 * 60 * 1000);
 
-  it('Ejected application should have `package.json` with scripts from Create Elm App', function() {
+  it('Ejected application should have `package.json` with scripts from Create Elm App', () => {
     const testAppPkg = path.join(testAppDir, './package.json');
     const pkg = fs.readFileSync(testAppPkg, { encoding: 'utf-8' });
     const pkgScripts = JSON.parse(pkg).scripts;
@@ -54,7 +54,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
     expect(pkgScripts).to.have.property('reactor', 'elm-reactor');
   });
 
-  it('Ejected application should have build and start scripts', function() {
+  it('Ejected application should have build and start scripts', () => {
     expect(
       fs.existsSync(path.join(testAppDir, './scripts/build.js'))
     ).to.be.equal(true);
@@ -63,7 +63,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
     ).to.be.equal(true);
   });
 
-  it('Ejected application should have the config available', function() {
+  it('Ejected application should have the config available', () => {
     const path1 = path.join(rootDir, './config');
     const path2 = path.join(testAppDir, './config');
     const same = dircompare.compareSync(path1, path2).same;
@@ -72,7 +72,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
 
   it(
     'It should be possible to build ejected applitaction, using npm scripts',
-    function() {
+    () => {
       const result = spawn.sync('npm', ['run', 'build']);
       const outputString = result.output
         .map(function(out) {
@@ -81,7 +81,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
         .join('');
 
       expect(result.status).to.be.equal(0);
-      expect(outputString).to.have.string('build is ready in `build/`');
+      expect(outputString).to.have.string('Compiled successfully');
     }
   ).timeout(5 * 60 * 1000);
 });

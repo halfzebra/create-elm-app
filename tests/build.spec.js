@@ -17,6 +17,7 @@ describe('Creating and making a build of Elm application', function() {
   this.timeout(25000);
 
   before(done => {
+    process.env.PUBLIC_URL = './';
     spawn('node', [createElmAppCmd, testAppName]).on('close', status => {
       if (status === 0) {
         spawn('node', [elmAppCmd, 'build'], {
@@ -47,8 +48,6 @@ describe('Creating and making a build of Elm application', function() {
         expect(result.trim()).to.be.equal('Your Elm App is working!');
         done();
       })
-      .catch(err => {
-        done(err);
-      });
+      .catch(done);
   });
 });
