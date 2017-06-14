@@ -9,7 +9,6 @@ let paths = {
   template: path.resolve('./src/index.html'),
   favicon: path.resolve('./src/favicon.ico'),
   elmPkg: path.resolve('elm-package.json'),
-  scripts: path.resolve(__dirname, '../scripts'),
   elmMake: require('elm/platform').executablePaths['elm-make'],
   servedPath: './' || process.env.SERVED_PATH
 }

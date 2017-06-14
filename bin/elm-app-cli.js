@@ -7,7 +7,6 @@ const executablePaths = require('elm/platform').executablePaths
 
 const version = require('../package.json').version
 const elmPlatformVersion = require('elm/package.json').version
-const paths = require('../config/paths')
 
 const commands = argv._
 
@@ -17,7 +16,6 @@ if (commands.length === 0) {
 }
 
 const script = commands[ 0 ]
-const scriptPath = path.resolve(paths.scripts, script)
 const scriptArgs = commands.splice(1)
 
 switch (script) {
@@ -25,7 +23,7 @@ switch (script) {
   case 'build':
   case 'eject':
   case 'start':
-    spawnSyncNode(scriptPath, scriptArgs)
+    spawnSyncNode(path.resolve(__dirname, '../scripts', script), scriptArgs);
     break
 
   case 'test': {
