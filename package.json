@@ -18,7 +18,6 @@
   },
   "scripts": {
     "cz": "git-cz",
-    "precommit": "standard --verbose | snazzy",
     "test": "npm run -s test:cli && npm run -s test:functional",
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
@@ -83,9 +82,7 @@
     "mocha": "^3.2.0",
     "nightmare": "^2.10.0",
     "rimraf": "^2.5.4",
-    "semantic-release": "^6.3.2",
-    "snazzy": "^7.0.0",
-    "standard": "^10.0.1"
+    "semantic-release": "^6.3.2"
   },
   "config": {
     "commitizen": {
