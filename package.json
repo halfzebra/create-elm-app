@@ -1,43 +1,21 @@
 {
   "name": "create-elm-app",
-  "version": "0.0.0-development",
   "description": "Elm apps with zero configuration",
-  "keywords": [
-    "elm",
-    "cli",
-    "webpack"
-  ],
+  "version": "0.0.0-development",
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
-  },
   "bin": {
     "elm-app": "./bin/elm-app-cli.js",
     "create-elm-app": "./bin/create-elm-app-cli.js"
-  },
-  "scripts": {
-    "cz": "git-cz",
-    "test": "npm run -s test:cli && npm run -s test:functional",
-    "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
-    "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/halfzebra/create-elm-app"
   },
   "bugs": {
     "url": "https://github.com/halfzebra/create-elm-app/issues",
     "email": "eduard.kyvenko@gmail.com"
   },
-  "files": [
-    "bin",
-    "config",
-    "scripts",
-    "template",
-    "README.md"
-  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.1",
@@ -79,14 +57,40 @@
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
     "dir-compare": "^1.3.0",
+    "husky": "^0.13.4",
+    "lint-staged": "^3.6.1",
     "mocha": "^3.2.0",
     "nightmare": "^2.10.0",
+    "prettier": "^1.4.4",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "files": [
+    "bin",
+    "config",
+    "scripts",
+    "template",
+    "README.md"
+  ],
+  "keywords": [
+    "cli",
+    "elm",
+    "webpack"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halfzebra/create-elm-app"
+  },
+  "scripts": {
+    "cz": "git-cz",
+    "prettier": "prettier --write --single-quote '{bin,config,scripts,template/src,tests}/**/*.js'",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "npm run -s test:cli && npm run -s test:functional",
+    "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
+    "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000"
   }
 }
