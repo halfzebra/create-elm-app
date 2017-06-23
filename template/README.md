@@ -177,26 +177,71 @@ other html and javascript content types.
 ```
 
 ## IDE setup for Hot Module Replacement
+
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
 
-## Deploying to GitHub Pages
+## Deployment
 
-#### Step 1: install [gh-pages](https://github.com/tschaub/gh-pages)
+
+`elm-app build` creates a `build` directory with a production build of your app. Set up your favourite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file.
+
+### Static Server
+
+For environments using [Node](https://nodejs.org/), the easiest way to handle this would be to install [serve](https://github.com/zeit/serve) and let it handle the rest:
+
 ```sh
-npm install gh-pages -g
+npm install -g serve
+serve -s build
 ```
 
-#### Step 2: configure `SERVED_PATH` environment variable
-Create a `.env` file in the root of your project to specify the `SERVED_PATH` environment variable.
+The last command shown above will serve your static site on the port **5000**. Like many of [serve](https://github.com/zeit/serve)’s internal settings, the port can be adjusted using the `-p` or `--port` flags.
 
-```
-SERVED_PATH=./
-```
+Run this command to get a full list of the options available:
 
-The path must be `./` so the assets are served using relative paths.
-
-#### Step 3: build the project and deploy it to GitHub Pages
 ```sh
-elm-app build
+serve -h
+```
+
+### GitHub Pages
+
+>Note: this feature is available with `react-scripts@0.2.0` and higher.
+
+#### Step 1: Add `homepage` to `package.json`
+
+**The step below is important!**<br>
+**If you skip it, your app will not deploy correctly.**
+
+Open your `package.json` and add a `homepage` field:
+
+```js
+  "homepage": "https://myusername.github.io/my-app",
+```
+
+Create React App uses the `homepage` field to determine the root URL in the built HTML file.
+
+The `predeploy` script will run automatically before `deploy` is run.
+
+#### Step 2: Deploy the site by running `gh-pages -d build`
+
+Then run:
+
+```sh
 gh-pages -d build
 ```
+
+#### Step 3: Ensure your project’s settings use `gh-pages`
+
+Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
+
+<img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
+
+#### Step 4: Optionally, configure the domain
+
+You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `public/` folder.
+
+#### Notes on client-side routing
+
+GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
+
+* You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://reacttraining.com/react-router/web/api/Router) about different history implementations in React Router.
+* Alternatively, you can use a trick to teach GitHub Pages to handle 404 by redirecting to your `index.html` page with a special redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
