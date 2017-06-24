@@ -1,19 +1,21 @@
-const autoprefixer = require('autoprefixer')
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin')
-const DefinePlugin = require('webpack/lib/DefinePlugin')
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const getClientEnvironment = require('./env')
-const configPaths = require('../config/paths')
+'use strict';
+
+const autoprefixer = require('autoprefixer');
+const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const getClientEnvironment = require('./env');
+const paths = require('../config/paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
-const publicPath = '/'
+const publicPath = '/';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
-const publicUrl = ''
+const publicUrl = '';
 
 module.exports = {
   devtool: 'eval',
@@ -25,17 +27,19 @@ module.exports = {
     // Replacement runtime.
     require.resolve('webpack/hot/dev-server'),
 
-    configPaths.entry
+    paths.appIndexJs
   ],
 
   output: {
     pathinfo: true,
 
     // The build folder.
-    path: configPaths.dist,
+    path: paths.appBuild,
 
-    // Generated JS files.
-    filename: 'dist/js/bundle.js',
+    // This does not produce a real file. It's just the virtual path that is
+    // served by WebpackDevServer in development. This is the JS bundle
+    // containing code from all our entry points, and the Webpack runtime.
+    filename: 'static/js/bundle.js',
 
     publicPath: publicPath
   },
@@ -49,7 +53,6 @@ module.exports = {
     noParse: /\.elm$/,
 
     rules: [
-
       {
         test: /\.js$/,
         exclude: [/elm-stuff/, /node_modules/],
@@ -76,21 +79,27 @@ module.exports = {
               verbose: true,
               warn: true,
               debug: true,
-              pathToMake: configPaths.elmMake,
+              pathToMake: paths.elmMake,
               forceWatch: true
             }
           }
         ]
       },
 
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader turns CSS into JS modules that inject <style> tags.
+      // In production, we use a plugin to extract that CSS to a file, but
+      // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
         use: [
+          require.resolve('style-loader'),
           {
-            loader: require.resolve('style-loader')
-          },
-          {
-            loader: require.resolve('css-loader')
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1
+            }
           },
           {
             loader: require.resolve('postcss-loader'),
@@ -137,15 +146,13 @@ module.exports = {
     new InterpolateHtmlPlugin({
       PUBLIC_URL: publicUrl
     }),
-
     new HtmlWebpackPlugin({
       inject: true,
-      template: configPaths.template,
-      favicon: configPaths.favicon
+      template: paths.appHtml
     }),
 
     new HotModuleReplacementPlugin(),
 
     new NamedModulesPlugin()
   ]
-}
+};

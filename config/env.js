@@ -1,10 +1,10 @@
-function getClientEnvironment () {
-  return Object
-    .keys(process.env)
-    .reduce((acc, current) => {
-      acc[ `process.env.${current}` ] = `"${process.env[ current ]}"`
-      return acc
-    }, {})
+'use strict';
+
+function getClientEnvironment() {
+  return Object.keys(process.env).reduce((acc, current) => {
+    acc[`process.env.${current}`] = `"${process.env[current]}"`;
+    return acc;
+  }, {});
 }
 
-module.exports = getClientEnvironment
+module.exports = getClientEnvironment;

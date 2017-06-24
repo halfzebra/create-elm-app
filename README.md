@@ -19,8 +19,14 @@ Create a production build with `elm-app build`
 ## Getting Started
 
 ### Installation
-Node >=4 is required only as a build dependency.
 
+Node >=6 is required as a dependency.
+
+#### Yarn
+
+`yarn global add create-elm-app`
+
+#### NPM
 `npm install create-elm-app -g`
 
 If you are running Linux OS, you should install it as the superuser:
@@ -45,10 +51,11 @@ my-app/
   .gitignore
   README.md
   elm-package.json
-  src/
-    App.elm
+  public/
     favicon.ico
     index.html
+  src/
+    App.elm
     index.js
     main.css
   tests/
@@ -105,11 +112,22 @@ Inspired by [create-react-app](https://github.com/facebookincubator/create-react
 
 * **No Lock-In:** You can “eject” to a custom setup at any time. Run a single command, and all the configuration and build dependencies will be moved directly into your project, so you can pick up right where you left off.
 
+## What is inside
+
+The tools used by Create React App are subject to change.
+Currently it is a thin layer on top of many amazing community projects, such as:
+
+* [elm-platform](https://github.com/elm-lang/elm-platform)
+* [elm-test](https://github.com/elm-community/elm-test)
+* [webpack](https://webpack.js.org/) with [webpack-dev-server](https://github.com/webpack/webpack-dev-server), [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) and [style-loader](https://github.com/webpack/style-loader)
+* [Babel](http://babeljs.io/) with ES6
+* [Autoprefixer](https://github.com/postcss/autoprefixer)
+* and others.
+
+All of them are transitive dependencies of the provided npm package.
+
 ## Contributing
 We would love to get you involved! Please check our [Contributing Guide](CONTRIBUTING.md) to get started!
-
-## What is inside
-This tool contains a local installation of [elm-platform](https://github.com/elm-lang/elm-platform) and heavily relies on [webpack](https://github.com/webpack/webpack) in the build process.
 
 ## Alternatives
 - [elm-webpack-starter](https://github.com/moarwick/elm-webpack-starter)
