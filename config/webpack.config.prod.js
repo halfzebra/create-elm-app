@@ -78,12 +78,26 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-
-        // Use the local installation of elm-make
-        loader: require.resolve('elm-webpack-loader'),
-        options: {
-          pathToMake: paths.elmMake
-        }
+        use: [
+          // string-replace-loader works as InterpolateHtmlPlugin for Elm,
+          // it replaces all of the %PUBLIC_URL% with the URL of your
+          // application, so you could serve static assets outside of the
+          // module system.
+          {
+            loader: require.resolve('string-replace-loader'),
+            query: {
+              search: '%PUBLIC_URL%',
+              replace: publicUrl
+            }
+          },
+          {
+            // Use the local installation of elm-make
+            loader: require.resolve('elm-webpack-loader'),
+            options: {
+              pathToMake: paths.elmMake
+            }
+          }
+        ]
       },
 
       {

@@ -73,6 +73,17 @@ module.exports = {
           {
             loader: require.resolve('elm-hot-loader')
           },
+          // string-replace-loader works as InterpolateHtmlPlugin for Elm,
+          // it replaces all of the %PUBLIC_URL% with the URL of your
+          // application, so you could serve static assets outside of the
+          // module system.
+          {
+            loader: require.resolve('string-replace-loader'),
+            query: {
+              search: '%PUBLIC_URL%',
+              replace: publicUrl
+            }
+          },
           {
             loader: require.resolve('elm-webpack-loader'),
             options: {
@@ -146,6 +157,7 @@ module.exports = {
     new InterpolateHtmlPlugin({
       PUBLIC_URL: publicUrl
     }),
+
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml
