@@ -20,7 +20,7 @@ Create a production build with `elm-app build`
 
 ### Installation
 
-Node >=6 is required as a dependency.
+**Node >=6** is required for installation.
 
 #### Yarn
 

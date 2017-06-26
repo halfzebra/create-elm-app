@@ -18,12 +18,18 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [repl](#repl)
     - [make](#make)
     - [reactor](#reactor)
+- [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding Images and Fonts](#adding-images-and-fonts)
+- [Using the `public` Folder](#using-the-public-folder)
+  - [Changing the HTML](#changing-the-html)
+  - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
+  - [When to Use the `public` Folder](#when-to-use-the-public-folder)
 - [Setting up API Proxy](#setting-up-api-proxy)
-- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 - [Deploying to GitHub Pages](#deploying-to-github-pages)
+- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
+
 You are very welcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
 
 ## Installing Elm packages
@@ -43,8 +49,8 @@ npm install --save-dev pouchdb-browser # Install library from npm
 
 ```js
 // Use in your JS code
-var PouchDB = require('pouchdb-browser');
-var db = new PouchDB('mydb');
+import PouchDB from 'pouchdb-browser';
+const db = new PouchDB('mydb');
 ```
 
 ## Folder structure
@@ -129,6 +135,14 @@ Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 #### `reactor`
 Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
+## Changing the Page `<title>`
+
+You can find the source HTML file in the `public` folder of the generated project. You may edit the `<title>` tag in it to change the title from “Elm App” to anything else.
+
+Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
+
+If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
+
 ## Adding Images and Fonts
 
 With Webpack, using static assets like images and fonts works similarly to CSS.
@@ -138,14 +152,15 @@ By requiring an image in JavaScript code, you tell Webpack to add a file to the 
 Here is an example:
 
 ```js
-require('./main.css');
-var logoPath = require('./logo.svg'); // Tell Webpack this JS file uses this image
-var Elm = require('./App.elm');
+import logoPath from './logo.svg'; // Tell Webpack this JS file uses this image
+import { Main } from './Main.elm';
 
-var root = document.getElementById('root');
-
-Elm.App.embed(root, logoPath); // Pass image path as a flag.
+Main.embed(
+    document.getElementById('root'),
+    logoPath // Pass image path as a flag for Html.programWithFlags
+  );
 ```
+
 Later on, you can use the image path in your view for displaying it in the DOM.
 
 ```elm
@@ -156,6 +171,73 @@ view model =
         , div [] [ text model.message ]
         ]
 ```
+
+## Using the `public` Folder
+
+### Changing the HTML
+
+The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title](#changing-the-page-title).
+The `<script>` tag with the compiled code will be added to it automatically during the build process.
+
+### Adding Assets Outside of the Module System
+
+You can also add other assets to the `public` folder.
+
+Note that we normally encourage you to `import` assets in JavaScript files instead.
+For example, see the sections on [adding a stylesheet](#adding-a-stylesheet) and [adding images and fonts](#adding-images-fonts-and-files).
+This mechanism provides a number of benefits:
+
+* Scripts and stylesheets get minified and bundled together to avoid extra network requests.
+* Missing files cause compilation errors instead of 404 errors for your users.
+* Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
+
+However there is an **escape hatch** that you can use to add an asset outside of the module system.
+
+If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
+
+Inside `index.html`, you can use it like this:
+
+```html
+<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+```
+
+Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
+
+When you run `npm run build`, Create React App will substitute `%PUBLIC_URL%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root URL.
+
+In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
+
+```elm
+// Note: this is an escape hatch and should be used sparingly!
+// Normally we recommend using `import`  and `Html.programWithFlags` for getting 
+// asset URLs as described in “Adding Images and Fonts” above this section.
+img [ src "%PUBLIC_PATH%/logo.svg" ] []
+```
+
+In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
+
+```js
+const logo = `<img src=${process.env.PUBLIC_URL + '/img/logo.svg'} />`;
+```
+
+Keep in mind the downsides of this approach:
+
+* None of the files in `public` folder get post-processed or minified.
+* Missing files will not be called at compilation time, and will cause 404 errors for your users.
+* Result filenames won’t include content hashes so you’ll need to add query arguments or rename them every time they change.
+
+### When to Use the `public` Folder
+
+Normally we recommend importing [stylesheets](#adding-a-stylesheet), [images, and fonts](#adding-images-fonts-and-files) from JavaScript.
+The `public` folder is useful as a workaround for a number of less common cases:
+
+* You need a file with a specific name in the build output, such as [`manifest.webmanifest`](https://developer.mozilla.org/en-US/docs/Web/Manifest).
+* You have thousands of images and need to dynamically reference their paths.
+* You want to include a small script like [`pace.js`](http://github.hubspot.com/pace/docs/welcome/) outside of the bundled code.
+* Some library may be incompatible with Webpack and you have no other option but to include it as a `<script>` tag.
+
+Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
+
 
 ## Setting up API Proxy
 To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
@@ -175,10 +257,6 @@ other html and javascript content types.
 ```sh
  curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
 ```
-
-## IDE setup for Hot Module Replacement
-
-Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
 
 ## Deployment
 
@@ -245,3 +323,7 @@ GitHub Pages doesn’t support routers that use the HTML5 `pushState` history AP
 
 * You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://reacttraining.com/react-router/web/api/Router) about different history implementations in React Router.
 * Alternatively, you can use a trick to teach GitHub Pages to handle 404 by redirecting to your `index.html` page with a special redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
+
+## IDE setup for Hot Module Replacement
+
+Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
