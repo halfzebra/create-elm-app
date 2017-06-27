@@ -46,6 +46,7 @@
     "prompt": "1.0.0",
     "react-dev-utils": "^3.0.0",
     "react-error-overlay": "^1.0.7",
+    "string-replace-loader": "^1.2.0",
     "style-loader": "^0.18.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
