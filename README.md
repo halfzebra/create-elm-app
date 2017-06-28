@@ -114,7 +114,7 @@ Inspired by [create-react-app](https://github.com/facebookincubator/create-react
 
 ## What is inside
 
-The tools used by Create React App are subject to change.
+The tools used by Create Elm App are subject to change.
 Currently it is a thin layer on top of many amazing community projects, such as:
 
 * [elm-platform](https://github.com/elm-lang/elm-platform)
