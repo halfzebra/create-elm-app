@@ -19,6 +19,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [make](#make)
     - [reactor](#reactor)
 - [Changing the Page `<title>`](#changing-the-page-title)
+- [Adding a Stylesheet](#adding-a-stylesheet)
 - [Adding Images and Fonts](#adding-images-and-fonts)
 - [Using the `public` Folder](#using-the-public-folder)
   - [Changing the HTML](#changing-the-html)
@@ -142,6 +143,28 @@ You can find the source HTML file in the `public` folder of the generated projec
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
 If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
+
+## Adding a Stylesheet
+
+This project setup uses [Webpack](https://webpack.js.org/) for handling all assets. Webpack offers a custom way of “extending” the concept of `import` beyond JavaScript. To express that a JavaScript file depends on a CSS file, you need to **import the CSS from the JavaScript file**:
+
+### `main.css`
+
+```css
+body {
+  padding: 20px;
+}
+```
+
+### `index.js`
+
+```js
+import './main.css'; // Tell Webpack to pick-up the styles from base.css
+```
+
+In development, expressing dependencies this way allows your styles to be reloaded on the fly as you edit them. In production, all CSS files will be concatenated into a single minified `.css` file in the build output.
+
+You can put all your CSS right into `src/main.css`. It would still be imported from `src/index.js`, but you could always remove that import if you later migrate to a different build tool.
 
 ## Adding Images and Fonts
 
