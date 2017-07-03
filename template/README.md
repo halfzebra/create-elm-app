@@ -26,7 +26,11 @@ You can find the most recent version of this guide [here](https://github.com/hal
   - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
   - [When to Use the `public` Folder](#when-to-use-the-public-folder)
 - [Setting up API Proxy](#setting-up-api-proxy)
-- [Deploying to GitHub Pages](#deploying-to-github-pages)
+- [Running tests](#running-tests)
+  - [Dependencies in Tests](#dependencies-in-tests)
+- [Deployment](#deployment)
+  - [Static Server](#static-server)
+  - [GitHub Pages](#github-pages)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
