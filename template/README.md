@@ -121,12 +121,6 @@ Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
 
 Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
 
-To use packages in tests, you also need to install them in `tests` directory.
-```sh
-cd tests
-elm-app package install xxx/yyy
-```
-
 #### `repl`
 Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
 
@@ -279,6 +273,18 @@ other html and javascript content types.
 
 ```sh
  curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
+```
+
+## Running Tests
+
+Create Elm App uses [elm-test](https://github.com/rtfeldman/node-test-runner) as its test runner.
+
+### Dependencies in Tests
+
+To use packages in tests, you also need to install them in `tests` directory.
+
+```bash
+elm-app test --add-dependencies elm-package.json 
 ```
 
 ## Deployment
