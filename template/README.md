@@ -259,6 +259,108 @@ The `public` folder is useful as a workaround for a number of less common cases:
 
 Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
 
+## Integrate elm-css
+
+### Step 1: Install required depedencies
+
+```sh
+elm-app package install rtfeldman/elm-css
+elm-app package install elm-css-helpers
+```
+
+### Step 2: Create the stylesheet file
+
+Create an Elm file at `src/Stylesheets.elm` (The name of this file cannot be changed).
+
+```elm
+port module Stylesheets exposing (main, CssClasses(..), CssIds(..), helpers)
+
+import Css exposing (..)
+import Css.Elements exposing (body, li)
+import Css.Namespace exposing (namespace)
+import Css.File exposing (..)
+import Html.CssHelpers exposing (withNamespace)
+
+
+port files : CssFileStructure -> Cmd msg
+
+
+cssFiles : CssFileStructure
+cssFiles =
+    toFileStructure [ ( "style.css", Css.File.compile [ css ] ) ]
+
+
+main : CssCompilerProgram
+main =
+    Css.File.compiler files cssFiles
+
+
+type CssClasses
+    = NavBar
+
+
+type CssIds
+    = Page
+
+
+appNamespace =
+    "App"
+
+
+helpers =
+    withNamespace appNamespace
+
+
+css =
+    (stylesheet << namespace appNamespace)
+    [ body
+        [ overflowX auto
+        , minWidth (px 1280)
+        ]
+    , id Page
+        [ backgroundColor (rgb 200 128 64)
+        , color (hex "CCFFFF")
+        , width (pct 100)
+        , height (pct 100)
+        , boxSizing borderBox
+        , padding (px 8)
+        , margin zero
+        ]
+    , class NavBar
+        [ margin zero
+        , padding zero
+        , children
+            [ li
+                [ (display inlineBlock) |> important
+                , color primaryAccentColor
+                ]
+            ]
+        ]
+    ]
+
+
+primaryAccentColor =
+    hex "ccffaa"
+```
+
+### Step 3: Import the stylesheet
+
+Add the following line to your index.js:
+
+
+```js
+import './Stylesheets.elm'
+```
+
+### Testing the stylesheet
+
+To inspect the generated CSS file, just run
+
+```sh
+elm-css src/Stylesheets.elm
+```
+
+This will generate a file called `style.css`
 
 ## Setting up API Proxy
 To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.

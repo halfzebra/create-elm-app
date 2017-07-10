@@ -50,7 +50,7 @@ module.exports = {
   },
 
   module: {
-    noParse: /\.elm$/,
+    noParse: /^((?!Stylesheet).)*\.elm.*$/,
 
     rules: [
       {
@@ -68,7 +68,7 @@ module.exports = {
 
       {
         test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/elm-stuff/, /node_modules/, /Stylesheets\.elm$/],
         use: [
           {
             loader: require.resolve('elm-hot-loader')
@@ -94,6 +94,22 @@ module.exports = {
               forceWatch: true
             }
           }
+        ]
+      },
+
+      {
+        test: /Stylesheets\.elm$/,
+        use: [
+          'style-loader',
+          {
+            loader: require.resolve('string-replace-loader'),
+            query: {
+              search: '%PUBLIC_URL%',
+              replace: publicUrl
+            }
+          },
+          'css-loader',
+          'elm-css-webpack-loader',
         ]
       },
 
