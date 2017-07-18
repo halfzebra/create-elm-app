@@ -21,14 +21,23 @@ const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
 
   entry: [
-    // WebpackDevServer client.
+    // Include an alternative client for WebpackDevServer. A client's job is to
+    // connect to WebpackDevServer by a socket and get notified about changes.
+    // When you save a file, the client will either apply hot updates (in case
+    // of CSS changes), or refresh the page (in case of JS changes). When you
+    // make a syntax error, this client will display a syntax error overlay.
+    // Note: instead of the default WebpackDevServer client, we use a custom one
+    // to bring better experience for Create Elm App users. You can replace
+    // the line below with these two lines if you prefer the stock client:
+    // require.resolve('webpack-dev-server/client') + '?/',
+    // require.resolve('webpack/hot/dev-server'),
     require.resolve('react-dev-utils/webpackHotDevClient'),
 
-    // Replacement runtime.
-    require.resolve('webpack/hot/dev-server'),
+    // Errors should be considered fatal in development
+    require.resolve('react-error-overlay'),
 
     paths.appIndexJs
   ],
@@ -44,7 +53,11 @@ module.exports = {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
 
-    publicPath: publicPath
+    publicPath: publicPath,
+
+    // Point sourcemap entries to original disk location (format as URL on Windows)
+    devtoolModuleFilenameTemplate: info =>
+      path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
   },
 
   resolve: {
