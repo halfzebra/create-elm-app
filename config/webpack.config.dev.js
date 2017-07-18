@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -16,6 +17,8 @@ const publicPath = '/';
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
 const publicUrl = '';
+// Get environment variables to inject into our app.
+const env = getClientEnvironment(publicUrl);
 
 module.exports = {
   devtool: 'eval',
@@ -152,11 +155,9 @@ module.exports = {
   },
 
   plugins: [
-    new DefinePlugin(getClientEnvironment()),
+    new DefinePlugin(env.stringified),
 
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
+    new InterpolateHtmlPlugin(env.raw),
 
     new HtmlWebpackPlugin({
       inject: true,

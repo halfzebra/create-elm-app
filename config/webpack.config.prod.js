@@ -21,6 +21,9 @@ const shouldUseRelativeAssetPaths = publicPath === './';
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = publicPath.slice(0, -1);
 
+// Get environment variables to inject into our app.
+const env = getClientEnvironment(publicUrl);
+
 // Note: defined here because it will be used more than once.
 const cssFilename = 'static/css/[name].[contenthash:8].css';
 
@@ -156,13 +159,11 @@ module.exports = {
   },
 
   plugins: [
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
-
     new AssetsPlugin({ path: paths.appBuild }),
 
-    new DefinePlugin(getClientEnvironment()),
+    new DefinePlugin(env.stringified),
+
+    new InterpolateHtmlPlugin(env.raw),
 
     // Minify the compiled JavaScript.
     new UglifyJsPlugin({
