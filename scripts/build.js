@@ -22,6 +22,7 @@ const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
+const highlightElmCompilerErrors = require('./utils/highlightElmCompilerErrors');
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -89,7 +90,9 @@ function build(previousFileSizes) {
       if (err) {
         return reject(err);
       }
-      const messages = formatWebpackMessages(stats.toJson({}, true));
+      const messages = highlightElmCompilerErrors(
+        formatWebpackMessages(stats.toJson({}, true))
+      );
       if (messages.errors.length) {
         return reject(new Error(messages.errors.join('\n\n')));
       }
