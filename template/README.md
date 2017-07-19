@@ -18,6 +18,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [repl](#repl)
     - [make](#make)
     - [reactor](#reactor)
+- [Turning off Elm Debugger](#turning-off-elm-debugger)
 - [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Adding Images and Fonts](#adding-images-and-fonts)
@@ -133,6 +134,11 @@ Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 
 #### `reactor`
 Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
+
+
+## Turning off Elm Debugger
+
+To turn off Elm Debugger, set `ELM_DEBUGGER` environment variable to `false`
 
 ## Changing the Page `<title>`
 

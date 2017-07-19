@@ -105,7 +105,7 @@ module.exports = {
             options: {
               verbose: true,
               warn: true,
-              debug: true,
+              debug: !!process.env.ELM_DEBUGGER,
               pathToMake: paths.elmMake,
               forceWatch: true
             }
