@@ -1,8 +1,18 @@
 'use strict';
 
-// Load environment variables from .env file.
-// Suppress warnings if this file is missing.
-require('dotenv').config({ silent: true });
+// Do this as the first thing so that any code reading it knows the right env.
+process.env.BABEL_ENV = 'development';
+process.env.NODE_ENV = 'development';
+
+// Makes the script crash on unhandled rejections instead of silently
+// ignoring them. In the future, promise rejections that are not handled will
+// terminate the Node.js process with a non-zero exit code.
+process.on('unhandledRejection', err => {
+  throw err;
+});
+
+// Ensure environment variables are read.
+require('../config/env');
 
 const fs = require('fs');
 const path = require('path');
@@ -19,6 +29,7 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const clearConsole = require('react-dev-utils/clearConsole');
 const openBrowser = require('react-dev-utils/openBrowser');
 const createDevServerConfig = require('../config/webpackDevServer.config');
+const highlightElmCompilerErrors = require('./utils/highlightElmCompilerErrors');
 const paths = require('../config/paths');
 
 if (fs.existsSync('elm-package.json') === false) {
@@ -89,7 +100,10 @@ function createCompiler(webpack, config, appName, urls) {
     // We have switched off the default Webpack output in WebpackDevServer
     // options so we are going to "massage" the warnings and errors and present
     // them in a readable focused way.
-    const messages = formatWebpackMessages(stats.toJson({}, true));
+    const messages = highlightElmCompilerErrors(
+      formatWebpackMessages(stats.toJson({}, true))
+    );
+
     const isSuccessful = !messages.errors.length && !messages.warnings.length;
     if (isSuccessful) {
       console.log(chalk.green('Compiled successfully!'));
