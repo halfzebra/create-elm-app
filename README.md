@@ -55,7 +55,7 @@ my-app/
     favicon.ico
     index.html
   src/
-    App.elm
+    Main.elm
     index.js
     main.css
   tests/
