@@ -65,10 +65,11 @@ my-app/
   .gitignore
   README.md
   elm-package.json
-  src/
-    App.elm
+  public/
     favicon.ico
     index.html
+  src/
+    Main.elm
     index.js
     main.css
   tests/
@@ -78,8 +79,8 @@ my-app/
 ```
 For the project to build, these files must exist with exact filenames:
 
-- `src/index.html` is the page template;
-- `src/favicon.ico` is the icon you see in the browser tab;
+- `public/index.html` is the page template;
+- `public/favicon.ico` is the icon you see in the browser tab;
 - `src/index.js` is the JavaScript entry point.
 
 You can delete or rename the other files.
