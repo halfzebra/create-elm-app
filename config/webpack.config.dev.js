@@ -105,7 +105,9 @@ module.exports = {
             options: {
               verbose: true,
               warn: true,
-              debug: !!process.env.ELM_DEBUGGER,
+              // If ELM_DEBUGGER was set to "false", disable it. Otherwise
+              // for invalid values, "true" and as a default, enable it
+              debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
               pathToMake: paths.elmMake,
               forceWatch: true
             }
