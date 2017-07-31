@@ -43,6 +43,7 @@ module.exports = {
   appHtml: resolveApp('./public/index.html'),
   appIndexJs: resolveApp('./src/index.js'),
   appSrc: resolveApp('./src'),
+  dotenv: resolveApp('./.env'),
   entry: resolveApp('./src/index.js'),
   appBuild: resolveApp('./build'),
   elmPackageJson: resolveApp('./elm-package.json'),
