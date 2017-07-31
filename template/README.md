@@ -245,7 +245,7 @@ In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 // Note: this is an escape hatch and should be used sparingly!
 // Normally we recommend using `import`  and `Html.programWithFlags` for getting 
 // asset URLs as described in “Adding Images and Fonts” above this section.
-img [ src "%PUBLIC_PATH%/logo.svg" ] []
+img [ src "%PUBLIC_URL%/logo.svg" ] []
 ```
 
 In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
