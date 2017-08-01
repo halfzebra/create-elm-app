@@ -141,6 +141,12 @@ Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 To turn off Elm Debugger, set `ELM_DEBUGGER` environment variable to `false`
 
+## Changing the base path of the assets in the HTML
+
+By default assets will be linked from the HTML to the root url. For example `/css/style.css`.
+
+If you deploy to a path that is not the root, you can change the `PUBLIC_URL` environment variable to properly reference your assets in the compiled assets. For example: `PUBLIC_URL=./ elm-app build`.
+
 ## Changing the Page `<title>`
 
 You can find the source HTML file in the `public` folder of the generated project. You may edit the `<title>` tag in it to change the title from “Elm App” to anything else.
@@ -239,7 +245,7 @@ In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 // Note: this is an escape hatch and should be used sparingly!
 // Normally we recommend using `import`  and `Html.programWithFlags` for getting 
 // asset URLs as described in “Adding Images and Fonts” above this section.
-img [ src "%PUBLIC_PATH%/logo.svg" ] []
+img [ src "%PUBLIC_URL%/logo.svg" ] []
 ```
 
 In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
