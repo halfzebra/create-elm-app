@@ -333,7 +333,7 @@ serve -h
 **The step below is important!**<br>
 **If you skip it, your app will not deploy correctly.**
 
-Open your `package.json` and add a `homepage` field:
+Open your `elm-package.json` and add a `homepage` field:
 
 ```js
   "homepage": "https://myusername.github.io/my-app",
