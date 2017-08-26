@@ -70,18 +70,15 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     expect(same).to.be.equal(true);
   });
 
-  it(
-    'It should be possible to build ejected applitaction, using npm scripts',
-    () => {
-      const result = spawn.sync('npm', ['run', 'build']);
-      const outputString = result.output
-        .map(function(out) {
-          return out !== null ? out.toString() : '';
-        })
-        .join('');
+  it('It should be possible to build ejected applitaction, using npm scripts', () => {
+    const result = spawn.sync('npm', ['run', 'build']);
+    const outputString = result.output
+      .map(function(out) {
+        return out !== null ? out.toString() : '';
+      })
+      .join('');
 
-      expect(result.status).to.be.equal(0);
-      expect(outputString).to.have.string('Compiled successfully');
-    }
-  ).timeout(5 * 60 * 1000);
+    expect(result.status).to.be.equal(0);
+    expect(outputString).to.have.string('Compiled successfully');
+  }).timeout(5 * 60 * 1000);
 });
