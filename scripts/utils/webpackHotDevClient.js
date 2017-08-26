@@ -159,7 +159,7 @@ var connection = new SockJS(
     hostname: window.location.hostname,
     port: window.location.port,
     // Hardcoded in WebpackDevServer
-    pathname: '/sockjs-node',
+    pathname: '/sockjs-node'
   })
 );
 
@@ -218,7 +218,7 @@ function handleWarnings(warnings) {
     // Print warnings to the console.
     var formatted = formatWebpackMessages({
       warnings: warnings,
-      errors: [],
+      errors: []
     });
 
     if (typeof console !== 'undefined' && typeof console.warn === 'function') {
@@ -259,10 +259,12 @@ function handleErrors(errors) {
   hasCompileErrors = true;
 
   // "Massage" webpack messages.
-  var formatted = highlightElmCompilerErrors(formatWebpackMessages({
-    errors: errors,
-    warnings: [],
-  }));
+  var formatted = highlightElmCompilerErrors(
+    formatWebpackMessages({
+      errors: errors,
+      warnings: []
+    })
+  );
 
   // Only show the first error.
   showErrorOverlay(formatted.errors[0]);

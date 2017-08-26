@@ -40,24 +40,21 @@ describe('Building Elm application with `elm-app build`', function() {
     expect(fs.existsSync(path.join(testAppDir, 'build'))).to.be.equal(true);
   }).timeout(12 * 60 * 1000);
 
-  it(
-    '`elm-app build` should exit with non zero status code when build failed',
-    function() {
-      const normalFile = path.join(testAppDir, 'src/Main.elm');
-      const malformedFile = path.join(rootDir, './tests/fixtures/Main.elm');
+  it('`elm-app build` should exit with non zero status code when build failed', function() {
+    const normalFile = path.join(testAppDir, 'src/Main.elm');
+    const malformedFile = path.join(rootDir, './tests/fixtures/Main.elm');
 
-      copyFileSync(normalFile, 'Main.elm-normal');
-      copyFileSync(malformedFile, normalFile);
+    copyFileSync(normalFile, 'Main.elm-normal');
+    copyFileSync(malformedFile, normalFile);
 
-      const result = spawn.sync('node', [elmAppCmd, 'build']);
+    const result = spawn.sync('node', [elmAppCmd, 'build']);
 
-      const oldNormalFile = path.resolve('Main.elm-normal');
-      copyFileSync(oldNormalFile, normalFile);
-      fs.unlink(oldNormalFile);
+    const oldNormalFile = path.resolve('Main.elm-normal');
+    copyFileSync(oldNormalFile, normalFile);
+    fs.unlink(oldNormalFile);
 
-      expect(result.status).to.be.at.least(1);
-    }
-  ).timeout(2 * 60 * 1000);
+    expect(result.status).to.be.at.least(1);
+  }).timeout(2 * 60 * 1000);
 });
 
 function copyFileSync(from, to) {

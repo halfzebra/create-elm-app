@@ -11,6 +11,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Available scripts](#available-scripts)
   - [elm-app build](#elm-app-build)
   - [elm-app start](#elm-app-start)
+  - [elm-app install](#elm-app-install)
   - [elm-app test](#elm-app-test)
   - [elm-app eject](#elm-app-eject)
   - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
@@ -41,8 +42,10 @@ You are very welcome with any [feedback](https://github.com/halfzebra/create-elm
 ## Installing Elm packages
 
 ```sh
-elm-app package install <package-name>
+elm-app install <package-name>
 ```
+
+Other `elm-package` commands are also [available.](#package)
 
 ## Installing JavaScript packages
 
@@ -102,6 +105,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.  
 You will also see any lint errors in the console.
 
+### `elm-app install`
+
+An alias for [`elm-app package install`](#package)
+
 ### `elm-app test`
 Run tests with [node-test-runner](https://github.com/rtfeldman/node-test-runner/tree/master)
 
@@ -111,6 +118,7 @@ elm-app test --watch
 ```
 
 ### `elm-app eject`
+
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time.
@@ -120,20 +128,25 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to use 'eject' The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ### `elm-app <elm-platform-comand>`
+
 Create Elm App does not rely on the global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
 
 #### `package`
+
 Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
 
 Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
 
 #### `repl`
+
 Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
 
 #### `make`
+
 Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 
 #### `reactor`
+
 Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 
