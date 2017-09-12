@@ -48,20 +48,23 @@ Create a new `my-app` folder with files for your future project.
 
 ```
 my-app/
-  .gitignore
-  README.md
-  elm-package.json
-  public/
-    favicon.ico
-    index.html
-  src/
-    Main.elm
-    index.js
-    main.css
-  tests/
-    elm-package.json
-    Main.elm
-    Tests.elm
+├── .gitignore
+├── README.md
+├── elm-package.json
+├── elm-stuff
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo.svg
+│   └── manifest.json
+├── src
+│   ├── Main.elm
+│   ├── index.js
+│   ├── main.css
+│   └── registerServiceWorker.js
+└── tests
+    ├── Tests.elm
+    └── elm-package.json
 ```
 
 You are ready to employ the full power of Create Elm App!

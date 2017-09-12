@@ -67,23 +67,28 @@ const db = new PouchDB('mydb');
 ```
 
 ## Folder structure
+
 ```
 my-app/
-  .gitignore
-  README.md
-  elm-package.json
-  public/
-    favicon.ico
-    index.html
-  src/
-    Main.elm
-    index.js
-    main.css
-  tests/
-    elm-package.json
-    Main.elm
-    Tests.elm
+├── .gitignore
+├── README.md
+├── elm-package.json
+├── elm-stuff
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo.svg
+│   └── manifest.json
+├── src
+│   ├── Main.elm
+│   ├── index.js
+│   ├── main.css
+│   └── registerServiceWorker.js
+└── tests
+    ├── Tests.elm
+    └── elm-package.json
 ```
+
 For the project to build, these files must exist with exact filenames:
 
 - `public/index.html` is the page template;
