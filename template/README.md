@@ -22,6 +22,8 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Turning off Elm Debugger](#turning-off-elm-debugger)
 - [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding a Stylesheet](#adding-a-stylesheet)
+- [Post-Processing CSS](#post-processing-css)
+- [Using elm-css](#using-elm-css)
 - [Adding Images and Fonts](#adding-images-and-fonts)
 - [Using the `public` Folder](#using-the-public-folder)
   - [Changing the HTML](#changing-the-html)
@@ -193,6 +195,30 @@ body {
 
 ```js
 import './main.css'; // Tell Webpack to pick-up the styles from base.css
+```
+
+## Post-Processing CSS
+
+This project setup minifies your CSS and adds vendor prefixes to it automatically through [Autoprefixer](https://github.com/postcss/autoprefixer) so you don’t need to worry about it.
+
+For example, this:
+
+```css
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+```
+
+becomes this:
+
+```css
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 ```
 
 In development, expressing dependencies this way allows your styles to be reloaded on the fly as you edit them. In production, all CSS files will be concatenated into a single minified `.css` file in the build output.
