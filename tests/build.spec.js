@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
-const expect = require('chai').expect;
+const expect = require('unexpected');
 const Nightmare = require('nightmare');
 
 const testAppName = 'test-app';
@@ -45,7 +45,7 @@ describe('Creating and making a build of Elm application', function() {
       })
       .end()
       .then(result => {
-        expect(result.trim()).to.be.equal('Your Elm App is working!');
+        expect(result.trim(), 'to be', 'Your Elm App is working!');
         done();
       })
       .catch(done);

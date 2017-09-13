@@ -2,7 +2,7 @@
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
-const expect = require('chai').expect;
+const expect = require('unexpected');
 
 const testAppName = 'test-app';
 const rootDir = path.resolve(__dirname, '..');
@@ -12,31 +12,30 @@ const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Testing Elm application with `elm-app test` (Please wait...)', function() {
   before(function(done) {
-    const cmd = spawn.sync('node', [createElmAppCmd, testAppName]);
-
-    if (cmd.status === 0) {
-      process.chdir(testAppDir);
+    const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
+    if (status === 0) {
       done();
     } else {
       done(false);
     }
   });
 
-  after(function() {
-    process.chdir(rootDir);
+  after(() => {
     rimraf.sync(testAppDir);
   });
 
-  it('`elm-app test` should succeed in `' + testAppName + '`', function() {
-    const result = spawn.sync('node', [elmAppCmd, 'test']);
-    const outputString = result.output
-      .map(function(out) {
+  it('`elm-app test` should succeed in `' + testAppName + '`', () => {
+    const { status, output } = spawn.sync('node', [elmAppCmd, 'test'], {
+      cwd: testAppDir
+    });
+    const outputString = output
+      .map(out => {
         return out !== null ? out.toString() : '';
       })
       .join('');
 
-    expect(result.status).to.be.at.least(1);
-    expect(outputString).to.have.string('This test should fail');
-    expect(outputString).to.have.string('failed as expected!');
+    expect(status, 'to be', 2);
+    expect(outputString, 'to contain', 'This test should fail');
+    expect(outputString, 'to contain', 'failed as expected!');
   }).timeout(2 * 60 * 1000);
 });
