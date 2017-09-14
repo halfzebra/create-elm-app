@@ -1,7 +1,8 @@
 /* eslint-env mocha */
 const fs = require('fs');
 const path = require('path');
-const expect = require('chai').expect;
+const expect = require('unexpected');
+
 const spawn = require('cross-spawn');
 const dircompare = require('dir-compare');
 const rimraf = require('rimraf');
@@ -13,10 +14,9 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Ejecting Elm application. (Please wait...)', () => {
-  before(function(done) {
-    const cmd = spawn.sync('node', [createElmAppCmd, testAppName]);
-
-    if (cmd.status === 0) {
+  before(done => {
+    const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
+    if (status === 0) {
       process.chdir(testAppDir);
       done();
     } else {
@@ -24,21 +24,19 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     }
   });
 
-  after(function() {
+  after(() => {
     process.chdir(rootDir);
     rimraf.sync(testAppDir);
   });
 
-  it('`elm-app eject` should succeed in `' + testAppName + '`', () => {
-    const result = spawn.sync('node', [elmAppCmd, 'eject']);
-    const outputString = result.output
-      .map(function(out) {
-        return out !== null ? out.toString() : '';
-      })
+  it(`'elm-app eject' should succeed in '${testAppName}'`, () => {
+    const { status, output } = spawn.sync('node', [elmAppCmd, 'eject']);
+    const outputString = output
+      .map(out => (out !== null ? out.toString() : ''))
       .join('');
 
-    expect(result.status).to.be.equal(0);
-    expect(outputString).to.have.string('Ejected successfully!');
+    expect(status, 'to be', 0);
+    expect(outputString, 'to contain', 'Ejected successfully!');
   }).timeout(10 * 60 * 1000);
 
   it('Ejected application should have `package.json` with scripts from Create Elm App', () => {
@@ -46,39 +44,43 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     const pkg = fs.readFileSync(testAppPkg, { encoding: 'utf-8' });
     const pkgScripts = JSON.parse(pkg).scripts;
 
-    expect(pkgScripts).to.have.property('build', 'node scripts/build.js');
-    expect(pkgScripts).to.have.property('start', 'node scripts/start.js');
-    expect(pkgScripts).to.have.property('package', 'elm-package');
-    expect(pkgScripts).to.have.property('make', 'elm-make');
-    expect(pkgScripts).to.have.property('repl', 'elm-repl');
-    expect(pkgScripts).to.have.property('reactor', 'elm-reactor');
+    expect(pkgScripts, 'to satisfy', {
+      build: 'node scripts/build.js',
+      start: 'node scripts/start.js',
+      package: 'elm-package',
+      make: 'elm-make',
+      repl: 'elm-repl',
+      reactor: 'elm-reactor'
+    });
   });
 
   it('Ejected application should have build and start scripts', () => {
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/build.js'))
-    ).to.be.equal(true);
+      fs.existsSync(path.join(testAppDir, './scripts/build.js')),
+      'to be',
+      true
+    );
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/start.js'))
-    ).to.be.equal(true);
+      fs.existsSync(path.join(testAppDir, './scripts/start.js')),
+      'to be',
+      true
+    );
   });
 
   it('Ejected application should have the config available', () => {
     const path1 = path.join(rootDir, './config');
     const path2 = path.join(testAppDir, './config');
-    const same = dircompare.compareSync(path1, path2).same;
-    expect(same).to.be.equal(true);
+    const { same } = dircompare.compareSync(path1, path2);
+    expect(same, 'to be', true);
   });
 
   it('It should be possible to build ejected applitaction, using npm scripts', () => {
-    const result = spawn.sync('npm', ['run', 'build']);
-    const outputString = result.output
-      .map(function(out) {
-        return out !== null ? out.toString() : '';
-      })
+    const { status, output } = spawn.sync('npm', ['run', 'build']);
+    const outputString = output
+      .map(out => (out !== null ? out.toString() : ''))
       .join('');
 
-    expect(result.status).to.be.equal(0);
-    expect(outputString).to.have.string('Compiled successfully');
+    expect(status, 'to be', 0);
+    expect(outputString, 'to contain', 'Compiled successfully');
   }).timeout(5 * 60 * 1000);
 });

@@ -32,6 +32,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Setting up API Proxy](#setting-up-api-proxy)
 - [Running tests](#running-tests)
   - [Dependencies in Tests](#dependencies-in-tests)
+  - [Continuous Integration](#continuous-integration)
 - [Making a Progressive Web App](#making-a-progressive-web-app)
   - [Opting Out of Caching](#opting-out-of-caching)
   - [Offline-First Considerations](#offline-first-considerations)
@@ -351,6 +352,30 @@ To use packages in tests, you also need to install them in `tests` directory.
 ```bash
 elm-app test --add-dependencies elm-package.json 
 ```
+
+### Continuous Integration
+
+#### Travis CI
+
+1. Following the [Travis Getting started](https://docs.travis-ci.com/user/getting-started/) guide for syncing your GitHub repository with Travis.  You may need to initialize some settings manually in your [profile](https://travis-ci.org/profile) page.
+1. Add a `.travis.yml` file to your git repository.
+
+```yaml
+language: node_js
+
+sudo: required
+
+node_js:
+  - '7'
+
+install:
+  - npm i create-elm-app -g
+
+script: elm-app test
+```
+
+1. Trigger your first build with a git push.
+1. [Customize your Travis CI Build](https://docs.travis-ci.com/user/customizing-the-build/) if needed.
 
 ## Making a Progressive Web App
 
