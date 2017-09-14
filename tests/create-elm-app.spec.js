@@ -11,17 +11,17 @@ const rootDir = path.resolve(__dirname, '..');
 const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 
-describe('Create Elm application with `create-elm-app` command', function() {
+describe('Create Elm application with `create-elm-app` command', () => {
   after(() => {
     rimraf.sync(testAppDir);
   });
 
-  it('`create-elm-app ' + testAppName + '` should succeed', () => {
+  it(`'create-elm-app ${testAppName}' should succeed`, () => {
     const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
     expect(status, 'to be', 0);
   }).timeout(60 * 1000);
 
-  it('`' + testAppName + '` should have elm-package.json file', () => {
+  it(`'${testAppName}' should have elm-package.json file`, () => {
     expect(
       fs.existsSync(path.join(testAppDir, 'elm-package.json')),
       'to be',
@@ -29,19 +29,16 @@ describe('Create Elm application with `create-elm-app` command', function() {
     );
   });
 
-  it('`' + testAppName + '` should have .gitignore file', () => {
+  it(`'${testAppName}' should have .gitignore file`, () => {
     expect(fs.existsSync(path.join(testAppDir, '.gitignore')), 'to be', true);
   });
 
-  it(
-    '`' + testAppName + '` should have the same file structure as template',
-    () => {
-      const templateDir = path.join(rootDir, 'template');
-      const options = {
-        excludeFilter: 'elm-stuff, elm-package.json, gitignore, .gitignore'
-      };
-      const { same } = dircompare.compareSync(templateDir, testAppDir, options);
-      expect(same, 'to be', true);
-    }
-  );
+  it(`'${testAppName}' should have the same file structure as template`, () => {
+    const templateDir = path.join(rootDir, 'template');
+    const options = {
+      excludeFilter: 'elm-stuff, elm-package.json, gitignore, .gitignore'
+    };
+    const { same } = dircompare.compareSync(templateDir, testAppDir, options);
+    expect(same, 'to be', true);
+  });
 });

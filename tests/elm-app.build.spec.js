@@ -11,8 +11,8 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Building Elm application with `elm-app build`', function() {
-  before(function(done) {
+describe('Building Elm application with `elm-app build`', () => {
+  before(done => {
     const cmd = spawn.sync('node', [createElmAppCmd, testAppName]);
     if (cmd.status === 0) {
       process.chdir(testAppDir);
@@ -22,7 +22,7 @@ describe('Building Elm application with `elm-app build`', function() {
     }
   });
 
-  after(function() {
+  after(() => {
     process.chdir(rootDir);
     rimraf.sync(testAppDir);
   });
@@ -30,10 +30,9 @@ describe('Building Elm application with `elm-app build`', function() {
   it('`elm-app build` should succeed in `' + testAppName + '`', () => {
     const { output, status } = spawn.sync('node', [elmAppCmd, 'build']);
     const outputContent = output
-      .map(function(out) {
-        return out !== null ? out.toString() : '';
-      })
+      .map(out => (out !== null ? out.toString() : ''))
       .join('');
+
     expect(status, 'to be', 0);
     expect(outputContent, 'to contain', 'Compiled successfully.');
     expect(fs.existsSync(path.join(testAppDir, 'build')), 'to be', true);

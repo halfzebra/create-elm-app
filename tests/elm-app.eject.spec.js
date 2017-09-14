@@ -14,7 +14,7 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Ejecting Elm application. (Please wait...)', () => {
-  before(function(done) {
+  before(done => {
     const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
     if (status === 0) {
       process.chdir(testAppDir);
@@ -24,17 +24,15 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     }
   });
 
-  after(function() {
+  after(() => {
     process.chdir(rootDir);
     rimraf.sync(testAppDir);
   });
 
-  it('`elm-app eject` should succeed in `' + testAppName + '`', () => {
+  it(`'elm-app eject' should succeed in '${testAppName}'`, () => {
     const { status, output } = spawn.sync('node', [elmAppCmd, 'eject']);
     const outputString = output
-      .map(function(out) {
-        return out !== null ? out.toString() : '';
-      })
+      .map(out => (out !== null ? out.toString() : ''))
       .join('');
 
     expect(status, 'to be', 0);
@@ -79,9 +77,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
   it('It should be possible to build ejected applitaction, using npm scripts', () => {
     const { status, output } = spawn.sync('npm', ['run', 'build']);
     const outputString = output
-      .map(function(out) {
-        return out !== null ? out.toString() : '';
-      })
+      .map(out => (out !== null ? out.toString() : ''))
       .join('');
 
     expect(status, 'to be', 0);
