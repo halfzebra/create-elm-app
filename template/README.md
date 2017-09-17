@@ -226,6 +226,136 @@ In development, expressing dependencies this way allows your styles to be reload
 
 You can put all your CSS right into `src/main.css`. It would still be imported from `src/index.js`, but you could always remove that import if you later migrate to a different build tool.
 
+## Using elm-css
+
+### Step 1: Install [elm-css](https://github.com/rtfeldman/elm-css) npm package
+
+```sh
+npm install elm-css -g
+```
+
+### Step 2: Install Elm depedencies
+
+```sh
+elm-app install rtfeldman/elm-css
+elm-app install rtfeldman/elm-css-helpers
+```
+
+### Step 3: Create the stylesheet file
+
+Create an Elm file at `src/Stylesheets.elm` (The name of this file cannot be changed).
+
+```elm
+port module Stylesheets exposing (main, CssClasses(..), CssIds(..), helpers)
+
+import Css exposing (..)
+import Css.Elements exposing (body, li)
+import Css.Namespace exposing (namespace)
+import Css.File exposing (..)
+import Html.CssHelpers exposing (withNamespace)
+
+
+port files : CssFileStructure -> Cmd msg
+
+
+cssFiles : CssFileStructure
+cssFiles =
+    toFileStructure [ ( "src/style.css", Css.File.compile [ css ] ) ]
+
+
+main : CssCompilerProgram
+main =
+    Css.File.compiler files cssFiles
+
+
+type CssClasses
+    = NavBar
+
+
+type CssIds
+    = Page
+
+
+appNamespace =
+    "App"
+
+
+helpers =
+    withNamespace appNamespace
+
+
+css =
+    (stylesheet << namespace appNamespace)
+    [ body
+        [ overflowX auto
+        , minWidth (px 1280)
+        ]
+    , id Page
+        [ backgroundColor (rgb 200 128 64)
+        , color (hex "CCFFFF")
+        , width (pct 100)
+        , height (pct 100)
+        , boxSizing borderBox
+        , padding (px 8)
+        , margin zero
+        ]
+    , class NavBar
+        [ margin zero
+        , padding zero
+        , children
+            [ li
+                [ (display inlineBlock) |> important
+                , color primaryAccentColor
+                ]
+            ]
+        ]
+    ]
+
+
+primaryAccentColor =
+    hex "ccffaa"
+```
+
+### Steap 4: Compiling the stylesheet
+
+To compile the CSS file, just run
+
+```sh
+elm-css src/Stylesheets.elm
+```
+
+This will generate a file called `style.css`
+
+### Step 5: Import the compiled CSS file
+
+Add the following line to your `src/index.js`:
+
+```js
+import './style.css';
+```
+
+### Step 6: Useing the stylesheet in your Elm code
+
+```elm
+import Stylesheets exposing (helpers, CssIds(..), CssClasses(..))
+
+
+view model =
+    div [ helpers.id Page ]
+        [ div [ helpers.class [ NavBar ] ]
+            [ text "Your Elm App is working!" ]
+        ]
+```
+
+Please note that `Stylesheets.elm` exposes `helpers` record, which contains functions for creating id and class attributes.
+
+You can also destructure `helpers` to make your view more readable:
+
+```elm
+{ id, class } =
+    helpers
+```
+
 ## Adding Images and Fonts
 
 With Webpack, using static assets like images and fonts works similarly to CSS.
@@ -321,108 +451,6 @@ The `public` folder is useful as a workaround for a number of less common cases:
 
 Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
 
-## Integrate elm-css
-
-### Step 1: Install required depedencies
-
-```sh
-elm-app package install rtfeldman/elm-css
-elm-app package install elm-css-helpers
-```
-
-### Step 2: Create the stylesheet file
-
-Create an Elm file at `src/Stylesheets.elm` (The name of this file cannot be changed).
-
-```elm
-port module Stylesheets exposing (main, CssClasses(..), CssIds(..), helpers)
-
-import Css exposing (..)
-import Css.Elements exposing (body, li)
-import Css.Namespace exposing (namespace)
-import Css.File exposing (..)
-import Html.CssHelpers exposing (withNamespace)
-
-
-port files : CssFileStructure -> Cmd msg
-
-
-cssFiles : CssFileStructure
-cssFiles =
-    toFileStructure [ ( "style.css", Css.File.compile [ css ] ) ]
-
-
-main : CssCompilerProgram
-main =
-    Css.File.compiler files cssFiles
-
-
-type CssClasses
-    = NavBar
-
-
-type CssIds
-    = Page
-
-
-appNamespace =
-    "App"
-
-
-helpers =
-    withNamespace appNamespace
-
-
-css =
-    (stylesheet << namespace appNamespace)
-    [ body
-        [ overflowX auto
-        , minWidth (px 1280)
-        ]
-    , id Page
-        [ backgroundColor (rgb 200 128 64)
-        , color (hex "CCFFFF")
-        , width (pct 100)
-        , height (pct 100)
-        , boxSizing borderBox
-        , padding (px 8)
-        , margin zero
-        ]
-    , class NavBar
-        [ margin zero
-        , padding zero
-        , children
-            [ li
-                [ (display inlineBlock) |> important
-                , color primaryAccentColor
-                ]
-            ]
-        ]
-    ]
-
-
-primaryAccentColor =
-    hex "ccffaa"
-```
-
-### Step 3: Import the stylesheet
-
-Add the following line to your index.js:
-
-
-```js
-import './Stylesheets.elm'
-```
-
-### Testing the stylesheet
-
-To inspect the generated CSS file, just run
-
-```sh
-elm-css src/Stylesheets.elm
-```
-
-This will generate a file called `style.css`
 
 ## Setting up API Proxy
 To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
