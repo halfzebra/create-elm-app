@@ -141,7 +141,7 @@ You don’t have to use 'eject' The curated feature set is suitable for small an
 
 ### `elm-app <elm-platform-comand>`
 
-Create Elm App does not rely on the global installation of Elm Platform, but you still can use it's local Elm Platform to access default command line tools:
+Create Elm App does not rely on the global installation of Elm Platform, but you still can use its local Elm Platform to access default command line tools:
 
 #### `package`
 
@@ -168,7 +168,7 @@ To turn off Elm Debugger, set `ELM_DEBUGGER` environment variable to `false`
 
 ## Changing the base path of the assets in the HTML
 
-By default assets will be linked from the HTML to the root url. For example `/css/style.css`.
+By default, assets will be linked from the HTML to the root url. For example `/css/style.css`.
 
 If you deploy to a path that is not the root, you can change the `PUBLIC_URL` environment variable to properly reference your assets in the compiled assets. For example: `PUBLIC_URL=./ elm-app build`.
 
@@ -234,7 +234,7 @@ You can put all your CSS right into `src/main.css`. It would still be imported f
 npm install elm-css -g
 ```
 
-### Step 2: Install Elm depedencies
+### Step 2: Install Elm dependencies
 
 ```sh
 elm-app install rtfeldman/elm-css
@@ -334,7 +334,7 @@ Add the following line to your `src/index.js`:
 import './style.css';
 ```
 
-### Step 6: Useing the stylesheet in your Elm code
+### Step 6: Using the stylesheet in your Elm code
 
 ```elm
 import Stylesheets exposing (helpers, CssIds(..), CssClasses(..))
@@ -398,15 +398,15 @@ You can also add other assets to the `public` folder.
 
 Note that we normally encourage you to `import` assets in JavaScript files instead.
 For example, see the sections on [adding a stylesheet](#adding-a-stylesheet) and [adding images and fonts](#adding-images-fonts-and-files).
-This mechanism provides a number of benefits:
+This mechanism provides a few benefits:
 
 * Scripts and stylesheets get minified and bundled together to avoid extra network requests.
 * Missing files cause compilation errors instead of 404 errors for your users.
-* Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
+* Result filenames include content hashes, so you don’t need to worry about browsers caching their old versions.
 
-However there is an **escape hatch** that you can use to add an asset outside of the module system.
+However, there is a **escape hatch** that you can use to add an asset outside of the module system.
 
-If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
+If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead, it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
 
 Inside `index.html`, you can use it like this:
 
@@ -416,7 +416,7 @@ Inside `index.html`, you can use it like this:
 
 Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
 
-When you run `elm-app build`, Create Elm App will substitute `%PUBLIC_URL%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root URL.
+When you run `elm-app build`, Create Elm App will substitute `%PUBLIC_URL%` with a correct absolute path, so your project works even if you use client-side routing or host it at a non-root URL.
 
 In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 
@@ -442,7 +442,7 @@ Keep in mind the downsides of this approach:
 ### When to Use the `public` Folder
 
 Normally we recommend importing [stylesheets](#adding-a-stylesheet), [images, and fonts](#adding-images-fonts-and-files) from JavaScript.
-The `public` folder is useful as a workaround for a number of less common cases:
+The `public` folder is used as a workaround for some less common cases:
 
 * You need a file with a specific name in the build output, such as [`manifest.webmanifest`](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 * You have thousands of images and need to dynamically reference their paths.
@@ -464,7 +464,7 @@ To forward the API ( REST ) calls to backend server, add a proxy to the `elm-pac
 ```
 
 Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`.
-The development server has heuristics, to handle it's own flow, which may interfere with proxying of 
+The development server has heuristics, to handle its own flow, which may interfere with proxying of 
 other html and javascript content types.
 
 ```sh
@@ -645,9 +645,7 @@ Open your `elm-package.json` and add a `homepage` field:
   "homepage": "https://myusername.github.io/my-app",
 ```
 
-Create React App uses the `homepage` field to determine the root URL in the built HTML file.
-
-The `predeploy` script will run automatically before `deploy` is run.
+Create Elm App uses the `homepage` field to determine the root URL in the built HTML file.
 
 #### Step 2: Deploy the site by running `gh-pages -d build`
 
