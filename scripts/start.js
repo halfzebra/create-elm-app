@@ -29,7 +29,7 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const clearConsole = require('react-dev-utils/clearConsole');
 const openBrowser = require('react-dev-utils/openBrowser');
 const createDevServerConfig = require('../config/webpackDevServer.config');
-const highlightElmCompilerErrors = require('./utils/highlightElmCompilerErrors');
+const formatElmCompilerErrors = require('./utils/formatElmCompilerErrors');
 const paths = require('../config/paths');
 
 if (fs.existsSync('elm-package.json') === false) {
@@ -100,7 +100,7 @@ function createCompiler(webpack, config, appName, urls) {
     // We have switched off the default Webpack output in WebpackDevServer
     // options so we are going to "massage" the warnings and errors and present
     // them in a readable focused way.
-    const messages = highlightElmCompilerErrors(
+    const messages = formatElmCompilerErrors(
       formatWebpackMessages(stats.toJson({}, true))
     );
 
