@@ -1,6 +1,16 @@
 'use strict';
 
 var chalk = require('chalk');
+var ctx = new chalk.constructor({ enabled: true });
+var error = ctx.bold.red;
+var filename = ctx.cyan;
+var isBrowser = typeof window === 'object';
+
+if (isBrowser) {
+  ctx.level = 1;
+  error = ctx.cyan;
+  filename = ctx.green;
+}
 
 function stripRedundantInfo(error) {
   return error.replace(
@@ -17,9 +27,9 @@ module.exports = function formatElmCompilerErrors(messages) {
         errors: errors
           .map(x =>
             x
-              .replace(/(--\s[A-Z\s]+-+\s.*\.elm\n)/g, chalk.cyan('$1'))
-              .replace(/(\n\s*)(\^+)/g, '$1' + chalk.red('$2'))
-              .replace(/(\d+\|)(>)/g, '$1' + chalk.bold(chalk.red('$2')))
+              .replace(/(--\s[A-Z\s]+-+\s.*\.elm\n)/g, filename('$1'))
+              .replace(/(\n\s*)(\^+)/g, '$1' + error('$2'))
+              .replace(/(\d+)(\|>)/g, '$1' + error('$2'))
           )
           .map(stripRedundantInfo),
         warnings: warnings
