@@ -34,7 +34,8 @@ module.exports = {
     // the line below with these two lines if you prefer the stock client:
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    // require.resolve('react-dev-utils/webpackHotDevClient'),
+    require.resolve('../scripts/utils/webpackHotDevClient'),
 
     // Errors should be considered fatal in development
     require.resolve('react-error-overlay'),
@@ -196,5 +197,15 @@ module.exports = {
     new HotModuleReplacementPlugin(),
 
     new NamedModulesPlugin()
-  ]
+  ],
+
+  // Some libraries import Node modules but don't use them in the browser.
+  // Tell Webpack to provide empty mocks for them so importing them works.
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 };

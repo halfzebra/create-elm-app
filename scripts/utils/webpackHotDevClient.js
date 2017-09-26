@@ -15,7 +15,7 @@ var url = require('url');
 var launchEditorEndpoint = require('react-dev-utils/launchEditorEndpoint');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
-var highlightElmCompilerErrors = require('./highlightElmCompilerErrors');
+var formatElmCompilerErrors = require('./formatElmCompilerErrors');
 
 ErrorOverlay.startReportingRuntimeErrors({
   launchEditorEndpoint: launchEditorEndpoint,
@@ -142,7 +142,7 @@ function handleErrors(errors) {
   hasCompileErrors = true;
 
   // "Massage" webpack messages.
-  var formatted = highlightElmCompilerErrors(
+  var formatted = formatElmCompilerErrors(
     formatWebpackMessages({
       errors: errors,
       warnings: []
