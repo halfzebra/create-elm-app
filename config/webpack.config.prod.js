@@ -187,7 +187,8 @@ module.exports = {
     new UglifyJsPlugin({
       compress: {
         warnings: false,
-        dead_code: true,
+        // Enable users to turn off dead code elimination.
+        dead_code: process.env.DEAD_CODE_ELIMINATION !== 'false',
         pure_funcs: [
           '_elm_lang$core$Native_Utils.update',
           'A2',
