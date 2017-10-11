@@ -16,7 +16,7 @@ before_install:
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 install:
   - yarn install
-  - yarn link
+  - npm link
 script: npm test
 after_success:
   - npm run semantic-release

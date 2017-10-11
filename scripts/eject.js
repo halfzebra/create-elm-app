@@ -72,8 +72,8 @@ function performEject(pkg) {
     fs.copySync(path.resolve(__dirname, 'build.js'), './scripts/build.js');
     fs.copySync(path.resolve(__dirname, 'start.js'), './scripts/start.js');
     fs.copySync(
-      path.resolve(__dirname, './utils/highlightElmCompilerErrors.js'),
-      './scripts/utils/highlightElmCompilerErrors.js'
+      path.resolve(__dirname, './utils/formatElmCompilerErrors.js'),
+      './scripts/utils/formatElmCompilerErrors.js'
     );
     fs.copySync(path.resolve(__dirname, '../config'), './config');
   } catch (err) {

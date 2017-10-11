@@ -58,21 +58,23 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const ELM_APP = /^ELM_APP_/i;
 
 function getClientEnvironment(publicUrl) {
-  const raw = Object.keys(process.env).filter(key => ELM_APP.test(key)).reduce((
-    env,
-    key
-  ) => {
-    env[key] = process.env[key];
-    return env;
-  }, {
-    // Useful for determining whether we’re running in production mode.
-    NODE_ENV: process.env.NODE_ENV || 'development',
-    // Useful for resolving the correct path to static assets in `public`.
-    // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
-    // This should only be used as an escape hatch. Normally you would put
-    // images into the `src` and `import` them in code to get their paths.
-    PUBLIC_URL: publicUrl
-  });
+  const raw = Object.keys(process.env)
+    .filter(key => ELM_APP.test(key))
+    .reduce(
+      (env, key) => {
+        env[key] = process.env[key];
+        return env;
+      },
+      {
+        // Useful for determining whether we’re running in production mode.
+        NODE_ENV: process.env.NODE_ENV || 'development',
+        // Useful for resolving the correct path to static assets in `public`.
+        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
+        // This should only be used as an escape hatch. Normally you would put
+        // images into the `src` and `import` them in code to get their paths.
+        PUBLIC_URL: publicUrl
+      }
+    );
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
     'process.env': Object.keys(raw).reduce((env, key) => {

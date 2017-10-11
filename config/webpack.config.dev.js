@@ -15,7 +15,7 @@ const paths = require('../config/paths');
 const publicPath = '/';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
-// Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
+// Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
@@ -34,7 +34,8 @@ module.exports = {
     // the line below with these two lines if you prefer the stock client:
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    // require.resolve('react-dev-utils/webpackHotDevClient'),
+    require.resolve('../scripts/utils/webpackHotDevClient'),
 
     // Errors should be considered fatal in development
     require.resolve('react-error-overlay'),
@@ -74,10 +75,24 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         loader: require.resolve('babel-loader'),
         query: {
+          // Latest stable ECMAScript features
           presets: [
-            require.resolve('babel-preset-es2015'),
-            require.resolve('babel-preset-es2016'),
-            require.resolve('babel-preset-es2017')
+            [
+              require.resolve('babel-preset-env'),
+              {
+                targets: {
+                  // React parses on ie 9, so we should too
+                  ie: 9,
+                  // We currently minify with uglify
+                  // Remove after https://github.com/mishoo/UglifyJS2/issues/448
+                  uglify: true
+                },
+                // Disable polyfill transforms
+                useBuiltIns: false,
+                // Do not transform modules to CJS
+                modules: false
+              }
+            ]
           ]
         }
       },
@@ -105,7 +120,9 @@ module.exports = {
             options: {
               verbose: true,
               warn: true,
-              debug: !!process.env.ELM_DEBUGGER,
+              // If ELM_DEBUGGER was set to "false", disable it. Otherwise
+              // for invalid values, "true" and as a default, enable it
+              debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
               pathToMake: paths.elmMake,
               forceWatch: true
             }
@@ -180,5 +197,15 @@ module.exports = {
     new HotModuleReplacementPlugin(),
 
     new NamedModulesPlugin()
-  ]
+  ],
+
+  // Some libraries import Node modules but don't use them in the browser.
+  // Tell Webpack to provide empty mocks for them so importing them works.
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 };

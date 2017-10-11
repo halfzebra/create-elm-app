@@ -50,6 +50,13 @@ switch (script) {
 
     break;
   }
+  case 'install': {
+    const executable = executablePaths['elm-package'];
+    spawn.sync(path.normalize(executable), process.argv.slice(2), {
+      stdio: 'inherit'
+    });
+    break;
+  }
   default:
     // Proxy elm-platform cli commands.
     if (['package', 'reactor', 'make', 'repl'].indexOf(script) !== -1) {
@@ -74,7 +81,9 @@ switch (script) {
 function help(version) {
   console.log('\nUsage: elm-app <command>\n');
   console.log('where <command> is one of:');
-  console.log('    create, build, start, package, reactor, make, repl\n');
+  console.log(
+    '    create, build, start, install, package, reactor, make, repl\n'
+  );
   console.log('\nElm ' + elmPlatformVersion + '\n');
   console.log(
     'create-elm-app@' + version + ' ' + path.resolve(__dirname, '..')
