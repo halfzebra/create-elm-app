@@ -27,7 +27,7 @@ module.exports = function formatElmCompilerErrors(messages) {
         errors: errors
           .map(x =>
             x
-              .replace(/(--\s[A-Z\s]+-+\s.*\.elm\n)/g, filename('$1'))
+              .replace(/(--\s[A-Z\s]+-+\s.*\.elm\r?\n)/g, filename('$1'))
               .replace(/(\n\s*)(\^+)/g, '$1' + error('$2'))
               .replace(/(\d+)(\|>)/g, '$1' + error('$2'))
           )
