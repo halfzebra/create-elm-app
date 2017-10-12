@@ -71,10 +71,7 @@ function performEject(pkg) {
   try {
     fs.copySync(path.resolve(__dirname, 'build.js'), './scripts/build.js');
     fs.copySync(path.resolve(__dirname, 'start.js'), './scripts/start.js');
-    fs.copySync(
-      path.resolve(__dirname, './utils/formatElmCompilerErrors.js'),
-      './scripts/utils/formatElmCompilerErrors.js'
-    );
+    fs.copySync(path.resolve(__dirname, './utils'), './scripts/utils');
     fs.copySync(path.resolve(__dirname, '../config'), './config');
   } catch (err) {
     console.log(chalk.red('Failed to copy scripts, the error is:\n'));
