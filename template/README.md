@@ -19,7 +19,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [repl](#repl)
     - [make](#make)
     - [reactor](#reactor)
-- [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
+- [Turning off Elm Debugger](#turning-off-elm-debugger)
 - [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
@@ -162,11 +162,9 @@ Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 
-## Turning on/off Elm Debugger
+## Turning off Elm Debugger
 
-By default, in production (`elm-app build`) the Debugger is turned off and in development mode (`elm-app start`) it's turned on.
-
-To turn on/off Elm Debugger explicitly, set `ELM_DEBUGGER` environment variable to `true` or `false` respectively.
+To turn off Elm Debugger, set `ELM_DEBUGGER` environment variable to `false`
 
 ## Changing the base path of the assets in the HTML
 
