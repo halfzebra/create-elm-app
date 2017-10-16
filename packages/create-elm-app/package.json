@@ -1,7 +1,7 @@
 {
   "name": "create-elm-app",
   "description": "Elm apps with zero configuration",
-  "version": "0.0.0-development",
+  "version": "1.8.0",
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "bin": {
     "elm-app": "./bin/elm-app-cli.js",
