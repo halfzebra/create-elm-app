@@ -30,11 +30,6 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "keywords": [
-    "cli",
-    "elm",
-    "webpack"
-  ],
   "license": "MIT",
   "private": true,
   "repository": {
