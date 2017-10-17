@@ -19,7 +19,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [repl](#repl)
     - [make](#make)
     - [reactor](#reactor)
-- [Turning on/off Elm Debugger](#turning-on-off-elm-debugger)
+- [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
 - [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
