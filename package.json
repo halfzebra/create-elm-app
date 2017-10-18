@@ -1,11 +1,4 @@
 {
-  "name": "create-elm-app",
-  "description": "Elm apps with zero configuration",
-  "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/halfzebra/create-elm-app/issues",
-    "email": "eduard.kyvenko@gmail.com"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
@@ -21,21 +14,14 @@
     "husky": "^0.14.3",
     "lerna": "^2.4.0",
     "lerna-semantic-release": "^9.1.0",
+    "lint-staged": "^4.2.3",
     "mocha": "^4.0.1",
     "nightmare": "^2.10.0",
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
     "unexpected": "^10.36.0"
   },
-  "engines": {
-    "node": ">=6.0.0"
-  },
-  "license": "MIT",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/halfzebra/create-elm-app"
-  },
   "scripts": {
     "cz": "git-cz",
     "eslint": "eslint .",
@@ -43,6 +29,16 @@
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
     "test": "npm run test:cli && npm run test:functional",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
-    "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000"
+    "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
   }
 }
