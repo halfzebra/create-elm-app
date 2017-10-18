@@ -1,17 +1,22 @@
 /* eslint-disable */
 /* eslint-env mocha */
-const fs = require('fs');
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
 const expect = require('unexpected');
 const Nightmare = require('nightmare');
 
+const root = path.resolve(__dirname, '..');
 const testAppName = 'test-app';
-const rootDir = path.resolve(__dirname, '..');
-const testAppDir = path.join(rootDir, testAppName);
-const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
-const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
+const testAppDir = path.join(root, testAppName);
+const createElmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/create-elm-app-cli.js'
+);
+const elmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/elm-app-cli.js'
+);
 
 describe('Creating and making a build of Elm application', function() {
   this.timeout(30000);
@@ -21,7 +26,7 @@ describe('Creating and making a build of Elm application', function() {
     spawn('node', [createElmAppCmd, testAppName]).on('close', status => {
       if (status === 0) {
         spawn('node', [elmAppCmd, 'build'], {
-          cwd: testAppDir
+          cwd: testAppDir,
         }).on('close', status => {
           if (status === 0) {
             done();

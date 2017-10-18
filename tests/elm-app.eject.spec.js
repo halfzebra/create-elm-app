@@ -50,7 +50,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
       package: 'elm-package',
       make: 'elm-make',
       repl: 'elm-repl',
-      reactor: 'elm-reactor'
+      reactor: 'elm-reactor',
     });
   });
 
@@ -86,12 +86,16 @@ describe('Ejecting Elm application. (Please wait...)', () => {
 
   it('Ejected application should have utility scripts', () => {
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/utils/formatElmCompilerErrors.js')),
+      fs.existsSync(
+        path.join(testAppDir, './scripts/utils/formatElmCompilerErrors.js')
+      ),
       'to be',
       true
     );
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/utils/webpackHotDevClient.js')),
+      fs.existsSync(
+        path.join(testAppDir, './scripts/utils/webpackHotDevClient.js')
+      ),
       'to be',
       true
     );
