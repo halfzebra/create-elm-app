@@ -97,4 +97,6 @@ template/config/
 # Desktop Services Store on macOS
 .DS_Store
 
-/test-app/
+# Exclude test-app
+test-app/
+build/
