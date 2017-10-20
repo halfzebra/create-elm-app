@@ -14,6 +14,10 @@ const createElmAppCmd = path.join(
   root,
   './packages/create-elm-app/bin/create-elm-app-cli.js'
 );
+const elmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/elm-app-cli.js'
+);
 
 describe('Ejecting Elm application. (Please wait...)', () => {
   before(done => {
@@ -70,7 +74,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
   });
 
   it('Ejected application should have the config available', () => {
-    const path1 = path.join(root, './config');
+    const path1 = path.join(root, './packages/create-elm-app/config');
     const path2 = path.join(testAppDir, './config');
     const { same } = dircompare.compareSync(path1, path2);
     expect(same, 'to be', true);
