@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, img)
+import Html exposing (Html, text, div, h1, img)
 import Html.Attributes exposing (src)
 
 
@@ -37,7 +37,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , div [] [ text "Your Elm App is working!" ]
+        , h1 [] [ text "Your Elm App is working!" ]
         ]
 
 
