@@ -37,6 +37,33 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
+// Enable users to turn off dead code elimination.
+const deadCodeElimination =
+  process.env.DEAD_CODE_ELIMINATION !== 'true'
+    ? {
+        dead_code: true,
+        pure_funcs: [
+          '_elm_lang$core$Native_Utils.update',
+          'A2',
+          'A3',
+          'A4',
+          'A5',
+          'A6',
+          'A7',
+          'A8',
+          'A9',
+          'F2',
+          'F3',
+          'F4',
+          'F5',
+          'F6',
+          'F7',
+          'F8',
+          'F9'
+        ]
+      }
+    : {};
+
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
@@ -185,29 +212,12 @@ module.exports = {
 
     // Minify the compiled JavaScript.
     new UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        dead_code: true,
-        pure_funcs: [
-          '_elm_lang$core$Native_Utils.update',
-          'A2',
-          'A3',
-          'A4',
-          'A5',
-          'A6',
-          'A7',
-          'A8',
-          'A9',
-          'F2',
-          'F3',
-          'F4',
-          'F5',
-          'F6',
-          'F7',
-          'F8',
-          'F9'
-        ]
-      },
+      compress: Object.assign(
+        {
+          warnings: false
+        },
+        deadCodeElimination
+      ),
       output: {
         comments: false
       }

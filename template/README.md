@@ -20,6 +20,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
     - [make](#make)
     - [reactor](#reactor)
 - [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
+- [Dead code elimination](#dead-code-elimination)
 - [Changing the Page `<title>`](#changing-the-page-title)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
@@ -167,6 +168,12 @@ Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 By default, in production (`elm-app build`) the Debugger is turned off and in development mode (`elm-app start`) it's turned on.
 
 To turn on/off Elm Debugger explicitly, set `ELM_DEBUGGER` environment variable to `true` or `false` respectively.
+
+## Dead code elimination
+
+Create Elm App comes with an opinionated setup for dead code elimination which is disabled by default, because it may break your code.
+
+You can enable it by setting `DEAD_CODE_ELIMINATION` environment variable to `true`
 
 ## Changing the base path of the assets in the HTML
 
