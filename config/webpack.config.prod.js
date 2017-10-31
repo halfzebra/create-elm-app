@@ -39,7 +39,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 
 // Enable users to turn off dead code elimination.
 const deadCodeElimination =
-  process.env.DEAD_CODE_ELIMINATION !== 'true'
+  process.env.DEAD_CODE_ELIMINATION === 'true'
     ? {
         dead_code: true,
         pure_funcs: [
