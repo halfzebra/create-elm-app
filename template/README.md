@@ -204,7 +204,7 @@ body {
 ### `index.js`
 
 ```js
-import './main.css'; // Tell Webpack to pick-up the styles from base.css
+import './main.css'; // Tell Webpack to pick-up the styles from main.css
 ```
 
 ## Post-Processing CSS
