@@ -82,7 +82,7 @@ function help(version) {
   console.log('\nUsage: elm-app <command>\n');
   console.log('where <command> is one of:');
   console.log(
-    '    create, build, start, install, package, reactor, make, repl\n'
+    '    create, build, start, install, test, eject, package, reactor, make, repl\n'
   );
   console.log('\nElm ' + elmPlatformVersion + '\n');
   console.log(
