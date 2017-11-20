@@ -1488,7 +1488,7 @@ commander@^2.11.0, commander@^2.9.0, commander@~2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
 
-commitizen@^2.9.8:
+commitizen@^2.9.6:
   version "2.9.6"
   resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-2.9.6.tgz#c0d00535ef264da7f63737edfda4228983fa2291"
   dependencies:
@@ -2337,9 +2337,9 @@ elm-hot-loader@0.5.4:
   dependencies:
     loader-utils "^0.2.12"
 
-elm-test@^0.18.9:
-  version "0.18.9"
-  resolved "https://registry.yarnpkg.com/elm-test/-/elm-test-0.18.9.tgz#b524de27556528eb7a16e95cb2b49993ffe2dd7e"
+elm-test@^0.18.10:
+  version "0.18.10"
+  resolved "https://registry.yarnpkg.com/elm-test/-/elm-test-0.18.10.tgz#1a6375cec68c5fd5f7d3fe76c2f1f3c02d2b4a49"
   dependencies:
     binstall "1.2.0"
     chalk "2.1.0"
@@ -2348,6 +2348,7 @@ elm-test@^0.18.9:
     find-parent-dir "^0.3.0"
     firstline "1.2.1"
     fs-extra "0.30.0"
+    fsevents "1.1.2"
     glob "^7.1.1"
     lodash "4.13.1"
     minimist "^1.2.0"

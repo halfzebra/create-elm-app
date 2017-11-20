@@ -32,7 +32,7 @@
     "dotenv": "^4.0.0",
     "elm": "^0.18.0",
     "elm-hot-loader": "0.5.4",
-    "elm-test": "^0.18.9",
+    "elm-test": "^0.18.10",
     "elm-webpack-loader": "^4.3.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.11.2",
