@@ -17,15 +17,29 @@ var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 var formatElmCompilerErrors = require('./formatElmCompilerErrors');
 
+ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
+  // Keep this sync with errorOverlayMiddleware.js
+  fetch(
+    launchEditorEndpoint +
+      '?fileName=' +
+      window.encodeURIComponent(errorLocation.fileName) +
+      '&lineNumber=' +
+      window.encodeURIComponent(errorLocation.lineNumber || 1)
+  );
+});
+
+// We need to keep track of if there has been a runtime error.
+// Essentially, we cannot guarantee application state was not corrupted by the
+// runtime error. To prevent confusing behavior, we forcibly reload the entire
+// application. This is handled below when we are notified of a compile (code
+// change).
+// See https://github.com/facebookincubator/create-react-app/issues/3096
+var hadRuntimeError = false;
 ErrorOverlay.startReportingRuntimeErrors({
-  launchEditorEndpoint: launchEditorEndpoint,
   onError: function() {
-    // TODO: why do we need this?
-    if (module.hot && typeof module.hot.decline === 'function') {
-      module.hot.decline();
-    }
+    hadRuntimeError = true;
   },
-  filename: '/static/js/bundle.js'
+  filename: '/static/js/bundle.js',
 });
 
 if (module.hot && typeof module.hot.dispose === 'function') {
@@ -221,7 +235,7 @@ function tryApplyUpdates(onHotUpdateSuccess) {
   }
 
   function handleApplyUpdates(err, updatedModules) {
-    if (err || !updatedModules) {
+    if (err || !updatedModules || hadRuntimeError) {
       window.location.reload();
       return;
     }
