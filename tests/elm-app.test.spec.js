@@ -4,15 +4,23 @@ const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
 const expect = require('unexpected');
 
+const root = path.resolve(__dirname, '..');
 const testAppName = 'test-app';
-const rootDir = path.resolve(__dirname, '..');
-const testAppDir = path.join(rootDir, testAppName);
-const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
-const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
+const testAppDir = path.join(root, testAppName);
+const createElmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/create-elm-app-cli.js'
+);
+const elmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/elm-app-cli.js'
+);
 
 describe('Testing Elm application with `elm-app test` (Please wait...)', () => {
   before(done => {
-    const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
+    const { status } = spawn.sync('node', [createElmAppCmd, testAppName], {
+      cwd: root,
+    });
     if (status === 0) {
       done();
     } else {
@@ -25,9 +33,13 @@ describe('Testing Elm application with `elm-app test` (Please wait...)', () => {
   });
 
   it('`elm-app test` should succeed in `' + testAppName + '`', () => {
-    const { status, output } = spawn.sync('node', [elmAppCmd, 'test'], {
-      cwd: testAppDir
-    });
+    const { status, output } = spawn.sync(
+      'node',
+      [elmAppCmd, 'test', { cwd: testAppDir }],
+      {
+        cwd: testAppDir,
+      }
+    );
     const outputString = output
       .map(out => (out !== null ? out.toString() : ''))
       .join('');

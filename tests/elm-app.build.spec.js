@@ -5,11 +5,17 @@ const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
 const expect = require('unexpected');
 
+const root = path.resolve(__dirname, '..');
 const testAppName = 'test-app';
-const rootDir = path.resolve(__dirname, '..');
-const testAppDir = path.join(rootDir, testAppName);
-const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
-const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
+const testAppDir = path.join(root, testAppName);
+const createElmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/create-elm-app-cli.js'
+);
+const elmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/elm-app-cli.js'
+);
 
 describe('Building Elm application with `elm-app build`', () => {
   before(done => {
@@ -23,7 +29,7 @@ describe('Building Elm application with `elm-app build`', () => {
   });
 
   after(() => {
-    process.chdir(rootDir);
+    process.chdir(root);
     rimraf.sync(testAppDir);
   });
 
@@ -40,7 +46,7 @@ describe('Building Elm application with `elm-app build`', () => {
 
   it('`elm-app build` should exit with non zero status code when build failed', () => {
     const normalFile = path.join(testAppDir, 'src/Main.elm');
-    const malformedFile = path.join(rootDir, './tests/fixtures/Main.elm');
+    const malformedFile = path.join(root, './tests/fixtures/Main.elm');
 
     copyFileSync(normalFile, 'Main.elm-normal');
     copyFileSync(malformedFile, normalFile);

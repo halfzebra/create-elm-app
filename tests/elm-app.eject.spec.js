@@ -7,11 +7,17 @@ const spawn = require('cross-spawn');
 const dircompare = require('dir-compare');
 const rimraf = require('rimraf');
 
+const root = path.resolve(__dirname, '..');
 const testAppName = 'test-app';
-const rootDir = path.resolve(__dirname, '..');
-const testAppDir = path.join(rootDir, testAppName);
-const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
-const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
+const testAppDir = path.join(root, testAppName);
+const createElmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/create-elm-app-cli.js'
+);
+const elmAppCmd = path.join(
+  root,
+  './packages/create-elm-app/bin/elm-app-cli.js'
+);
 
 describe('Ejecting Elm application. (Please wait...)', () => {
   before(done => {
@@ -25,7 +31,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
   });
 
   after(() => {
-    process.chdir(rootDir);
+    process.chdir(root);
     rimraf.sync(testAppDir);
   });
 
@@ -50,7 +56,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
       package: 'elm-package',
       make: 'elm-make',
       repl: 'elm-repl',
-      reactor: 'elm-reactor'
+      reactor: 'elm-reactor',
     });
   });
 
@@ -68,7 +74,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
   });
 
   it('Ejected application should have the config available', () => {
-    const path1 = path.join(rootDir, './config');
+    const path1 = path.join(root, './packages/create-elm-app/config');
     const path2 = path.join(testAppDir, './config');
     const { same } = dircompare.compareSync(path1, path2);
     expect(same, 'to be', true);
@@ -86,12 +92,16 @@ describe('Ejecting Elm application. (Please wait...)', () => {
 
   it('Ejected application should have utility scripts', () => {
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/utils/formatElmCompilerErrors.js')),
+      fs.existsSync(
+        path.join(testAppDir, './scripts/utils/formatElmCompilerErrors.js')
+      ),
       'to be',
       true
     );
     expect(
-      fs.existsSync(path.join(testAppDir, './scripts/utils/webpackHotDevClient.js')),
+      fs.existsSync(
+        path.join(testAppDir, './scripts/utils/webpackHotDevClient.js')
+      ),
       'to be',
       true
     );

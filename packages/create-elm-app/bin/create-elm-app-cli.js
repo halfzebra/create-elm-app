@@ -5,7 +5,7 @@
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
-const version = require('../package.json').version;
+const version = require('../../../package.json').version;
 const elmPlatformVersion = require('elm/package.json').version;
 const commands = argv._;
 
