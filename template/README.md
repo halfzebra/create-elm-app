@@ -30,6 +30,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   - [Changing the HTML](#changing-the-html)
   - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
   - [When to Use the `public` Folder](#when-to-use-the-public-folder)
+- [Using custom environment variables](#using-custom-environment-variables)
 - [Setting up API Proxy](#setting-up-api-proxy)
 - [Running tests](#running-tests)
   - [Dependencies in Tests](#dependencies-in-tests)
@@ -459,6 +460,59 @@ The `public` folder is used as a workaround for some less common cases:
 * Some library may be incompatible with Webpack and you have no other option but to include it as a `<script>` tag.
 
 Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
+
+
+## Using custom environment variables
+
+In your JavaScript code you have access to variables declared in your
+environment, like an API key set in an `.env`-file or via your shell. They are
+available on the `process.env`-object and will be injected during build time.
+
+Besides the `NODE_ENV` variable you can access all variables prefixed with
+`ELM_APP_`:
+
+```bash
+# .env
+ELM_APP_API_KEY="secret-key"
+```
+
+Alternatively, you can set them on your shell before calling the start- or
+build-script, e.g.:
+
+```bash
+ELM_APP_API_KEY="secret-key" elm-app start
+```
+
+Both ways can be mixed, but variables set on your shell prior to calling one of
+the scripts will take precedence over those declared in an `.env`-file.
+
+Passing the variables to your Elm-code can be done via `flags`:
+
+```javascript
+// index.js
+import { Main } from './Main.elm';
+
+Main.fullscreen({
+  environment: process.env.NODE_ENV,
+  apiKey: process.env.ELM_APP_API_KEY,
+});
+```
+
+```elm
+-- Main.elm
+type alias Flags = { apiKey : String, environment : String }
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+  ...
+
+main =
+  programWithFlags { init = init, ... }
+```
+
+Be aware that you cannot override `NODE_ENV` manually. See
+[this list from the `dotenv`-library](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use)
+for a list of files you can use to declare environment variables.
 
 
 ## Setting up API Proxy
