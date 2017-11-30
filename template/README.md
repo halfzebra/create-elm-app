@@ -710,21 +710,29 @@ Open your `elm-package.json` and add a `homepage` field:
 
 Create Elm App uses the `homepage` field to determine the root URL in the built HTML file.
 
-#### Step 2: Deploy the site by running `gh-pages -d build`
+#### Step 2: Build the static site
 
-Then run:
+```sh
+elm-app build
+```
+
+#### Step 3: Deploy the site by running `gh-pages -d build`
+
+We will use [gh-pages](https://www.npmjs.com/package/gh-pages) to upload the files from the `build` directory to GitHub. If you haven't already installed it, do so now (`npm install -g gh-pages`)
+
+Now run:
 
 ```sh
 gh-pages -d build
 ```
 
-#### Step 3: Ensure your project’s settings use `gh-pages`
+#### Step 4: Ensure your project’s settings use `gh-pages`
 
 Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
 
 <img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
 
-#### Step 4: Optionally, configure the domain
+#### Step 5: Optionally, configure the domain
 
 You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `public/` folder.
 
