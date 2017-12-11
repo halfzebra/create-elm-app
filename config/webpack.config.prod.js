@@ -159,7 +159,43 @@ module.exports = {
       },
 
       {
-        test: /\.sc?ss$/,
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract(
+          Object.assign(
+            {
+              fallback: require.resolve('style-loader'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    minimize: true
+                  }
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                    plugins: () => [
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9'
+                        ]
+                      })
+                    ]
+                  }
+                }
+              ]
+            },
+            extractTextPluginOptions
+          )
+        )
+      },
+
+      {
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract(
           Object.assign(
             {

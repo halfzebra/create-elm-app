@@ -146,7 +146,38 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: /\.sc?ss$/,
+        test: /\.css$/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1
+            }
+          },
+
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9'
+                  ]
+                })
+              ]
+            }
+          }
+        ]
+      },
+
+      // scss support
+      {
+        test: /\.scss$/,
         use: [
           require.resolve('style-loader'),
           {
@@ -177,7 +208,7 @@ module.exports = {
       },
 
       {
-        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.sc?ss$/, /\.json$/, /\.svg$/],
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
