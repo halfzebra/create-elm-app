@@ -159,7 +159,7 @@ module.exports = {
       },
 
       {
-        test: /\.sc?css$/,
+        test: /\.sc?ss$/,
         use: ExtractTextPlugin.extract(
           Object.assign(
             {
@@ -171,7 +171,6 @@ module.exports = {
                     minimize: true
                   }
                 },
-                require.resolve('sass-loader'),
                 {
                   loader: require.resolve('postcss-loader'),
                   options: {
@@ -187,7 +186,8 @@ module.exports = {
                       })
                     ]
                   }
-                }
+                },
+                require.resolve('sass-loader')
               ]
             },
             extractTextPluginOptions
