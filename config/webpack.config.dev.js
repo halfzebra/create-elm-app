@@ -155,6 +155,7 @@ module.exports = {
               importLoaders: 1
             }
           },
+
           {
             loader: require.resolve('postcss-loader'),
             options: {
@@ -174,8 +175,40 @@ module.exports = {
         ]
       },
 
+      // scss support
       {
-        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
+        test: /\.scss$/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1
+            }
+          },
+
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9'
+                  ]
+                })
+              ]
+            }
+          },
+          require.resolve('sass-loader')
+        ]
+      },
+
+      {
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,

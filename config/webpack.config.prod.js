@@ -195,7 +195,44 @@ module.exports = {
       },
 
       {
-        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract(
+          Object.assign(
+            {
+              fallback: require.resolve('style-loader'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    minimize: true
+                  }
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                    plugins: () => [
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9'
+                        ]
+                      })
+                    ]
+                  }
+                },
+                require.resolve('sass-loader')
+              ]
+            },
+            extractTextPluginOptions
+          )
+        )
+      },
+
+      {
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
