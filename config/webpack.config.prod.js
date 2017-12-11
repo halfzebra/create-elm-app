@@ -232,7 +232,7 @@ module.exports = {
       },
 
       {
-        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.sc?ss$/, /\.json$/, /\.svg$/],
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
