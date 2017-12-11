@@ -171,6 +171,7 @@ module.exports = {
                     minimize: true
                   }
                 },
+                require.resolve('sass-loader'),
                 {
                   loader: require.resolve('postcss-loader'),
                   options: {
