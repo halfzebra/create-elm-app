@@ -159,7 +159,7 @@ module.exports = {
       },
 
       {
-        test: /\.css$/,
+        test: /\.sc?css$/,
         use: ExtractTextPlugin.extract(
           Object.assign(
             {
