@@ -150,7 +150,7 @@ module.exports = {
             loader: require.resolve('elm-webpack-loader'),
             options: {
               // If ELM_DEBUGGER was set to "true", enable it. Otherwise
-              // for invalid values, "false" and as a default, enable it
+              // for invalid values, "false" and as a default, disable it
               debug: process.env.ELM_DEBUGGER === 'true' ? true : false,
               pathToMake: paths.elmMake
             }
