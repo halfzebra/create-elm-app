@@ -92,7 +92,7 @@
     "cz": "git-cz",
     "eslint": "eslint .",
     "prettier": "prettier --write --single-quote '{bin,config,scripts,template/src,tests}/**/*.js'",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "test": "npm run test:cli && npm run test:functional",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000"
