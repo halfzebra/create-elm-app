@@ -1,0 +1,20 @@
+image: Visual Studio 2017
+
+platform:
+  - x64
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+
+build: off
+
+skip_commits:
+  files:
+    - '**/*.md'
+
+test_script:
+  - node --version
+  - npm --version
+  - npm install
+  - npm link
+  - npm run test
