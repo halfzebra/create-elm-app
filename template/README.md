@@ -25,6 +25,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
 - [Using elm-css](#using-elm-css)
+- [Adding a CSS Preprocessor (Sass, Less etc.)](#adding-a-css-preprocessor-sass-less-etc)
 - [Adding Images and Fonts](#adding-images-and-fonts)
 - [Using the `public` Folder](#using-the-public-folder)
   - [Changing the HTML](#changing-the-html)
@@ -365,6 +366,72 @@ You can also destructure `helpers` to make your view more readable:
 { id, class } =
     helpers
 ```
+
+## Adding a CSS Preprocessor (Sass, Less etc.)
+
+If you find CSS preprocessors valuable you can integrate one. In this walkthrough, we will be using Sass, but you can also use Less, or another alternative.
+
+First we need to create a `package.json` file, since create-elm-app is not shipping one at the moment. Walk through the normal `npm init` process.
+```
+npm init
+```
+
+Second, let’s install the command-line interface for Sass:
+
+```sh
+npm install --save node-sass-chokidar
+```
+
+Alternatively you may use `yarn`:
+
+```sh
+yarn add node-sass-chokidar
+```
+
+Then in `package.json`, add the following lines to `scripts`:
+
+```diff
+   "scripts": {
++    "build-css": "node-sass-chokidar src/ -o src/",
++    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    ...
+   }
+```
+
+>Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
+
+Now you can rename `src/main.css` to `src/main.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/main.css`. Since `src/index.js` still imports `src/main.css`, the styles become a part of your application. You can now edit `src/main.scss`, and `src/main.css` will be regenerated.
+
+To share variables between Sass files, you can use Sass imports. For example, `src/main.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
+
+To enable importing files without using relative paths, you can add the  `--include-path` option to the command in `package.json`.
+
+```
+"build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+"watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+```
+
+This will allow you to do imports like
+
+```scss
+@import 'styles/_colors.scss'; // assuming a styles directory under src/
+@import 'nprogress/nprogress'; // importing a css file from the nprogress node module
+```
+
+At this point you might want to remove all CSS files from the source control, and add `src/**/*.css` to your `.gitignore` file. It is generally a good practice to keep the build products outside of the source control.
+
+
+**Why `node-sass-chokidar`?**
+
+`node-sass` has been reported as having the following issues:
+
+- `node-sass --watch` has been reported to have *performance issues* in certain conditions when used in a virtual machine or with docker.
+
+- Infinite styles compiling [#1939](https://github.com/facebookincubator/create-react-app/issues/1939)
+
+- `node-sass` has been reported as having issues with detecting new files in a directory [#1891](https://github.com/sass/node-sass/issues/1891)
+
+ `node-sass-chokidar` is used here as it addresses these issues.
 
 ## Adding Images and Fonts
 
