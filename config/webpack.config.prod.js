@@ -37,7 +37,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
-// Enable users to turn off dead code elimination.
+// Enable users to turn on dead code elimination.
 const deadCodeElimination =
   process.env.DEAD_CODE_ELIMINATION === 'true'
     ? {
