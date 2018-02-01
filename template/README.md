@@ -1,6 +1,6 @@
 This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
 
-Below you will find some information on how to perform basic tasks.  
+Below you will find some information on how to perform basic tasks.
 You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
 
 ## Table of Contents
@@ -108,16 +108,16 @@ You may create subdirectories inside src.
 ## Available scripts
 In the project directory you can run:
 ### `elm-app build`
-Builds the app for production to the `build` folder.  
+Builds the app for production to the `build` folder.
 
-The build is minified, and the filenames include the hashes.  
+The build is minified, and the filenames include the hashes.
 Your app is ready to be deployed!
 
 ### `elm-app start`
-Runs the app in the development mode.  
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.  
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `elm-app install`
@@ -499,7 +499,7 @@ In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 
 ```elm
 // Note: this is an escape hatch and should be used sparingly!
-// Normally we recommend using `import`  and `Html.programWithFlags` for getting 
+// Normally we recommend using `import`  and `Html.programWithFlags` for getting
 // asset URLs as described in “Adding Images and Fonts” above this section.
 img [ src "%PUBLIC_URL%/logo.svg" ] []
 ```
@@ -594,7 +594,7 @@ To forward the API ( REST ) calls to backend server, add a proxy to the `elm-pac
 ```
 
 Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`.
-The development server has heuristics, to handle its own flow, which may interfere with proxying of 
+The development server has heuristics, to handle its own flow, which may interfere with proxying of
 other html and javascript content types.
 
 ```sh
@@ -610,7 +610,7 @@ Create Elm App uses [elm-test](https://github.com/rtfeldman/node-test-runner) as
 To use packages in tests, you also need to install them in `tests` directory.
 
 ```bash
-elm-app test --add-dependencies elm-package.json 
+elm-app test --add-dependencies elm-package.json
 ```
 
 ### Continuous Integration

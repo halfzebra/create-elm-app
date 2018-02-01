@@ -7,19 +7,19 @@
 
 ### Upgrade from 0.17.1 to 0.18.0
 
-* Upgrade Elm to 0.18.0, read more in the official blog post [The Perfect Bug Report](http://elm-lang.org/blog/the-perfect-bug-report)  
+* Upgrade Elm to 0.18.0, read more in the official blog post [The Perfect Bug Report](http://elm-lang.org/blog/the-perfect-bug-report)
 ([@mikker](https://github.com/mikker) in [#54](https://github.com/halfzebra/create-elm-app/pull/54))
 
 ### Test setup refactoring
 
-* Better testing setup for the command line interface and functionality.  
+* Better testing setup for the command line interface and functionality.
  ([@fobos](https://github.com/fobos) in [#53](https://github.com/halfzebra/create-elm-app/pull/53))
 
 ## 0.1.10 (November 11, 2016)
 
 ### Command line improvements
 
-* Return exit code from spawned process in run scripts. CLI will now return correct exit codes.   
+* Return exit code from spawned process in run scripts. CLI will now return correct exit codes.
 ([@fobos](https://github.com/eanplatter) in [#46](https://github.com/halfzebra/create-elm-app/pull/46))
 * Add test case with returning non zero exit codes ([@fobos](https://github.com/eanplatter) in [#50](https://github.com/halfzebra/create-elm-app/pull/50))
 * Add getting started instructions to create script. ([@eanplatter](https://github.com/eanplatter) in [#51](https://github.com/halfzebra/create-elm-app/pull/51))

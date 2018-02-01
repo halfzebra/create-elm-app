@@ -85,14 +85,14 @@ It bundles Elm app and optimizes the build for the best performance.
 The build is minified, and the filenames include the hashes.
 
 ## Guide
-Every generated project will contain a readme with guidelines for future development. 
+Every generated project will contain a readme with guidelines for future development.
 The latest version is available [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md)
 
 ## Why use this?
 Developing with [elm-platform](https://github.com/elm-lang/elm-platform) is fun and easy, but at some point, you will hit a couple of limitations.
 
 - [elm-make](https://github.com/elm-lang/elm-make) does not provide an efficient build tool for optimizing your project.
-- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html) 
+- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html)
 - You can not use [Hot Module Replacement.](https://webpack.github.io/docs/hot-module-replacement.html)
 
 Create Elm App adds a tool for optimizing production builds and running a development server with your app, which supports HMR.
