@@ -191,6 +191,48 @@ Note that normally you wouldn’t edit files in the `public` folder very often. 
 
 If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
 
+To do it we need to modify src/index.js file to look like this:
+```js
+import './main.css';
+import { Main } from './Main.elm';
+import registerServiceWorker from './registerServiceWorker';
+
+var app = Main.embed(document.getElementById('root'));
+
+registerServiceWorker();
+
+// ports related code
+app.ports.windowTitle.subscribe(function(newTitle){
+    window.document.title = newTitle;
+});
+```
+
+and in Main.elm file you have to append `port` to the module declaration,
+
+```elm
+port module Main exposing (..)
+```
+then you have to declare the port
+```elm
+port windowTitle : String -> Cmd msg
+```
+and use it to call JavaScript in you update function.
+```elm
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Inc ->
+            ( { model | counter = model.counter + 1}
+            , windowTitle ("Elm-count up " ++ (toString (model.counter + 1)))
+            )
+        Dec ->
+            ( { model | counter = model.counter - 1}
+            , windowTitle ("Elm-count down " ++ (toString (model.counter - 1))))
+        NoOp ->
+            ( model, Cmd.none )
+```
+Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` call.
+
 ## Adding a Stylesheet
 
 This project setup uses [Webpack](https://webpack.js.org/) for handling all assets. Webpack offers a custom way of “extending” the concept of `import` beyond JavaScript. To express that a JavaScript file depends on a CSS file, you need to **import the CSS from the JavaScript file**:
