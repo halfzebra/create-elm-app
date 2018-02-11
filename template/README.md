@@ -327,7 +327,7 @@ primaryAccentColor =
     hex "ccffaa"
 ```
 
-### Steap 4: Compiling the stylesheet
+### Step 4: Compiling the stylesheet
 
 To compile the CSS file, just run
 
