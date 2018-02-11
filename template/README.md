@@ -22,6 +22,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
 - [Dead code elimination](#dead-code-elimination)
 - [Changing the Page `<title>`](#changing-the-page-title)
+- [JavaScript Interop](#javascript-interop)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
 - [Using elm-css](#using-elm-css)
