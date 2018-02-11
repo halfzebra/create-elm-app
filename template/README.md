@@ -189,9 +189,15 @@ You can find the source HTML file in the `public` folder of the generated projec
 
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
-If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
+If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and JavaScript interoperation. The next section of this tutorial will explain it in more detail.
 
-To do it we need to modify src/index.js file to look like this:
+## JavaScript Interop
+
+You can send and receive values from JavaScript using the concept of [ports.](https://guide.elm-lang.org/interop/javascript.html#ports).
+
+In the following example we will use JavaScript to change the page title dynamically. To make it work with files created by `create-elm-app` you need to modify
+`src/index.js` file to look like this:
+
 ```js
 import './main.css';
 import { Main } from './Main.elm';
@@ -206,13 +212,14 @@ app.ports.windowTitle.subscribe(function(newTitle){
     window.document.title = newTitle;
 });
 ```
+Please note the `windowTitle` port in the above example, more about it later.
 
-and in Main.elm file you have to append `port` to the module declaration,
+First let's allow the Main nodule to use ports and in `Main.elm` file please append `port` to the module declaration:
 
 ```elm
 port module Main exposing (..)
 ```
-then you have to declare the port
+Do you remember `windowTitle` in JavaScript? Let's declare the port:
 ```elm
 port windowTitle : String -> Cmd msg
 ```
@@ -231,7 +238,7 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 ```
-Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` call.
+Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` port call that is executed on the JavaScript side..
 
 ## Adding a Stylesheet
 
