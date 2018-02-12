@@ -22,6 +22,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 - [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
 - [Dead code elimination](#dead-code-elimination)
 - [Changing the Page `<title>`](#changing-the-page-title)
+- [JavaScript Interop](#javascript-interop)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
 - [Using elm-css](#using-elm-css)
@@ -189,7 +190,56 @@ You can find the source HTML file in the `public` folder of the generated projec
 
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
-If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
+If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and JavaScript interoperation. The next section of this tutorial will explain it in more detail.
+
+## JavaScript Interop
+
+You can send and receive values from JavaScript using the concept of [ports.](https://guide.elm-lang.org/interop/javascript.html#ports).
+
+In the following example we will use JavaScript to change the page title dynamically. To make it work with files created by `create-elm-app` you need to modify
+`src/index.js` file to look like this:
+
+```js
+import './main.css';
+import { Main } from './Main.elm';
+import registerServiceWorker from './registerServiceWorker';
+
+var app = Main.embed(document.getElementById('root'));
+
+registerServiceWorker();
+
+// ports related code
+app.ports.windowTitle.subscribe(function(newTitle){
+    window.document.title = newTitle;
+});
+```
+Please note the `windowTitle` port in the above example, more about it later.
+
+First let's allow the Main nodule to use ports and in `Main.elm` file please append `port` to the module declaration:
+
+```elm
+port module Main exposing (..)
+```
+Do you remember `windowTitle` in JavaScript? Let's declare the port:
+```elm
+port windowTitle : String -> Cmd msg
+```
+and use it to call JavaScript in you update function.
+```elm
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Inc ->
+            ( { model | counter = model.counter + 1}
+            , windowTitle ("Elm-count up " ++ (toString (model.counter + 1)))
+            )
+        Dec ->
+            ( { model | counter = model.counter - 1}
+            , windowTitle ("Elm-count down " ++ (toString (model.counter - 1))))
+        NoOp ->
+            ( model, Cmd.none )
+```
+Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` port call that is executed on the JavaScript side..
 
 ## Adding a Stylesheet
 
