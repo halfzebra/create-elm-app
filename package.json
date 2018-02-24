@@ -65,7 +65,7 @@
     "nightmare": "^2.10.0",
     "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
-    "semantic-release": "^12.4.1",
+    "semantic-release": "12.1.1",
     "unexpected": "^10.37.2"
   },
   "engines": {
