@@ -215,7 +215,7 @@ app.ports.windowTitle.subscribe(function(newTitle){
 ```
 Please note the `windowTitle` port in the above example, more about it later.
 
-First let's allow the Main nodule to use ports and in `Main.elm` file please append `port` to the module declaration:
+First let's allow the Main module to use ports and in `Main.elm` file please append `port` to the module declaration:
 
 ```elm
 port module Main exposing (..)
