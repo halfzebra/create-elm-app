@@ -42,6 +42,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   - [Offline-First Considerations](#offline-first-considerations)
   - [Progressive Web App Metadata](#progressive-web-app-metadata)
 - [Deployment](#deployment)
+  - [Building for Relative Paths](#building-for-relative-paths)
   - [Static Server](#static-server)
   - [GitHub Pages](#github-pages)
 - [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
@@ -794,6 +795,17 @@ will affect your users' experience.
 
 
 `elm-app build` creates a `build` directory with a production build of your app. Set up your favourite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file.
+
+### Building for Relative Paths
+
+By default, Create Elm App produces a build assuming your app is hosted at the server root.<br>
+To override this, specify the `homepage` in your `package.json`, for example:
+
+```js
+  "homepage": "http://mywebsite.com/relativepath",
+```
+
+This will let Create Elm App correctly infer the root path to use in the generated HTML file.
 
 ### Static Server
 
