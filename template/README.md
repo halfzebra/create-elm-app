@@ -14,7 +14,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   - [elm-app install](#elm-app-install)
   - [elm-app test](#elm-app-test)
   - [elm-app eject](#elm-app-eject)
-  - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
+  - [elm-app <elm-platform-command>](#elm-app-elm-platform-command)
     - [package](#package)
     - [repl](#repl)
     - [make](#make)
@@ -144,7 +144,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to use 'eject' The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### `elm-app <elm-platform-comand>`
+### `elm-app <elm-platform-command>`
 
 Create Elm App does not rely on the global installation of Elm Platform, but you still can use its local Elm Platform to access default command line tools:
 
