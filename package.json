@@ -91,7 +91,7 @@
   "scripts": {
     "cz": "git-cz",
     "eslint": "eslint .",
-    "prettier": "prettier --write --single-quote '{bin,config,scripts,template/src,tests}/**/*.js'",
+    "format": "prettier --write '{bin,config,scripts,template/src,tests}/**/*.js'",
     "semantic-release": "semantic-release",
     "test": "npm run test:cli && npm run test:functional",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
