@@ -25,6 +25,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chalk": "^2.3.1",
     "clean-webpack-plugin": "^0.1.18",
     "cli-table": "0.3.1",
