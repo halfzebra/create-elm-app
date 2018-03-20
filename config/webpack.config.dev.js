@@ -1,10 +1,9 @@
 'use strict';
 
-const path = require('path');
 const autoprefixer = require('autoprefixer');
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
+const path = require('path');
+const webpack = require('webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getClientEnvironment = require('./env');
@@ -20,9 +19,32 @@ const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-module.exports = {
-  devtool: 'cheap-module-source-map',
+// Options for PostCSS as we reference these options twice
+// Adds vendor prefixing based on your specified browser support in
+// package.json
+const postCSSLoaderOptions = {
+  // Necessary for external CSS imports to work
+  // https://github.com/facebook/create-react-app/issues/2677
+  ident: 'postcss',
+  plugins: () => [
+    require('postcss-flexbugs-fixes'),
+    autoprefixer({
+      flexbox: 'no-2009'
+    })
+  ]
+};
 
+// This is the development configuration.
+// It is focused on developer experience and fast rebuilds.
+// The production configuration is different and lives in a separate file.
+module.exports = {
+  mode: 'development',
+  // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
+  // See the discussion in https://github.com/facebook/create-react-app/issues/343.
+  devtool: 'cheap-module-source-map',
+  // These are the "entry points" to our application.
+  // This means they will be the "root" imports that are included in JS bundle.
+  // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
@@ -44,6 +66,7 @@ module.exports = {
   ],
 
   output: {
+    // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
 
     // The build folder.
@@ -53,22 +76,33 @@ module.exports = {
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
-
+    // There are also additional JS chunk files if you use code splitting.
+    chunkFilename: 'static/js/[name].chunk.js',
+    // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
 
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
   },
-
+  optimization: {
+    // Automatically split vendor and commons
+    // https://twitter.com/wSokra/status/969633336732905474
+    splitChunks: {
+      chunks: 'all'
+    },
+    // Keep the runtime chunk seperated to enable long term caching
+    // https://twitter.com/wSokra/status/969679223278505985
+    runtimeChunk: true
+  },
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.elm']
   },
-
   module: {
     noParse: /\.elm$/,
 
+    strictExportPresence: true,
     rules: [
       {
         test: /\.js$/,
@@ -169,8 +203,10 @@ module.exports = {
       // "style" loader turns CSS into JS modules that inject <style> tags.
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
+      // By default we support CSS Modules with the extension .module.css
       {
         test: /\.css$/,
+        exclude: /\.module\.css$/,
         use: [
           require.resolve('style-loader'),
           {
@@ -181,19 +217,7 @@ module.exports = {
           },
           {
             loader: require.resolve('postcss-loader'),
-            options: {
-              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-              plugins: () => [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9'
-                  ]
-                })
-              ]
-            }
+            options: postCSSLoaderOptions
           }
         ]
       },
@@ -217,20 +241,24 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
-    new DefinePlugin(env.stringified),
-
-    new InterpolateHtmlPlugin(env.raw),
-
+    // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml
     }),
-
-    new HotModuleReplacementPlugin(),
-
-    new NamedModulesPlugin()
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In development, this will be an empty string.
+    new InterpolateHtmlPlugin(env.raw),
+    // Add module names to factory functions so they appear in browser profiler.
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    // Watcher doesn't work well if you mistype casing in a path so we use
+    // a plugin that prints an error when you attempt to do this.
+    // See https://github.com/facebook/create-react-app/issues/240
+    new CaseSensitivePathsPlugin()
   ],
 
   // Some libraries import Node modules but don't use them in the browser.
@@ -241,5 +269,11 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  // Turn off performance hints during development because we don't do any
+  // splitting or minification in interest of speed. These warnings become
+  // cumbersome.
+  performance: {
+    hints: false
   }
 };
