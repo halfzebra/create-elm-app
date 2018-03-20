@@ -61,6 +61,7 @@
     "eslint": "^4.18.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
     "mocha": "^5.0.1",
     "nightmare": "^2.10.0",
     "prettier": "^1.10.2",
@@ -98,6 +99,16 @@
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
     "app:build": "cd template && node ../bin/elm-app-cli.js build",
     "app:start": "cd template && node ../bin/elm-app-cli.js start",
-    "app:test": "cd template && node ../bin/elm-app-cli.js test"
+    "app:test": "cd template && node ../bin/elm-app-cli.js test",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "package-lock.json": [
+      "git rm --cached"
+    ]
   }
 }
