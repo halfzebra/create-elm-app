@@ -269,8 +269,6 @@ For example, this:
 ```css
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 ```
 
