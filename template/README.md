@@ -797,7 +797,7 @@ will affect your users' experience.
 ### Building for Relative Paths
 
 By default, Create Elm App produces a build assuming your app is hosted at the server root.<br>
-To override this, specify the `homepage` in your `package.json`, for example:
+To override this, specify the `homepage` in your `elm-package.json`, for example:
 
 ```js
   "homepage": "http://mywebsite.com/relativepath",
