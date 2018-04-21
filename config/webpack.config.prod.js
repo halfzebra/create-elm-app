@@ -142,7 +142,8 @@ module.exports = {
             loader: require.resolve('string-replace-loader'),
             query: {
               search: '%PUBLIC_URL%',
-              replace: publicUrl
+              replace: publicUrl,
+              flags: 'g'
             }
           },
           {
