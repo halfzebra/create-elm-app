@@ -658,8 +658,10 @@ Create Elm App uses [elm-test](https://github.com/rtfeldman/node-test-runner) as
 
 To use packages in tests, you also need to install them in `tests` directory.
 
+Please note that you have to pass the path to the `elm-package.json` with your test dependencies.
+
 ```bash
-elm-app test --add-dependencies elm-package.json
+elm-app test --add-dependencies tests/elm-package.json
 ```
 
 ### Continuous Integration
