@@ -51,7 +51,7 @@ Create a new `my-app` folder with files for your future project.
 my-app/
 ├── .gitignore
 ├── README.md
-├── elm-package.json
+├── elm.json
 ├── elm-stuff
 ├── public
 │   ├── favicon.ico
@@ -65,7 +65,7 @@ my-app/
 │   └── registerServiceWorker.js
 └── tests
     ├── Tests.elm
-    └── elm-package.json
+    └── elm.json
 ```
 
 You are ready to employ the full power of Create Elm App!

@@ -28,7 +28,7 @@ const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 
-if (fs.existsSync('elm-package.json') === false) {
+if (fs.existsSync('elm.json') === false) {
   console.log('Please, run the build script from project root directory');
   process.exit(1);
 }
