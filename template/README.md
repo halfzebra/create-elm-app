@@ -37,6 +37,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [When to Use the `public` Folder](#when-to-use-the-public-folder)
 * [Using custom environment variables](#using-custom-environment-variables)
 * [Setting up API Proxy](#setting-up-api-proxy)
+* [Using HTTPS in Development](#using-https-in-development)
 * [Running tests](#running-tests)
   * [Dependencies in Tests](#dependencies-in-tests)
   * [Continuous Integration](#continuous-integration)
@@ -664,6 +665,12 @@ other html and javascript content types.
 ```sh
  curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
 ```
+
+## Using HTTPS in Development
+
+If you need to serve the development server over HTTPS, set the `HTTPS` environment variable to `true` before you start development server with `elm-app start`.
+
+Note that the server will use a self-signed certificate, so you will most likely have to add an exception to accept it in your browser.
 
 ## Running Tests
 
