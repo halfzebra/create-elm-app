@@ -856,5 +856,5 @@ Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-serv
 
 By default, Babel Transform Runtime plugin is configured to **not** transform new built-ins (Promise, Set, Map, etc.) to use a non-global polluting polyfill ([Babel Runtime transform plugin documentation](https://babeljs.io/docs/plugins/transform-runtime/)).
 
-To enable this transformation set `BABEL_TRANSFORM_RUNTIME_POLYFILL` environment variable to `true` or `false` respectively.
+To enable this transformation set `BABEL_TRANSFORM_RUNTIME_POLYFILL` environment variable to `true`.
 
