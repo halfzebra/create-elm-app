@@ -9,6 +9,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('../config/paths');
+const webpackEnvTarget = process.env.ELM_SCRIPTS_WEBPACK_ENV_TARGET
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -211,11 +212,12 @@ module.exports = {
 
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
+  node: webpackEnvTarget ? undefined : {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  target: webpackEnvTarget
 };
