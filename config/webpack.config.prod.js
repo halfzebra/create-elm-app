@@ -37,7 +37,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
-// Enable users to turn off dead code elimination.
+// Enable users to turn on dead code elimination.
 const deadCodeElimination =
   process.env.DEAD_CODE_ELIMINATION === 'true'
     ? {
@@ -121,9 +121,9 @@ module.exports = {
             [
               require.resolve('babel-plugin-transform-runtime'),
               {
-                "helpers": false,
-                "polyfill": false,
-                "regenerator": true
+                helpers: false,
+                polyfill: false,
+                regenerator: true
               }
             ]
           ]
@@ -142,7 +142,8 @@ module.exports = {
             loader: require.resolve('string-replace-loader'),
             query: {
               search: '%PUBLIC_URL%',
-              replace: publicUrl
+              replace: publicUrl,
+              flags: 'g'
             }
           },
           {
@@ -150,7 +151,7 @@ module.exports = {
             loader: require.resolve('elm-webpack-loader'),
             options: {
               // If ELM_DEBUGGER was set to "true", enable it. Otherwise
-              // for invalid values, "false" and as a default, enable it
+              // for invalid values, "false" and as a default, disable it
               debug: process.env.ELM_DEBUGGER === 'true' ? true : false,
               pathToMake: paths.elmMake
             }

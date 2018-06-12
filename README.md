@@ -1,9 +1,10 @@
-# Create Elm App [![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app) [![Build Status](https://travis-ci.org/halfzebra/create-elm-app.svg?branch=tests)](https://travis-ci.org/halfzebra/create-elm-app)
+# Create Elm App [![npm version](https://badge.fury.io/js/create-elm-app.svg)](https://badge.fury.io/js/create-elm-app) [![Build Status](https://travis-ci.org/halfzebra/create-elm-app.svg?branch=tests)](https://travis-ci.org/halfzebra/create-elm-app) [![Build Status](https://ci.appveyor.com/api/projects/status/github/halfzebra/create-elm-app?branch=master&svg=true)](https://ci.appveyor.com/project/halfzebra/create-elm-app)
 
 Create Elm apps with no build configuration.
 
 * [Getting Started](#getting-started) – How to create a new app.
 * [User Guide](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md) – How to develop apps bootstrapped with Create Elm App.
+* [Elm SPA example](https://github.com/halfzebra/elm-spa-example) - Using Create Elm App Elm in SPA example by [Richard Feldman.](https://github.com/rtfeldman)
 
 ## Quickstart
 
@@ -85,14 +86,14 @@ It bundles Elm app and optimizes the build for the best performance.
 The build is minified, and the filenames include the hashes.
 
 ## Guide
-Every generated project will contain a readme with guidelines for future development. 
+Every generated project will contain a readme with guidelines for future development.
 The latest version is available [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md)
 
 ## Why use this?
 Developing with [elm-platform](https://github.com/elm-lang/elm-platform) is fun and easy, but at some point, you will hit a couple of limitations.
 
 - [elm-make](https://github.com/elm-lang/elm-make) does not provide an efficient build tool for optimizing your project.
-- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html) 
+- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html)
 - You can not use [Hot Module Replacement.](https://webpack.github.io/docs/hot-module-replacement.html)
 
 Create Elm App adds a tool for optimizing production builds and running a development server with your app, which supports HMR.
@@ -130,6 +131,7 @@ Currently it is a thin layer on top of many amazing community projects, such as:
 All of them are transitive dependencies of the provided npm package.
 
 ## Contributing
+
 We would love to get you involved! Please check our [Contributing Guide](CONTRIBUTING.md) to get started!
 
 ## Alternatives

@@ -1,48 +1,56 @@
+# Elm App
+
 This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
 
-Below you will find some information on how to perform basic tasks.  
+Below you will find some information on how to perform basic tasks.
 You can find the most recent version of this guide [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md).
 
 ## Table of Contents
-- [Sending feedback](#sending-feedback)
-- [Folder structure](#folder-structure)
-- [Installing Elm packages](#installing-elm-packages)
-- [Installing JavaScript packages](#installing-javascript-packages)
-- [Available scripts](#available-scripts)
-  - [elm-app build](#elm-app-build)
-  - [elm-app start](#elm-app-start)
-  - [elm-app install](#elm-app-install)
-  - [elm-app test](#elm-app-test)
-  - [elm-app eject](#elm-app-eject)
-  - [elm-app <elm-platform-comand>](#elm-app-elm-platform-comand)
-    - [package](#package)
-    - [repl](#repl)
-    - [make](#make)
-    - [reactor](#reactor)
-- [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
-- [Dead code elimination](#dead-code-elimination)
-- [Changing the Page `<title>`](#changing-the-page-title)
-- [Adding a Stylesheet](#adding-a-stylesheet)
-- [Post-Processing CSS](#post-processing-css)
-- [Using elm-css](#using-elm-css)
-- [Adding Images and Fonts](#adding-images-and-fonts)
-- [Using the `public` Folder](#using-the-public-folder)
-  - [Changing the HTML](#changing-the-html)
-  - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
-  - [When to Use the `public` Folder](#when-to-use-the-public-folder)
-- [Using custom environment variables](#using-custom-environment-variables)
-- [Setting up API Proxy](#setting-up-api-proxy)
-- [Running tests](#running-tests)
-  - [Dependencies in Tests](#dependencies-in-tests)
-  - [Continuous Integration](#continuous-integration)
-- [Making a Progressive Web App](#making-a-progressive-web-app)
-  - [Opting Out of Caching](#opting-out-of-caching)
-  - [Offline-First Considerations](#offline-first-considerations)
-  - [Progressive Web App Metadata](#progressive-web-app-metadata)
-- [Deployment](#deployment)
-  - [Static Server](#static-server)
-  - [GitHub Pages](#github-pages)
-- [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
+
+* [Sending feedback](#sending-feedback)
+* [Folder structure](#folder-structure)
+* [Installing Elm packages](#installing-elm-packages)
+* [Installing JavaScript packages](#installing-javascript-packages)
+* [Available scripts](#available-scripts)
+  * [elm-app build](#elm-app-build)
+  * [elm-app start](#elm-app-start)
+  * [elm-app install](#elm-app-install)
+  * [elm-app test](#elm-app-test)
+  * [elm-app eject](#elm-app-eject)
+  * [elm-app \<elm-platform-command\>](#elm-app-elm-platform-command)
+    * [package](#package)
+    * [repl](#repl)
+    * [make](#make)
+    * [reactor](#reactor)
+* [Turning on/off Elm Debugger](#turning-onoff-elm-debugger)
+* [Dead code elimination](#dead-code-elimination)
+* [Changing the Page `<title>`](#changing-the-page-title)
+* [JavaScript Interop](#javascript-interop)
+* [Adding a Stylesheet](#adding-a-stylesheet)
+* [Post-Processing CSS](#post-processing-css)
+* [Using elm-css](#using-elm-css)
+* [Adding a CSS Preprocessor (Sass, Less etc.)](#adding-a-css-preprocessor-sass-less-etc)
+* [Adding Images and Fonts](#adding-images-and-fonts)
+* [Using the `public` Folder](#using-the-public-folder)
+  * [Changing the HTML](#changing-the-html)
+  * [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
+  * [When to Use the `public` Folder](#when-to-use-the-public-folder)
+* [Using custom environment variables](#using-custom-environment-variables)
+* [Setting up API Proxy](#setting-up-api-proxy)
+* [Using HTTPS in Development](#using-https-in-development)
+* [Running tests](#running-tests)
+  * [Dependencies in Tests](#dependencies-in-tests)
+  * [Continuous Integration](#continuous-integration)
+* [Making a Progressive Web App](#making-a-progressive-web-app)
+  * [Opting Out of Caching](#opting-out-of-caching)
+  * [Offline-First Considerations](#offline-first-considerations)
+  * [Progressive Web App Metadata](#progressive-web-app-metadata)
+* [Deployment](#deployment)
+  * [Building for Relative Paths](#building-for-relative-paths)
+  * [Static Server](#static-server)
+  * [GitHub Pages](#github-pages)
+* [Configuring an alternate runtime target](#configuring-an-alternate-runtime-target)
+* [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
 
@@ -73,7 +81,7 @@ const db = new PouchDB('mydb');
 
 ## Folder structure
 
-```
+```sh
 my-app/
 ├── .gitignore
 ├── README.md
@@ -96,27 +104,31 @@ my-app/
 
 For the project to build, these files must exist with exact filenames:
 
-- `public/index.html` is the page template;
-- `public/favicon.ico` is the icon you see in the browser tab;
-- `src/index.js` is the JavaScript entry point.
+* `public/index.html` is the page template;
+* `public/favicon.ico` is the icon you see in the browser tab;
+* `src/index.js` is the JavaScript entry point.
 
 You can delete or rename the other files.
 
 You may create subdirectories inside src.
 
 ## Available scripts
-In the project directory you can run:
-### `elm-app build`
-Builds the app for production to the `build` folder.  
 
-The build is minified, and the filenames include the hashes.  
+In the project directory you can run:
+
+### `elm-app build`
+
+Builds the app for production to the `build` folder.
+
+The build is minified, and the filenames include the hashes.
 Your app is ready to be deployed!
 
 ### `elm-app start`
-Runs the app in the development mode.  
+
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.  
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `elm-app install`
@@ -124,9 +136,11 @@ You will also see any lint errors in the console.
 An alias for [`elm-app package install`](#package)
 
 ### `elm-app test`
+
 Run tests with [node-test-runner](https://github.com/rtfeldman/node-test-runner/tree/master)
 
 You can make test runner watch project files by running:
+
 ```sh
 elm-app test --watch
 ```
@@ -141,7 +155,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to use 'eject' The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### `elm-app <elm-platform-comand>`
+### `elm-app <elm-platform-command>`
 
 Create Elm App does not rely on the global installation of Elm Platform, but you still can use its local Elm Platform to access default command line tools:
 
@@ -157,12 +171,11 @@ Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
 
 #### `make`
 
-Alias for  [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
+Alias for [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
 
 #### `reactor`
 
-Alias for  [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
-
+Alias for [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 ## Turning on/off Elm Debugger
 
@@ -188,7 +201,62 @@ You can find the source HTML file in the `public` folder of the generated projec
 
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
-If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and [ports.](https://guide.elm-lang.org/interop/javascript.html#ports)
+If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API and JavaScript interoperation. The next section of this tutorial will explain it in more detail.
+
+## JavaScript Interop
+
+You can send and receive values from JavaScript using the concept of [ports.](https://guide.elm-lang.org/interop/javascript.html#ports).
+
+In the following example we will use JavaScript to change the page title dynamically. To make it work with files created by `create-elm-app` you need to modify
+`src/index.js` file to look like this:
+
+```js
+import './main.css';
+import { Main } from './Main.elm';
+import registerServiceWorker from './registerServiceWorker';
+
+var app = Main.embed(document.getElementById('root'));
+
+registerServiceWorker();
+
+// ports related code
+app.ports.windowTitle.subscribe(function(newTitle) {
+  window.document.title = newTitle;
+});
+```
+
+Please note the `windowTitle` port in the above example, more about it later.
+
+First let's allow the Main module to use ports and in `Main.elm` file please append `port` to the module declaration:
+
+```elm
+port module Main exposing (..)
+```
+
+Do you remember `windowTitle` in JavaScript? Let's declare the port:
+
+```elm
+port windowTitle : String -> Cmd msg
+```
+
+and use it to call JavaScript in you update function.
+
+```elm
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Inc ->
+            ( { model | counter = model.counter + 1}
+            , windowTitle ("Elm-count up " ++ (toString (model.counter + 1)))
+            )
+        Dec ->
+            ( { model | counter = model.counter - 1}
+            , windowTitle ("Elm-count down " ++ (toString (model.counter - 1))))
+        NoOp ->
+            ( model, Cmd.none )
+```
+
+Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` port call that is executed on the JavaScript side..
 
 ## Adding a Stylesheet
 
@@ -217,8 +285,6 @@ For example, this:
 ```css
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 ```
 
@@ -326,7 +392,7 @@ primaryAccentColor =
     hex "ccffaa"
 ```
 
-### Steap 4: Compiling the stylesheet
+### Step 4: Compiling the stylesheet
 
 To compile the CSS file, just run
 
@@ -366,6 +432,74 @@ You can also destructure `helpers` to make your view more readable:
     helpers
 ```
 
+## Adding a CSS Preprocessor (Sass, Less etc.)
+
+If you find CSS preprocessors valuable you can integrate one. In this walkthrough, we will be using Sass, but you can also use Less, or another alternative.
+
+First we need to create a `package.json` file, since create-elm-app is not shipping one at the moment. Walk through the normal `npm init` process.
+
+```sh
+npm init
+```
+
+Second, let’s install the command-line interface for Sass:
+
+```sh
+npm install --save node-sass-chokidar
+```
+
+Alternatively you may use `yarn`:
+
+```sh
+yarn add node-sass-chokidar
+```
+
+Then in `package.json`, add the following lines to `scripts`:
+
+```diff
+   "scripts": {
++    "build-css": "node-sass-chokidar src/ -o src/",
++    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    ...
+   }
+```
+
+> Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
+
+Now you can rename `src/main.css` to `src/main.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/main.css`. Since `src/index.js` still imports `src/main.css`, the styles become a part of your application. You can now edit `src/main.scss`, and `src/main.css` will be regenerated.
+
+To share variables between Sass files, you can use Sass imports. For example, `src/main.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
+
+To enable importing files without using relative paths, you can add the `--include-path` option to the command in `package.json`.
+
+```json
+{
+  "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+  "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+}
+```
+
+This will allow you to do imports like
+
+```scss
+@import 'styles/_colors.scss'; // assuming a styles directory under src/
+@import 'nprogress/nprogress'; // importing a css file from the nprogress node module
+```
+
+At this point you might want to remove all CSS files from the source control, and add `src/**/*.css` to your `.gitignore` file. It is generally a good practice to keep the build products outside of the source control.
+
+**Why `node-sass-chokidar`?**
+
+`node-sass` has been reported as having the following issues:
+
+* `node-sass --watch` has been reported to have _performance issues_ in certain conditions when used in a virtual machine or with docker.
+
+* Infinite styles compiling [#1939](https://github.com/facebookincubator/create-react-app/issues/1939)
+
+* `node-sass` has been reported as having issues with detecting new files in a directory [#1891](https://github.com/sass/node-sass/issues/1891)
+
+`node-sass-chokidar` is used here as it addresses these issues.
+
 ## Adding Images and Fonts
 
 With Webpack, using static assets like images and fonts works similarly to CSS.
@@ -379,9 +513,9 @@ import logoPath from './logo.svg'; // Tell Webpack this JS file uses this image
 import { Main } from './Main.elm';
 
 Main.embed(
-    document.getElementById('root'),
-    logoPath // Pass image path as a flag for Html.programWithFlags
-  );
+  document.getElementById('root'),
+  logoPath // Pass image path as a flag for Html.programWithFlags
+);
 ```
 
 Later on, you can use the image path in your view for displaying it in the DOM.
@@ -416,7 +550,7 @@ This mechanism provides a few benefits:
 
 However, there is a **escape hatch** that you can use to add an asset outside of the module system.
 
-If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead, it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
+If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead, it will be copied into the build folder untouched. To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
 
 Inside `index.html`, you can use it like this:
 
@@ -432,7 +566,7 @@ In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 
 ```elm
 // Note: this is an escape hatch and should be used sparingly!
-// Normally we recommend using `import`  and `Html.programWithFlags` for getting 
+// Normally we recommend using `import`  and `Html.programWithFlags` for getting
 // asset URLs as described in “Adding Images and Fonts” above this section.
 img [ src "%PUBLIC_URL%/logo.svg" ] []
 ```
@@ -460,7 +594,6 @@ The `public` folder is used as a workaround for some less common cases:
 * Some library may be incompatible with Webpack and you have no other option but to include it as a `<script>` tag.
 
 Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
-
 
 ## Using custom environment variables
 
@@ -494,7 +627,7 @@ import { Main } from './Main.elm';
 
 Main.fullscreen({
   environment: process.env.NODE_ENV,
-  apiKey: process.env.ELM_APP_API_KEY,
+  apiKey: process.env.ELM_APP_API_KEY
 });
 ```
 
@@ -514,8 +647,8 @@ Be aware that you cannot override `NODE_ENV` manually. See
 [this list from the `dotenv`-library](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use)
 for a list of files you can use to declare environment variables.
 
-
 ## Setting up API Proxy
+
 To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
 
 ```json
@@ -527,12 +660,18 @@ To forward the API ( REST ) calls to backend server, add a proxy to the `elm-pac
 ```
 
 Make sure the XHR requests set the `Content-type: application/json` and `Accept: application/json`.
-The development server has heuristics, to handle its own flow, which may interfere with proxying of 
+The development server has heuristics, to handle its own flow, which may interfere with proxying of
 other html and javascript content types.
 
 ```sh
  curl -X GET -H "Content-type: application/json" -H "Accept: application/json"  http://localhost:3000/api/list
 ```
+
+## Using HTTPS in Development
+
+If you need to serve the development server over HTTPS, set the `HTTPS` environment variable to `true` before you start development server with `elm-app start`.
+
+Note that the server will use a self-signed certificate, so you will most likely have to add an exception to accept it in your browser.
 
 ## Running Tests
 
@@ -542,15 +681,17 @@ Create Elm App uses [elm-test](https://github.com/rtfeldman/node-test-runner) as
 
 To use packages in tests, you also need to install them in `tests` directory.
 
+Please note that you have to pass the path to the `elm-package.json` with your test dependencies.
+
 ```bash
-elm-app test --add-dependencies elm-package.json 
+elm-app test --add-dependencies tests/elm-package.json
 ```
 
 ### Continuous Integration
 
 #### Travis CI
 
-1. Following the [Travis Getting started](https://docs.travis-ci.com/user/getting-started/) guide for syncing your GitHub repository with Travis.  You may need to initialize some settings manually in your [profile](https://travis-ci.org/profile) page.
+1. Following the [Travis Getting started](https://docs.travis-ci.com/user/getting-started/) guide for syncing your GitHub repository with Travis. You may need to initialize some settings manually in your [profile](https://travis-ci.org/profile) page.
 1. Add a `.travis.yml` file to your git repository.
 
 ```yaml
@@ -577,9 +718,9 @@ By default, the production build is a fully functional, offline-first
 
 Progressive Web Apps are faster and more reliable than traditional web pages, and provide an engaging mobile experience:
 
- * All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
- * Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the Subway.
- * On mobile devices, your app can be added directly to the user's home screen, app icon and all. You can also re-engage users using web **push notifications**. This eliminates the need for the app store.
+* All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
+* Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the Subway.
+* On mobile devices, your app can be added directly to the user's home screen, app icon and all. You can also re-engage users using web **push notifications**. This eliminates the need for the app store.
 
 The [`sw-precache-webpack-plugin`](https://github.com/goldhand/sw-precache-webpack-plugin)
 is integrated into production configuration,
@@ -605,60 +746,19 @@ it may take up to 24 hours for the cache to be invalidated.
 
 ### Offline-First Considerations
 
-1. Service workers [require HTTPS](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers#you_need_https),
-although to facilitate local testing, that policy
-[does not apply to `localhost`](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http/34161385#34161385).
-If your production web server does not support HTTPS, then the service worker
-registration will fail, but the rest of your web app will remain functional.
+1. Service workers [require HTTPS](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers#you_need_https), although to facilitate local testing, that policy[does not apply to `localhost`](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http/34161385#34161385). If your production web server does not support HTTPS, then the service worker registration will fail, but the rest of your web app will remain functional.
 
-1. Service workers are [not currently supported](https://jakearchibald.github.io/isserviceworkerready/)
-in all web browsers. Service worker registration [won't be attempted](src/registerServiceWorker.js)
-on browsers that lack support.
+1. Service workers are [not currently supported](https://jakearchibald.github.io/isserviceworkerready/) in all web browsers. Service worker registration [won't be attempted](src/registerServiceWorker.js) on browsers that lack support.
 
-1. The service worker is only enabled in the [production environment](#deployment),
-e.g. the output of `npm run build`. It's recommended that you do not enable an
-offline-first service worker in a development environment, as it can lead to
-frustration when previously cached assets are used and do not include the latest
-changes you've made locally.
+1. The service worker is only enabled in the [production environment](#deployment), e.g. the output of `npm run build`. It's recommended that you do not enable an offline-first service worker in a development environment, as it can lead to frustration when previously cached assets are used and do not include the latest changes you've made locally.
 
-1. If you *need* to test your offline-first service worker locally, build
-the application (using `npm run build`) and run a simple http server from your
-build directory. After running the build script, `create-react-app` will give
-instructions for one way to test your production build locally and the [deployment instructions](#deployment) have
-instructions for using other methods. *Be sure to always use an
-incognito window to avoid complications with your browser cache.*
+1. If you _need_ to test your offline-first service worker locally, build the application (using `npm run build`) and run a simple http server from your build directory. After running the build script, `create-react-app` will give instructions for one way to test your production build locally and the [deployment instructions](#deployment) have instructions for using other methods. _Be sure to always use an incognito window to avoid complications with your browser cache._
 
-1. If possible, configure your production environment to serve the generated
-`service-worker.js` [with HTTP caching disabled](http://stackoverflow.com/questions/38843970/service-worker-javascript-update-frequency-every-24-hours).
-If that's not possible—[GitHub Pages](#github-pages), for instance, does not
-allow you to change the default 10 minute HTTP cache lifetime—then be aware
-that if you visit your production site, and then revisit again before
-`service-worker.js` has expired from your HTTP cache, you'll continue to get
-the previously cached assets from the service worker. If you have an immediate
-need to view your updated production deployment, performing a shift-refresh
-will temporarily disable the service worker and retrieve all assets from the
-network.
+1. If possible, configure your production environment to serve the generated `service-worker.js` [with HTTP caching disabled](http://stackoverflow.com/questions/38843970/service-worker-javascript-update-frequency-every-24-hours). If that's not possible—[GitHub Pages](#github-pages), for instance, does not allow you to change the default 10 minute HTTP cache lifetime—then be aware that if you visit your production site, and then revisit again before `service-worker.js` has expired from your HTTP cache, you'll continue to get the previously cached assets from the service worker. If you have an immediate need to view your updated production deployment, performing a shift-refresh will temporarily disable the service worker and retrieve all assets from the network.
 
-1. Users aren't always familiar with offline-first web apps. It can be useful to
-[let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption)
-when the service worker has finished populating your caches (showing a "This web
-app works offline!" message) and also let them know when the service worker has
-fetched the latest updates that will be available the next time they load the
-page (showing a "New content is available; please refresh." message). Showing
-this messages is currently left as an exercise to the developer, but as a
-starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which
-demonstrates which service worker lifecycle events to listen for to detect each
-scenario, and which as a default, just logs appropriate messages to the
-JavaScript console.
+1. Users aren't always familiar with offline-first web apps. It can be useful to [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption) when the service worker has finished populating your caches (showing a "This web app works offline!" message) and also let them know when the service worker has fetched the latest updates that will be available the next time they load the page (showing a "New content is available; please refresh." message). Showing this messages is currently left as an exercise to the developer, but as a starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which demonstrates which service worker lifecycle events to listen for to detect each scenario, and which as a default, just logs appropriate messages to the JavaScript console.
 
-1. By default, the generated service worker file will not intercept or cache any
-cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend),
-images, or embeds loaded from a different domain. If you would like to use a
-runtime caching strategy for those requests, you can [`eject`](#npm-run-eject)
-and then configure the
-[`runtimeCaching`](https://github.com/GoogleChrome/sw-precache#runtimecaching-arrayobject)
-option in the `SWPrecacheWebpackPlugin` section of
-[`webpack.config.prod.js`](../config/webpack.config.prod.js).
+1. By default, the generated service worker file will not intercept or cache any cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend), images, or embeds loaded from a different domain. If you would like to use a runtime caching strategy for those requests, you can [`eject`](#npm-run-eject) and then configure the [`runtimeCaching`](https://github.com/GoogleChrome/sw-precache#runtimecaching-arrayobject) option in the `SWPrecacheWebpackPlugin` section of [`webpack.config.prod.js`](../config/webpack.config.prod.js).
 
 ### Progressive Web App Metadata
 
@@ -675,8 +775,19 @@ will affect your users' experience.
 
 ## Deployment
 
-
 `elm-app build` creates a `build` directory with a production build of your app. Set up your favourite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file.
+
+### Building for Relative Paths
+
+By default, Create Elm App produces a build assuming your app is hosted at the server root.
+
+To override this, specify the `homepage` in your `elm-package.json`, for example:
+
+```js
+  "homepage": "http://mywebsite.com/relativepath",
+```
+
+This will let Create Elm App correctly infer the root path to use in the generated HTML file.
 
 ### Static Server
 
@@ -699,7 +810,8 @@ serve -h
 
 #### Step 1: Add `homepage` to `elm-package.json`
 
-**The step below is important!**<br>
+**The step below is important!**
+
 **If you skip it, your app will not deploy correctly.**
 
 Open your `elm-package.json` and add a `homepage` field:
@@ -730,7 +842,7 @@ gh-pages -d build
 
 Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
 
-<img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
+![GH Pages branch](https://i.imgur.com/HUjEr9l.png)
 
 #### Step 5: Optionally, configure the domain
 
@@ -746,3 +858,9 @@ GitHub Pages doesn’t support routers that use the HTML5 `pushState` history AP
 ## IDE setup for Hot Module Replacement
 
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
+
+## Configuring an alternate runtime target
+
+Webpack [supports multiple targets](https://webpack.js.org/configuration/target/).
+
+To build for a different target, beyond a simple website, such as [electron](https://electronjs.org/), use the `ELM_SCRIPTS_WEBPACK_ENV_TARGET` environment variable.  For example, `ELM_SCRIPTS_WEBPACK_ENV_TARGET=electron-renderer`.

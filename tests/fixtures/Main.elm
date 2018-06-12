@@ -5,5 +5,5 @@ import Html.App exposing (program)
 
 
 main : Program Never
-main 
+main
     program { view = view, init = init, update = update, subscriptions = subscriptions }

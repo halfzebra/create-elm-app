@@ -99,9 +99,9 @@ module.exports = {
             [
               require.resolve('babel-plugin-transform-runtime'),
               {
-                "helpers": false,
-                "polyfill": false,
-                "regenerator": true
+                helpers: false,
+                polyfill: false,
+                regenerator: true
               }
             ]
           ]
@@ -123,7 +123,8 @@ module.exports = {
             loader: require.resolve('string-replace-loader'),
             query: {
               search: '%PUBLIC_URL%',
-              replace: publicUrl
+              replace: publicUrl,
+              flags: 'g'
             }
           },
           {

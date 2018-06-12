@@ -8,10 +8,10 @@
 
 <!--
   If you answered "Yes":
-  
+
     Please note that your issue will be fixed much faster if you spend about
     half an hour preparing it, including the exact reproduction steps and a demo.
-    
+
     If you're in a hurry or don't feel confident, it's fine to report bugs with
     less details, but this makes it less likely they'll get fixed soon.
 
@@ -30,10 +30,10 @@
   Please fill in all the relevant fields by running these commands in terminal.
 -->
 
-1. `node -v`: 
+1. `node -v`:
 2. `npm -v`:
 3. `yarn --version` (if you use Yarn):
-4. `npm ls create-elm-app -g` (if you haven’t ejected): 
+4. `npm ls create-elm-app -g` (if you haven’t ejected):
 
 Then, specify:
 
@@ -50,9 +50,9 @@ Then, specify:
 
 (Write your steps here:)
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 
 ### Expected Behavior
@@ -99,11 +99,11 @@ Then, specify:
 
 <!--
   What happens if you skip this step?
-  
+
   We will try to help you, but in many cases it is impossible because crucial
   information is missing. In that case we'll tag an issue as having a low priority,
   and eventually close it if there is no clear direction.
-  
+
   We still appreciate the report though, as eventually somebody else might
   create a reproducible example for it.
 
