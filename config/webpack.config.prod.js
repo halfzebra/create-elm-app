@@ -77,7 +77,7 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [/*require.resolve('./polyfills'),*/ paths.appIndexJs],
+  entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -278,10 +278,8 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
-    new webpack.DefinePlugin(env.stringified),
-
+    // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -313,8 +311,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: 'static/js/[name].[chunkhash:8].css',
-      chunkFilename: 'static/js/[name].[chunkhash:8].chunk.css'
+      filename: 'static/css/[name].[contenthash:8].css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
@@ -323,7 +321,6 @@ module.exports = {
       fileName: 'asset-manifest.json',
       publicPath: publicPath
     }),
-
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new SWPrecacheWebpackPlugin({
