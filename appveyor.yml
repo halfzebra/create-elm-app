@@ -3,6 +3,13 @@ image: Visual Studio 2017
 platform:
   - x64
 
+# Test against these versions of Node.js.
+environment:
+  matrix:
+  # node.js
+    - nodejs_version: "8"
+    - nodejs_version: "9"
+
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
 
