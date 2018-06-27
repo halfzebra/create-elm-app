@@ -13,7 +13,9 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Ejecting Elm application. (Please wait...)', () => {
+describe('Ejecting Elm application. (Please wait...)', function() {
+  this.timeout(60000);
+
   before(done => {
     const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
     if (status === 0) {
