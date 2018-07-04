@@ -55,6 +55,8 @@ You can find the most recent version of this guide [here](https://github.com/hal
 
 You are very welcome with any [feedback](https://github.com/halfzebra/create-elm-app/issues)
 
+Feel free to join [@create-elm-app](https://elmlang.slack.com/messages/CBBET0YMR/) channel at Slack.
+
 ## Installing Elm packages
 
 ```sh
