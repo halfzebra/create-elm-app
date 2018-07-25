@@ -566,9 +566,10 @@ When you run `elm-app build`, Create Elm App will substitute `%PUBLIC_URL%` with
 In Elm code, you can use `%PUBLIC_URL%` for similar purposes:
 
 ```elm
-// Note: this is an escape hatch and should be used sparingly!
-// Normally we recommend using `import`  and `Html.programWithFlags` for getting
-// asset URLs as described in “Adding Images and Fonts” above this section.
+{- Note: this is an escape hatch and should be used sparingly!
+   Normally we recommend using `import` and `Html.programWithFlags` for getting
+   asset URLs as described in “Adding Images and Fonts” above this section.
+-}
 img [ src "%PUBLIC_URL%/logo.svg" ] []
 ```
 
