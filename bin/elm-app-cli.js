@@ -94,7 +94,7 @@ function help(version) {
  * Spawn separate node process with specified script
  *
  * @param  {string} script Path to script
- * @param  {Arrays} args   Script arguments
+ * @param  {Array} args   Script arguments
  * @return {undefined}
  */
 function spawnSyncNode(script, args) {
