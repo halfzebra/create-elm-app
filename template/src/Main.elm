@@ -1,7 +1,9 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, h1, img)
+import Html exposing (Html, node, text, div, h1, img)
 import Html.Attributes exposing (src)
+import Html.Events exposing (on, onClick)
+import Json.Decode exposing (Decoder)
 
 
 ---- MODEL ----
@@ -21,23 +23,32 @@ init =
 
 
 type Msg
-    = NoOp
+    = CustomMsg Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    Debug.log "Message: " msg
+        |> \_ ->
+            ( model, Cmd.none )
 
 
 
 ---- VIEW ----
 
+decoder : Decoder Int
+decoder = 
+    Json.Decode.at [ "detail", "times" ] Json.Decode.int
 
 view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
         , h1 [] [ text "Your Elm App is working!" ]
+        , node "hello-world"
+            [ on "boom" (Json.Decode.map CustomMsg decoder)
+            ]
+            []
         ]
 
 

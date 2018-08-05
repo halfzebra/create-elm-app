@@ -172,6 +172,7 @@ module.exports = {
             ]
           ],
           plugins: [
+            require.resolve('babel-plugin-transform-custom-element-classes'),
             [
               require.resolve('babel-plugin-transform-runtime'),
               {
@@ -290,7 +291,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
