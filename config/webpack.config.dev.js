@@ -3,9 +3,9 @@
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('../config/paths');
 
@@ -66,14 +66,9 @@ module.exports = {
 
     paths.appIndexJs
   ],
-
   output: {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
-
-    // The build folder.
-    path: paths.appBuild,
-
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
@@ -82,7 +77,6 @@ module.exports = {
     chunkFilename: 'static/js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
-
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
@@ -90,8 +84,10 @@ module.exports = {
   optimization: {
     // Automatically split vendor and commons
     // https://twitter.com/wSokra/status/969633336732905474
+    // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      name: 'vendors'
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
@@ -106,117 +102,155 @@ module.exports = {
 
     strictExportPresence: true,
     rules: [
-      {
-        test: /\.js$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loader: require.resolve('babel-loader'),
-        query: {
-          // Latest stable ECMAScript features
-          presets: [
-            [
-              require.resolve('babel-preset-env'),
-              {
-                targets: {
-                  // React parses on ie 9, so we should too
-                  ie: 9,
-                  // We currently minify with uglify
-                  // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-                  uglify: true
-                },
-                // Disable polyfill transforms
-                useBuiltIns: false,
-                // Do not transform modules to CJS
-                modules: false
-              }
-            ]
-          ],
-          plugins: [
-            [
-              require.resolve('babel-plugin-transform-runtime'),
-              {
-                helpers: false,
-                polyfill: false,
-                regenerator: true
-              }
-            ]
-          ]
-        }
-      },
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
 
       {
-        test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        use: [
+        // "oneOf" will traverse all following loaders until one will
+        // match the requirements. When no loader matches it will fall
+        // back to the "file" loader at the end of the loader list.
+        oneOf: [
+          // "url" loader works like "file" loader except that it embeds assets
+          // smaller than specified limit in bytes as data URLs to avoid requests.
+          // A missing `test` is equivalent to a match.
           {
-            loader: require.resolve('elm-hot-loader')
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            loader: require.resolve('url-loader'),
+            options: {
+              limit: 10000,
+              name: 'static/media/[name].[hash:8].[ext]'
+            }
           },
-          // string-replace-loader works as InterpolateHtmlPlugin for Elm,
-          // it replaces all of the %PUBLIC_URL% with the URL of your
-          // application, so you could serve static assets outside of the
-          // module system.
+
           {
-            loader: require.resolve('string-replace-loader'),
+            test: /\.js$/,
+            exclude: [/elm-stuff/, /node_modules/],
+            loader: require.resolve('babel-loader'),
             query: {
-              search: '%PUBLIC_URL%',
-              replace: publicUrl,
-              flags: 'g'
+              // Latest stable ECMAScript features
+              presets: [
+                [
+                  require.resolve('babel-preset-env'),
+                  {
+                    targets: {
+                      // React parses on ie 9, so we should too
+                      ie: 9,
+                      // We currently minify with uglify
+                      // Remove after https://github.com/mishoo/UglifyJS2/issues/448
+                      uglify: true
+                    },
+                    // Disable polyfill transforms
+                    useBuiltIns: false,
+                    // Do not transform modules to CJS
+                    modules: false
+                  }
+                ]
+              ],
+              plugins: [
+                require.resolve(
+                  'babel-plugin-transform-custom-element-classes'
+                ),
+                [
+                  require.resolve('babel-plugin-transform-runtime'),
+                  {
+                    helpers: false,
+                    polyfill: false,
+                    regenerator: true
+                  }
+                ]
+              ]
             }
           },
+          // Process any JS outside of the app with Babel.
+          // Unlike the application JS, we only compile the standard ES features.
           {
-            loader: require.resolve('elm-webpack-loader'),
+            test: /\.js$/,
+            use: [
+              {
+                loader: require.resolve('babel-loader'),
+                options: {
+                  babelrc: false,
+                  compact: false,
+                  presets: [require.resolve('babel-preset-env')],
+                  cacheDirectory: true,
+                  highlightCode: true
+                }
+              }
+            ]
+          },
+          // "postcss" loader applies autoprefixer to our CSS.
+          // "css" loader resolves paths in CSS and adds assets as dependencies.
+          // "style" loader turns CSS into JS modules that inject <style> tags.
+          // In production, we use a plugin to extract that CSS to a file, but
+          // in development "style" loader enables hot editing of CSS.
+          // By default we support CSS Modules with the extension .module.css
+          {
+            test: /\.css$/,
+            exclude: /\.module\.css$/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1
+                }
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: postCSSLoaderOptions
+              }
+            ]
+          },
+          {
+            test: /\.elm$/,
+            exclude: [/elm-stuff/, /node_modules/],
+            use: [
+              {
+                loader: require.resolve('elm-hot-loader')
+              },
+              // string-replace-loader works as InterpolateHtmlPlugin for Elm,
+              // it replaces all of the %PUBLIC_URL% with the URL of your
+              // application, so you could serve static assets outside of the
+              // module system.
+              {
+                loader: require.resolve('string-replace-loader'),
+                query: {
+                  search: '%PUBLIC_URL%',
+                  replace: publicUrl,
+                  flags: 'g'
+                }
+              },
+              {
+                loader: require.resolve('elm-webpack-loader'),
+                options: {
+                  verbose: true,
+                  warn: true,
+                  // If ELM_DEBUGGER was set to "false", disable it. Otherwise
+                  // for invalid values, "true" and as a default, enable it
+                  debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
+                  pathToMake: paths.elmMake,
+                  forceWatch: true
+                }
+              }
+            ]
+          },
+          // "file" loader makes sure those assets get served by WebpackDevServer.
+          // When you `import` an asset, you get its (virtual) filename.
+          // In production, they would get copied to the `build` folder.
+          // This loader doesn't use a "test" so it will catch all modules
+          // that fall through the other loaders.
+          {
+            // Exclude `js` files to keep "css" loader working as it injects
+            // its runtime that would otherwise be processed through "file" loader.
+            // Also exclude `html` and `json` extensions so they get processed
+            // by webpacks internal loaders.
+            exclude: [/\.(js|elm)$/, /\.html$/, /\.json$/],
+            loader: require.resolve('file-loader'),
             options: {
-              verbose: true,
-              warn: true,
-              // If ELM_DEBUGGER was set to "false", disable it. Otherwise
-              // for invalid values, "true" and as a default, enable it
-              debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
-              pathToMake: paths.elmMake,
-              forceWatch: true
+              name: 'static/media/[name].[hash:8].[ext]'
             }
           }
         ]
-      },
-
-      // "postcss" loader applies autoprefixer to our CSS.
-      // "css" loader resolves paths in CSS and adds assets as dependencies.
-      // "style" loader turns CSS into JS modules that inject <style> tags.
-      // In production, we use a plugin to extract that CSS to a file, but
-      // in development "style" loader enables hot editing of CSS.
-      // By default we support CSS Modules with the extension .module.css
-      {
-        test: /\.css$/,
-        exclude: /\.module\.css$/,
-        use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1
-            }
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: postCSSLoaderOptions
-          }
-        ]
-      },
-
-      {
-        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
-        loader: require.resolve('url-loader'),
-        options: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      },
-
-      // "file" loader for svg
-      {
-        test: /\.svg$/,
-        loader: require.resolve('file-loader'),
-        options: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
       }
     ]
   },
@@ -231,8 +265,10 @@ module.exports = {
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
     new InterpolateHtmlPlugin(env.raw),
-    // Add module names to factory functions so they appear in browser profiler.
-    new webpack.NamedModulesPlugin(),
+    // Makes some environment variables available to the JS code, for example:
+    // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
+    new webpack.DefinePlugin(env.stringified),
+    // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
@@ -249,10 +285,7 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
-  // Turn off performance hints during development because we don't do any
-  // splitting or minification in interest of speed. These warnings become
-  // cumbersome.
-  performance: {
-    hints: false
-  }
+  // Turn off performance processing because we utilize
+  // our own hints via the FileSizeReporter
+  performance: false
 };
