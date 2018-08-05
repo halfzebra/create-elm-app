@@ -122,7 +122,7 @@ module.exports = {
               require.resolve('babel-plugin-transform-runtime'),
               {
                 helpers: false,
-                polyfill: false,
+                polyfill: process.env.BABEL_TRANSFORM_RUNTIME_POLYFILL === 'true' ? true : false,
                 regenerator: true
               }
             ]

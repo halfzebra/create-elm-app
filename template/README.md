@@ -50,6 +50,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [Static Server](#static-server)
   * [GitHub Pages](#github-pages)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
+* [Babel Transform Runtime plugin options](#babel-transform-runtime-plugin-options)
 
 ## Sending feedback
 
@@ -862,3 +863,10 @@ GitHub Pages doesn’t support routers that use the HTML5 `pushState` history AP
 ## IDE setup for Hot Module Replacement
 
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
+
+## Babel Transform Runtime plugin options
+
+By default, Babel Transform Runtime plugin is configured to **not** transform new built-ins (Promise, Set, Map, etc.) to use a non-global polluting polyfill ([Babel Runtime transform plugin documentation](https://babeljs.io/docs/plugins/transform-runtime/)).
+
+To enable this transformation set `BABEL_TRANSFORM_RUNTIME_POLYFILL` environment variable to `true`.
+
