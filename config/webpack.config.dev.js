@@ -19,21 +19,6 @@ const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-// Options for PostCSS as we reference these options twice
-// Adds vendor prefixing based on your specified browser support in
-// package.json
-const postCSSLoaderOptions = {
-  // Necessary for external CSS imports to work
-  // https://github.com/facebook/create-react-app/issues/2677
-  ident: 'postcss',
-  plugins: () => [
-    require('postcss-flexbugs-fixes'),
-    autoprefixer({
-      flexbox: 'no-2009'
-    })
-  ]
-};
-
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -99,7 +84,6 @@ module.exports = {
   },
   module: {
     noParse: /\.elm$/,
-
     strictExportPresence: true,
     rules: [
       // Disable require.ensure as it's not a standard language feature.
@@ -206,8 +190,7 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       // By default we support CSS Modules with the extension .module.css
       {
-        test: /\.css$/,
-        exclude: /\.module\.css$/,
+        test: /\.css/,
         use: [
           require.resolve('style-loader'),
           {
@@ -216,23 +199,42 @@ module.exports = {
               importLoaders: 1
             }
           },
-          // "file" loader makes sure those assets get served by WebpackDevServer.
-          // When you `import` an asset, you get its (virtual) filename.
-          // In production, they would get copied to the `build` folder.
-          // This loader doesn't use a "test" so it will catch all modules
-          // that fall through the other loaders.
           {
-            // Exclude `js` files to keep "css" loader working as it injects
-            // its runtime that would otherwise be processed through "file" loader.
-            // Also exclude `html` and `json` extensions so they get processed
-            // by webpacks internal loaders.
-            exclude: [/\.(js|elm)$/, /\.html$/, /\.json$/],
-            loader: require.resolve('file-loader'),
+            // Options for PostCSS as we reference these options twice
+            // Adds vendor prefixing based on your specified browser support in
+            // package.json
+            loader: require.resolve('postcss-loader'),
             options: {
-              name: 'static/media/[name].[hash:8].[ext]'
+              // Necessary for external CSS imports to work
+              // https://github.com/facebook/create-react-app/issues/2677
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  flexbox: 'no-2009'
+                })
+              ]
             }
           }
         ]
+      },
+
+      {
+        exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
+        loader: require.resolve('url-loader'),
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      },
+
+      // "file" loader for svg
+      {
+        test: /\.svg$/,
+        loader: require.resolve('file-loader'),
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
       }
     ]
   },
