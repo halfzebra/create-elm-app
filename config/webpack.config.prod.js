@@ -95,44 +95,66 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
         loader: require.resolve('babel-loader'),
         query: {
           // Latest stable ECMAScript features
           presets: [
             [
-              require.resolve('babel-preset-env'),
+              require.resolve('@babel/preset-env'),
               {
-                targets: {
-                  // React parses on ie 9, so we should too
-                  ie: 9,
-                  // We currently minify with uglify
-                  // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-                  uglify: true
-                },
-                // Disable polyfill transforms
-                useBuiltIns: false,
+                // `entry` transforms `@babel/polyfill` into individual requires for
+                // the targeted browsers. This is safer than `usage` which performs
+                // static code analysis to determine what's required.
+                // This is probably a fine default to help trim down bundles when
+                // end-users inevitably import '@babel/polyfill'.
+                useBuiltIns: 'entry',
                 // Do not transform modules to CJS
                 modules: false
               }
             ]
           ],
           plugins: [
+            // Polyfills the runtime needed for async/await and generators
             [
-              require.resolve('babel-plugin-transform-runtime'),
+              require('@babel/plugin-transform-runtime').default,
               {
                 helpers: false,
-                polyfill: false,
                 regenerator: true
               }
             ]
           ]
         }
       },
-
+      // Process any JS outside of the app with Babel.
+      // Unlike the application JS, we only compile the standard ES features.
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              compact: false,
+              presets: [
+                [
+                  // Latest stable ECMAScript features
+                  require('@babel/preset-env').default,
+                  {
+                    // Do not transform modules to CJS
+                    modules: false
+                  }
+                ]
+              ],
+              cacheDirectory: true,
+              highlightCode: true
+            }
+          }
+        ]
+      },
       {
         test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
         use: [
           // string-replace-loader works as InterpolateHtmlPlugin for Elm,
           // it replaces all of the %PUBLIC_URL% with the URL of your
