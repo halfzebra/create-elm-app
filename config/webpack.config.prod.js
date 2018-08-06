@@ -24,21 +24,6 @@ const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-// Options for PostCSS as we reference these options twice
-// Adds vendor prefixing based on your specified browser support in
-// package.json
-const postCSSLoaderOptions = {
-  // Necessary for external CSS imports to work
-  // https://github.com/facebook/create-react-app/issues/2677
-  ident: 'postcss',
-  plugins: () => [
-    require('postcss-flexbugs-fixes'),
-    autoprefixer({
-      flexbox: 'no-2009'
-    })
-  ]
-};
-
 // Enable users to turn on dead code elimination.
 const deadCodeElimination =
   process.env.DEAD_CODE_ELIMINATION === 'true'
@@ -256,7 +241,17 @@ module.exports = {
           },
           {
             loader: require.resolve('postcss-loader'),
-            options: postCSSLoaderOptions
+            options: {
+              // Necessary for external CSS imports to work
+              // https://github.com/facebook/create-react-app/issues/2677
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  flexbox: 'no-2009'
+                })
+              ]
+            }
           }
         ]
       },
@@ -313,7 +308,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
