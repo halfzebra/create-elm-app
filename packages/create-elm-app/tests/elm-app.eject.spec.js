@@ -34,7 +34,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     rimraf.sync(testAppDir);
   });
 
-  it.only(`'elm-app eject' should succeed in '${testAppName}'`, () => {
+  it(`'elm-app eject' should succeed in '${testAppName}'`, () => {
     console.log(process.cwd());
     const { status, output } = spawn.sync('node', [elmAppCmd, 'eject']);
     const outputString = output
