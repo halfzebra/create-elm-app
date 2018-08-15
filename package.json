@@ -12,17 +12,11 @@
     "babel-eslint": "^8.2.1",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
-    "dir-compare": "^1.4.0",
     "eslint": "^4.18.0",
     "eslint-plugin-prettier": "^2.6.2",
     "husky": "^0.14.3",
     "lerna": "^3.0.5",
-    "mocha": "^5.0.1",
-    "nightmare": "^2.10.0",
-    "prettier": "^1.14.2",
-    "rimraf": "^2.6.2",
-    "semantic-release": "15.9.8",
-    "unexpected": "^10.37.2"
+    "semantic-release": "15.9.8"
   },
   "engines": {
     "node": ">=6.0.0"
