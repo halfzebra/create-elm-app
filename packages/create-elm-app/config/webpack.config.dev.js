@@ -8,7 +8,7 @@ const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getClientEnvironment = require('./env');
-const paths = require('../config/paths');
+const paths = require('./paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.

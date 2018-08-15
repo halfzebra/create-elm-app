@@ -21,13 +21,18 @@ describe('Testing Elm application with `elm-app test` (Please wait...)', () => {
   });
 
   after(() => {
-    rimraf.sync(testAppDir);
+    // rimraf.sync(testAppDir);
   });
 
   it('`elm-app test` should succeed in `' + testAppName + '`', () => {
     const { status, output } = spawn.sync('node', [elmAppCmd, 'test'], {
       cwd: testAppDir
     });
+
+    console.log(spawn.sync('node', [elmAppCmd, 'test'], {
+      cwd: testAppDir
+    }));
+
     const outputString = output
       .map(out => (out !== null ? out.toString() : ''))
       .join('');

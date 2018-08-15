@@ -13,9 +13,14 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
+console.log('\n');
+console.log(rootDir);
+console.log('\n');
+console.log(testAppDir);
+
 describe('Ejecting Elm application. (Please wait...)', () => {
   before(done => {
-    const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
+    const { status } = spawn.sync('node', [createElmAppCmd, testAppName], { cwd: rootDir });
     if (status === 0) {
       process.chdir(testAppDir);
       done();
@@ -29,7 +34,8 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     rimraf.sync(testAppDir);
   });
 
-  it(`'elm-app eject' should succeed in '${testAppName}'`, () => {
+  it.only(`'elm-app eject' should succeed in '${testAppName}'`, () => {
+    console.log(process.cwd());
     const { status, output } = spawn.sync('node', [elmAppCmd, 'eject']);
     const outputString = output
       .map(out => (out !== null ? out.toString() : ''))
