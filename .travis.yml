@@ -1,29 +1,41 @@
-language: node_js
-sudo: required
+language:
+  node_js
+
+sudo:
+  required
+
 node_js:
   - '9'
   - '8'
   - '7'
   - '6'
+
 addons:
   apt:
     packages:
       - xvfb
+
 cache:
   yarn: true
   directories:
     - $HOME/.yarn-cachegi
+
 before_install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-install:
-  - yarn install
-  - npm link
-script: npm test
+
+before_script:
+  - npm run bootstrap
+
+script:
+  npm test
+
 after_success:
   - npm run semantic-release
+
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+
 notifications:
   email: false
