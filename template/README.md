@@ -49,6 +49,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
   * [GitHub Pages](#github-pages)
+* [Configuring an alternate runtime target](#configuring-an-alternate-runtime-target)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
 ## Sending feedback
@@ -862,3 +863,9 @@ GitHub Pages doesn’t support routers that use the HTML5 `pushState` history AP
 ## IDE setup for Hot Module Replacement
 
 Remember to disable [safe write](https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write) if you are using VIM or IntelliJ IDE, such as WebStorm.
+
+## Configuring an alternate runtime target
+
+Webpack [supports multiple targets](https://webpack.js.org/configuration/target/).
+
+To build for a different target, beyond a simple website, such as [electron](https://electronjs.org/), use the `ELM_SCRIPTS_WEBPACK_ENV_TARGET` environment variable.  For example, `ELM_SCRIPTS_WEBPACK_ENV_TARGET=electron-renderer`.
