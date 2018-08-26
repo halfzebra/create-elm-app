@@ -6,7 +6,7 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
 const version = require('../package.json').version;
-const elmPlatformVersion = require('elm/package.json').version;
+const elmVersion = require('elm/package.json').version;
 const commands = argv._;
 
 if (commands.length === 0) {
@@ -14,7 +14,7 @@ if (commands.length === 0) {
   console.log(
     'where <project-directory> is the name of the directory with your future project'
   );
-  console.log('\nElm Platform ' + elmPlatformVersion + '\n');
+  console.log('\nElm Platform ' + elmVersion + '\n');
   console.log(
     'create-elm-app@' + version + ' ' + path.resolve(__dirname, '..')
   );

@@ -5,9 +5,9 @@
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
-const executablePaths = require('elm/platform').executablePaths;
+const elmExecutable = path.resolve(__dirname, '../node_modules/.bin/elm')
 const version = require('../package.json').version;
-const elmPlatformVersion = require('elm/package.json').version;
+const elmVersion = require('elm/package.json').version;
 
 const commands = argv._;
 
@@ -37,7 +37,7 @@ switch (script) {
 
     args = args.concat([
       '--compiler',
-      path.normalize(executablePaths['elm-make'])
+      elmExecutable
     ]);
 
     const cp = spawn.sync(require.resolve('elm-test/bin/elm-test'), args, {
@@ -51,18 +51,15 @@ switch (script) {
     break;
   }
   case 'install': {
-    const executable = executablePaths['elm-package'];
-    spawn.sync(path.normalize(executable), process.argv.slice(2), {
+    spawn.sync(elmExecutable, process.argv.slice(2), {
       stdio: 'inherit'
     });
     break;
   }
   default:
     // Proxy elm-platform cli commands.
-    if (['package', 'reactor', 'make', 'repl'].indexOf(script) !== -1) {
-      const executable = executablePaths['elm-' + script];
-
-      spawn.sync(path.normalize(executable), process.argv.slice(3), {
+    if (['reactor', 'make', 'repl'].indexOf(script) !== -1) {
+      spawn.sync(elmExecutable, process.argv.slice(2), {
         stdio: 'inherit'
       });
       break;
@@ -84,7 +81,7 @@ function help(version) {
   console.log(
     '    create, build, start, install, test, eject, package, reactor, make, repl\n'
   );
-  console.log('\nElm ' + elmPlatformVersion + '\n');
+  console.log('\nElm ' + elmVersion + '\n');
   console.log(
     'create-elm-app@' + version + ' ' + path.resolve(__dirname, '..')
   );
