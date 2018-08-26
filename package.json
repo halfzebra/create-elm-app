@@ -32,7 +32,7 @@
     "cross-spawn": "^6.0.4",
     "css-loader": "^0.28.9",
     "dotenv": "^5.0.0",
-    "elm": "^0.19.0",
+    "elm": "0.19.0-bugfix2",
     "elm-hot-loader": "0.5.4",
     "elm-test": "^0.19.0-beta4",
     "elm-webpack-loader": "https://github.com/xtian/elm-webpack-loader.git#0.19",
