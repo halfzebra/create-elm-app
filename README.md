@@ -64,8 +64,7 @@ my-app/
 │   ├── main.css
 │   └── registerServiceWorker.js
 └── tests
-    ├── Tests.elm
-    └── elm.json
+    └── Tests.elm
 ```
 
 You are ready to employ the full power of Create Elm App!
