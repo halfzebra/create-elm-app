@@ -46,7 +46,7 @@ module.exports = {
   dotenv: resolveApp('./.env'),
   entry: resolveApp('./src/index.js'),
   appBuild: resolveApp('./build'),
-  elmPackageJson: resolveApp('./elm.json'),
+  elmJson: resolveApp('./elm.json'),
   elm: require('elm/platform').executablePaths['elm'],
   publicUrl: getPublicUrl(resolveApp('elm.json')),
   servedPath: getServedPath(resolveApp('elm.json'))
