@@ -21,9 +21,9 @@ describe('Create Elm application with `create-elm-app` command', () => {
     expect(status, 'to be', 0);
   }).timeout(60 * 1000);
 
-  it(`'${testAppName}' should have elm-package.json file`, () => {
+  it(`'${testAppName}' should have elm.json file`, () => {
     expect(
-      fs.existsSync(path.join(testAppDir, 'elm-package.json')),
+      fs.existsSync(path.join(testAppDir, 'elm.json')),
       'to be',
       true
     );
@@ -36,7 +36,7 @@ describe('Create Elm application with `create-elm-app` command', () => {
   it(`'${testAppName}' should have the same file structure as template`, () => {
     const templateDir = path.join(rootDir, 'template');
     const options = {
-      excludeFilter: 'elm-stuff, elm-package.json, gitignore, .gitignore'
+      excludeFilter: 'elm-stuff, elm.json, gitignore, .gitignore'
     };
     const { same } = dircompare.compareSync(templateDir, testAppDir, options);
     expect(same, 'to be', true);
