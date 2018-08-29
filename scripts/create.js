@@ -42,7 +42,7 @@ function createElmApp(name) {
   // Run initial `elm make`
   const spawnElmPkgResult = spawnSync(
     path.resolve(__dirname, '../node_modules/.bin/elm'),
-    ['make', 'src/Main.elm'],
+    ['make', 'src/Main.elm', '--output=/dev/null'],
     { stdio: 'inherit' }
   );
 
