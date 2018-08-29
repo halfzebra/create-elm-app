@@ -2505,14 +2505,14 @@ elm-test@^0.19.0-beta4:
   optionalDependencies:
     fsevents "1.1.2"
 
-"elm-webpack-loader@https://github.com/xtian/elm-webpack-loader.git#0.19":
-  version "4.3.1"
-  resolved "https://github.com/xtian/elm-webpack-loader.git#eef2c36865cd10784f7c3aa66970c7c1534a61e9"
+elm-webpack-loader@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/elm-webpack-loader/-/elm-webpack-loader-5.0.0.tgz#bcbd3334f232f61412390f7a9373264068cf7aa2"
   dependencies:
     elm "^0.19.0"
     glob "^7.1.1"
     loader-utils "^1.0.2"
-    node-elm-compiler rtfeldman/node-elm-compiler#0.19
+    node-elm-compiler "^5.0.0"
     yargs "^6.5.0"
 
 elm@0.19.0-bugfix2:
@@ -3113,9 +3113,9 @@ find-elm-dependencies@1.0.2:
     firstline "1.2.0"
     lodash "4.14.2"
 
-find-elm-dependencies@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/find-elm-dependencies/-/find-elm-dependencies-1.0.3.tgz#68554b23332c87ed1078828d9dd5b652ca63bfac"
+find-elm-dependencies@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/find-elm-dependencies/-/find-elm-dependencies-2.0.0.tgz#435aa05a6544a0ecf54c5d1ac85cc1ca1044e4e4"
   dependencies:
     firstline "1.2.0"
     lodash "4.17.10"
@@ -5184,12 +5184,12 @@ node-elm-compiler@5.0.0-alpha1:
     lodash "4.14.2"
     temp "^0.8.3"
 
-node-elm-compiler@rtfeldman/node-elm-compiler#0.19:
-  version "5.0.0-alpha1"
-  resolved "https://codeload.github.com/rtfeldman/node-elm-compiler/tar.gz/7449d9da76558a0393dd7e9dc9190ca6d6f61f85"
+node-elm-compiler@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/node-elm-compiler/-/node-elm-compiler-5.0.1.tgz#d62094ee72d6aad616ebaa71397b6cfac90381f6"
   dependencies:
     cross-spawn "4.0.0"
-    find-elm-dependencies "1.0.3"
+    find-elm-dependencies "2.0.0"
     lodash "4.17.10"
     temp "^0.8.3"
 
