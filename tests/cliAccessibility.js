@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 const expect = require('unexpected');
 const spawn = require('cross-spawn');
 
