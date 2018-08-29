@@ -96,7 +96,8 @@
     "test": "npm run test:cli && npm run test:functional",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
-    "build": "cd template && node ../bin/elm-app-cli.js build",
-    "start": "cd template && node ../bin/elm-app-cli.js start"
+    "app:build": "cd template && node ../bin/elm-app-cli.js build",
+    "app:start": "cd template && node ../bin/elm-app-cli.js start",
+    "app:test": "cd template && node ../bin/elm-app-cli.js test"
   }
 }
