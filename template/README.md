@@ -86,7 +86,7 @@ const db = new PouchDB('mydb');
 my-app/
 ├── .gitignore
 ├── README.md
-├── elm-package.json
+├── elm.json
 ├── elm-stuff
 ├── public
 │   ├── favicon.ico
@@ -99,8 +99,7 @@ my-app/
 │   ├── main.css
 │   └── registerServiceWorker.js
 └── tests
-    ├── Tests.elm
-    └── elm-package.json
+    └── Tests.elm
 ```
 
 For the project to build, these files must exist with exact filenames:
@@ -136,7 +135,9 @@ You may change the listening port number by using the `PORT` environment variabl
 
 ### `elm-app install`
 
-An alias for [`elm-app package install`](#package)
+Alias for [`elm install`](http://guide.elm-lang.org/get_started.html#elm-install)
+
+Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
 
 ### `elm-app test`
 
@@ -162,23 +163,17 @@ You don’t have to use 'eject' The curated feature set is suitable for small an
 
 Create Elm App does not rely on the global installation of Elm Platform, but you still can use its local Elm Platform to access default command line tools:
 
-#### `package`
-
-Alias for [elm-package](http://guide.elm-lang.org/get_started.html#elm-package)
-
-Use it for installing Elm packages from [package.elm-lang.org](http://package.elm-lang.org/)
-
 #### `repl`
 
-Alias for [elm-repl](http://guide.elm-lang.org/get_started.html#elm-repl)
+Alias for [`elm repl`](http://guide.elm-lang.org/get_started.html#elm-repl)
 
 #### `make`
 
-Alias for [elm-make](http://guide.elm-lang.org/get_started.html#elm-make)
+Alias for [`elm make`](http://guide.elm-lang.org/get_started.html#elm-make)
 
 #### `reactor`
 
-Alias for [elm-reactor](http://guide.elm-lang.org/get_started.html#elm-reactor)
+Alias for [`elm reactor`](http://guide.elm-lang.org/get_started.html#elm-reactor)
 
 ## Turning on/off Elm Debugger
 
