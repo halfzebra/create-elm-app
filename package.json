@@ -33,7 +33,7 @@
     "css-loader": "^0.28.9",
     "dotenv": "^5.0.0",
     "elm": "0.19.0-bugfix2",
-    "elm-hot-loader": "0.5.4",
+    "elm-hot-webpack-loader": "^1.0.0",
     "elm-test": "^0.19.0-beta4",
     "elm-webpack-loader": "^5.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -96,7 +96,8 @@
     "test": "npm run test:cli && npm run test:functional",
     "test:cli": "mocha tests/cliAccessibility.js --reporter spec --timeout 15000",
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
-    "build": "cd template && node ../bin/elm-app-cli.js build",
-    "start": "cd template && node ../bin/elm-app-cli.js start"
+    "app:build": "cd template && node ../bin/elm-app-cli.js build",
+    "app:start": "cd template && node ../bin/elm-app-cli.js start",
+    "app:test": "cd template && node ../bin/elm-app-cli.js test"
   }
 }

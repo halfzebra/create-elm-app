@@ -1,6 +1,3 @@
-/* eslint-disable */
-/* eslint-env mocha */
-const fs = require('fs');
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
