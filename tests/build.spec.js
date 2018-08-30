@@ -33,6 +33,7 @@ describe('Creating and making a build of Elm application', function() {
 
   after(() => {
     rimraf.sync(testAppDir);
+    this.enableTimeouts(true);
   });
 
   it('compiled correctly and renders "Your Elm App is working!" text', done => {
