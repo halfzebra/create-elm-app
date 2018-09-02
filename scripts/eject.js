@@ -99,14 +99,13 @@ const devDependencies = extendOmittingProps(
 const scripts = {
   build: 'node scripts/build.js',
   start: 'node scripts/start.js',
-  package: 'elm-package',
-  make: 'elm-make',
-  repl: 'elm-repl',
-  reactor: 'elm-reactor',
+  make: 'elm make',
+  repl: 'elm repl',
+  reactor: 'elm reactor',
   test: 'elm-test'
 };
 
-if (fs.existsSync('elm-package.json') === false) {
+if (fs.existsSync('elm.json') === false) {
   console.log('Please, run the eject script from project root directory');
   process.exit(1);
 }

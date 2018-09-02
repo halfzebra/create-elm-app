@@ -21,7 +21,7 @@ Create a production build with `elm-app build`
 
 ### Installation
 
-**Node >=6** is required for installation.
+**Node >=8** is required for installation.
 
 #### Yarn
 
@@ -51,7 +51,7 @@ Create a new `my-app` folder with files for your future project.
 my-app/
 ├── .gitignore
 ├── README.md
-├── elm-package.json
+├── elm.json
 ├── elm-stuff
 ├── public
 │   ├── favicon.ico
@@ -64,8 +64,7 @@ my-app/
 │   ├── main.css
 │   └── registerServiceWorker.js
 └── tests
-    ├── Tests.elm
-    └── elm-package.json
+    └── Tests.elm
 ```
 
 You are ready to employ the full power of Create Elm App!

@@ -1,12 +1,11 @@
 'use strict';
 
-const path = require('path');
 const autoprefixer = require('autoprefixer');
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const getClientEnvironment = require('./env');
 const paths = require('../config/paths');
 
@@ -20,10 +19,20 @@ const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
+// This is the development configuration.
+// It is focused on developer experience and fast rebuilds.
+// The production configuration is different and lives in a separate file.
 module.exports = {
+  mode: 'development',
+  // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
+  // See the discussion in https://github.com/facebook/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
-
+  // These are the "entry points" to our application.
+  // This means they will be the "root" imports that are included in JS bundle.
+  // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
+    // We ship a few polyfills by default:
+    require.resolve('./polyfills'),
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -42,77 +51,110 @@ module.exports = {
 
     paths.appIndexJs
   ],
-
   output: {
+    // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
-
-    // The build folder.
-    path: paths.appBuild,
-
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
-
+    // There are also additional JS chunk files if you use code splitting.
+    chunkFilename: 'static/js/[name].chunk.js',
+    // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
-
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
   },
-
+  optimization: {
+    // Automatically split vendor and commons
+    // https://twitter.com/wSokra/status/969633336732905474
+    // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
+    splitChunks: {
+      chunks: 'all',
+      name: 'vendors'
+    },
+    // Keep the runtime chunk seperated to enable long term caching
+    // https://twitter.com/wSokra/status/969679223278505985
+    runtimeChunk: true
+  },
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.elm']
   },
-
   module: {
     noParse: /\.elm$/,
-
+    strictExportPresence: true,
     rules: [
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
+
       {
         test: /\.js$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
+        include: paths.appSrc,
         loader: require.resolve('babel-loader'),
         query: {
-          // Latest stable ECMAScript features
           presets: [
             [
-              require.resolve('babel-preset-env'),
+              require.resolve('@babel/preset-env'),
               {
-                targets: {
-                  // React parses on ie 9, so we should too
-                  ie: 9,
-                  // We currently minify with uglify
-                  // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-                  uglify: true
-                },
-                // Disable polyfill transforms
-                useBuiltIns: false,
+                // `entry` transforms `@babel/polyfill` into individual requires for
+                // the targeted browsers. This is safer than `usage` which performs
+                // static code analysis to determine what's required.
+                // This is probably a fine default to help trim down bundles when
+                // end-users inevitably import '@babel/polyfill'.
+                useBuiltIns: 'entry',
                 // Do not transform modules to CJS
                 modules: false
               }
             ]
           ],
           plugins: [
+            // Polyfills the runtime needed for async/await and generators
             [
-              require.resolve('babel-plugin-transform-runtime'),
+              require('@babel/plugin-transform-runtime').default,
               {
                 helpers: false,
-                polyfill: false,
                 regenerator: true
               }
             ]
           ]
         }
       },
-
+      // Process any JS outside of the app with Babel.
+      // Unlike the application JS, we only compile the standard ES features.
       {
-        test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        test: /\.js$/,
         use: [
           {
-            loader: require.resolve('elm-hot-loader')
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              compact: false,
+              presets: [
+                [
+                  // Latest stable ECMAScript features
+                  require('@babel/preset-env').default,
+                  {
+                    // Do not transform modules to CJS
+                    modules: false
+                  }
+                ]
+              ],
+              cacheDirectory: true,
+              highlightCode: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.elm$/,
+        include: paths.appSrc,
+        exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
+        use: [
+          {
+            loader: require.resolve('elm-hot-webpack-loader')
           },
           // string-replace-loader works as InterpolateHtmlPlugin for Elm,
           // it replaces all of the %PUBLIC_URL% with the URL of your
@@ -130,11 +172,10 @@ module.exports = {
             loader: require.resolve('elm-webpack-loader'),
             options: {
               verbose: true,
-              warn: true,
               // If ELM_DEBUGGER was set to "false", disable it. Otherwise
               // for invalid values, "true" and as a default, enable it
               debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
-              pathToMake: paths.elmMake,
+              pathToElm: paths.elm,
               forceWatch: true
             }
           }
@@ -146,8 +187,9 @@ module.exports = {
       // "style" loader turns CSS into JS modules that inject <style> tags.
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
+      // By default we support CSS Modules with the extension .module.css
       {
-        test: /\.css$/,
+        test: /\.css/,
         use: [
           require.resolve('style-loader'),
           {
@@ -157,17 +199,18 @@ module.exports = {
             }
           },
           {
+            // Options for PostCSS as we reference these options twice
+            // Adds vendor prefixing based on your specified browser support in
+            // package.json
             loader: require.resolve('postcss-loader'),
             options: {
-              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              // Necessary for external CSS imports to work
+              // https://github.com/facebook/create-react-app/issues/2677
+              ident: 'postcss',
               plugins: () => [
+                require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9'
-                  ]
+                  flexbox: 'no-2009'
                 })
               ]
             }
@@ -194,20 +237,26 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
-    new DefinePlugin(env.stringified),
-
-    new InterpolateHtmlPlugin(env.raw),
-
+    // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml
     }),
-
-    new HotModuleReplacementPlugin(),
-
-    new NamedModulesPlugin()
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In development, this will be an empty string.
+    new InterpolateHtmlPlugin(env.raw),
+    // Makes some environment variables available to the JS code, for example:
+    // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
+    new webpack.DefinePlugin(env.stringified),
+    // This is necessary to emit hot updates (currently CSS only):
+    new webpack.HotModuleReplacementPlugin(),
+    // Watcher doesn't work well if you mistype casing in a path so we use
+    // a plugin that prints an error when you attempt to do this.
+    // See https://github.com/facebook/create-react-app/issues/240
+    new CaseSensitivePathsPlugin()
   ],
 
   // Some libraries import Node modules but don't use them in the browser.
@@ -218,5 +267,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  // Turn off performance processing because we utilize
+  // our own hints via the FileSizeReporter
+  performance: false
 };

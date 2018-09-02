@@ -7,7 +7,6 @@ const chalk = require('chalk');
 const spawnSync = require('child_process').spawnSync;
 const argv = require('minimist')(process.argv.slice(2));
 const commands = argv._;
-const executablePaths = require('elm/platform').executablePaths;
 
 if (commands.length === 0 || commands[0] === '') {
   console.error('\nUsage: elm-app create <project-directory>');
@@ -40,10 +39,10 @@ function createElmApp(name) {
 
   process.chdir(root);
 
-  // Run initial `elm-package install -y`
+  // Run initial `elm make`
   const spawnElmPkgResult = spawnSync(
-    executablePaths['elm-package'],
-    ['install', '-y'],
+    path.resolve(__dirname, '../node_modules/.bin/elm'),
+    ['make', 'src/Main.elm', '--output=/dev/null'],
     { stdio: 'inherit' }
   );
 

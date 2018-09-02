@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 const fs = require('fs');
 const path = require('path');
 const expect = require('unexpected');
@@ -13,7 +12,9 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Ejecting Elm application. (Please wait...)', () => {
+describe('Ejecting Elm application. (Please wait...)', function() {
+  this.timeout(60000);
+
   before(done => {
     const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
     if (status === 0) {
@@ -47,10 +48,9 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     expect(pkgScripts, 'to satisfy', {
       build: 'node scripts/build.js',
       start: 'node scripts/start.js',
-      package: 'elm-package',
-      make: 'elm-make',
-      repl: 'elm-repl',
-      reactor: 'elm-reactor'
+      make: 'elm make',
+      repl: 'elm repl',
+      reactor: 'elm reactor'
     });
   });
 
@@ -74,7 +74,7 @@ describe('Ejecting Elm application. (Please wait...)', () => {
     expect(same, 'to be', true);
   });
 
-  it('It should be possible to build ejected applitaction, using npm scripts', () => {
+  it('It should be possible to build ejected application, using npm scripts', () => {
     const { status, output } = spawn.sync('npm', ['run', 'build']);
     const outputString = output
       .map(out => (out !== null ? out.toString() : ''))

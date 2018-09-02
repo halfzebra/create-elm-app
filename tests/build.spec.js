@@ -1,6 +1,3 @@
-/* eslint-disable */
-/* eslint-env mocha */
-const fs = require('fs');
 const path = require('path');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
@@ -14,9 +11,10 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Creating and making a build of Elm application', function() {
-  this.timeout(30000);
+  this.timeout(60000);
 
-  before(done => {
+  before(function(done) {
+    this.enableTimeouts(false);
     process.env.PUBLIC_URL = './';
     spawn('node', [createElmAppCmd, testAppName]).on('close', status => {
       if (status === 0) {
@@ -35,6 +33,7 @@ describe('Creating and making a build of Elm application', function() {
 
   after(() => {
     rimraf.sync(testAppDir);
+    this.enableTimeouts(true);
   });
 
   it('compiled correctly and renders "Your Elm App is working!" text', done => {

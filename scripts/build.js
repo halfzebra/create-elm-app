@@ -28,7 +28,7 @@ const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 
-if (fs.existsSync('elm-package.json') === false) {
+if (fs.existsSync('elm.json') === false) {
   console.log('Please, run the build script from project root directory');
   process.exit(1);
 }
@@ -74,8 +74,8 @@ measureFileSizesBeforeBuild(paths.appBuild)
       console.log();
     },
     err => {
-      console.log(chalk.red('Failed to compile.\n'));
-      console.log((err.message || err) + '\n');
+      console.error(chalk.red('Failed to compile.\n'));
+      console.error((err.message || err) + '\n');
       process.exit(1);
     }
   );
