@@ -83,7 +83,13 @@
     "config",
     "scripts",
     "template",
-    "README.md"
+    "README.md",
+    "!template/build",
+    "!template/config/",
+    "!template/elm-stuff/",
+    "!template/index.html",
+    "!template/package.json",
+    "!template/scripts/"
   ],
   "keywords": [
     "cli",

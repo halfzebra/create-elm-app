@@ -90,6 +90,8 @@ repl-temp-*
 
 # create-elm-app
 template/build
+template/elm-stuff
+template/index.html
 template/package.json
 template/scripts/
 template/config/
