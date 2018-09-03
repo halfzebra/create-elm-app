@@ -13,9 +13,12 @@ if (isBrowser) {
 }
 
 function stripRedundantInfo(error) {
-  return error.replace(
-    /Module build failed: Error: Compiler process exited with error Compilation failed/g,
-    ''
+  return (
+    error
+      // String the error message from the loader.
+      .replace(/Module build failed.*\nError.*\n/gm, '')
+      // Strip compilation progress-bar.
+      .replace(/\[=+\]\s-\s\d\s\/\s\d[\r\n\s]?/gm, '\n')
   );
 }
 
