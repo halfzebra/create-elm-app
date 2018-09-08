@@ -5,7 +5,7 @@
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
-const elmExecutable = path.resolve(__dirname, '../node_modules/.bin/elm');
+const elmExecutable = require.resolve('elm/bin/elm');
 const version = require('../package.json').version;
 const elmVersion = require('elm/package.json').version;
 
