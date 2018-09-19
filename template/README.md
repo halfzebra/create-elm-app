@@ -48,6 +48,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
+  * [Netlify](#netlify)  
   * [GitHub Pages](#github-pages)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
@@ -804,6 +805,21 @@ Run this command to get a full list of the options available:
 ```sh
 serve -h
 ```
+
+### Netlify
+
+#### Step 1: Create a `package.json` file
+#### Step 2: `npm install --save-dev create-elm-app`
+Since netlify runs the build step on their server we need to install create-elm-app.
+#### Step 3: Add a build script to the `package.json` file
+```
+"scripts": {
+    "build": "elm-app build",
+    ...
+}
+```
+#### Step 4: Go to the netlify settings and set the build step to `npm run build`
+This step is important to make sure netlify uses the correct build command.
 
 ### GitHub Pages
 
