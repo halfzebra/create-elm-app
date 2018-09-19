@@ -48,6 +48,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
+  * [Netlify](#netlify)  
   * [GitHub Pages](#github-pages)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
