@@ -18,7 +18,7 @@ createElmApp(commands[0]);
 function createElmApp(name) {
   console.log('\nCreating ' + name + ' project...\n');
 
-  const root = path.resolve(name);
+  const root = path.resolve(name.toString());
   const template = path.join(__dirname, '../template');
 
   if (!fs.existsSync(name)) {
@@ -42,6 +42,7 @@ function createElmApp(name) {
   // Run initial `elm make`
   const spawnElmPkgResult = spawnSync(
     path.resolve(__dirname, '../node_modules/.bin/elm'),
+    // Run elm-make to install the dependencies.
     ['make', 'src/Main.elm', '--output=/dev/null'],
     { stdio: 'inherit' }
   );
