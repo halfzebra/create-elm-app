@@ -210,21 +210,18 @@ In the following example we will use JavaScript to change the page title dynamic
 `src/index.js` file to look like this:
 
 ```js
-import './main.css';
-import { Main } from './Main.elm';
-import registerServiceWorker from './registerServiceWorker';
+import { Elm } from './Main.elm';
 
-var app = Main.embed(document.getElementById('root'));
+const app = Elm.Main.init({
+  node: document.getElementById('root')
+});
 
-registerServiceWorker();
-
-// ports related code
-app.ports.windowTitle.subscribe(function(newTitle) {
-  window.document.title = newTitle;
+app.ports.elementTitle.subscribe(title => {
+  console.log('Port emitted new title: ' + elementTitle);
 });
 ```
 
-Please note the `windowTitle` port in the above example, more about it later.
+Please note the `elementTitle` port in the above example, more about it later.
 
 First let's allow the Main module to use ports and in `Main.elm` file please append `port` to the module declaration:
 
@@ -232,10 +229,10 @@ First let's allow the Main module to use ports and in `Main.elm` file please app
 port module Main exposing (..)
 ```
 
-Do you remember `windowTitle` in JavaScript? Let's declare the port:
+Do you remember `elementTitle` in JavaScript? Let's declare the port:
 
 ```elm
-port windowTitle : String -> Cmd msg
+port elementTitle : String -> Cmd msg
 ```
 
 and use it to call JavaScript in you update function.
@@ -246,16 +243,16 @@ update msg model =
     case msg of
         Inc ->
             ( { model | counter = model.counter + 1}
-            , windowTitle ("Elm-count up " ++ (toString (model.counter + 1)))
+            , elementTitle ("Elm-count up " ++ (toString (model.counter + 1)))
             )
         Dec ->
             ( { model | counter = model.counter - 1}
-            , windowTitle ("Elm-count down " ++ (toString (model.counter - 1))))
+            , elementTitle ("Elm-count down " ++ (toString (model.counter - 1))))
         NoOp ->
             ( model, Cmd.none )
 ```
 
-Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` port call that is executed on the JavaScript side..
+Please note that for Inc and Dec operations `Cmd.none` was replaced with `elementTitle` port call that is executed on the JavaScript side.
 
 ## Adding a Stylesheet
 
