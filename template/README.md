@@ -64,7 +64,7 @@ Feel free to join [@create-elm-app](https://elmlang.slack.com/messages/CBBET0YMR
 elm-app install <package-name>
 ```
 
-Other `elm-package` commands are also [available.](#package)
+Other `elm-package` commands are also [available].(#package)
 
 ## Installing JavaScript packages
 
@@ -204,38 +204,35 @@ If you need to dynamically update the page title based on the content, you can u
 
 ## JavaScript Interop
 
-You can send and receive values from JavaScript using the concept of [ports.](https://guide.elm-lang.org/interop/javascript.html#ports).
+You can send and receive values to and from JavaScript using [ports](https://guide.elm-lang.org/interop/javascript.html#ports).
 
-In the following example we will use JavaScript to change the page title dynamically. To make it work with files created by `create-elm-app` you need to modify
+In the following example we will use JavaScript to write a log in the console, every time the state changes in outrElm app. To make it work with files created by `create-elm-app` you need to modify
 `src/index.js` file to look like this:
 
 ```js
-import './main.css';
-import { Main } from './Main.elm';
-import registerServiceWorker from './registerServiceWorker';
+import { Elm } from './Main.elm';
 
-var app = Main.embed(document.getElementById('root'));
+const app = Elm.Main.init({
+  node: document.getElementById('root')
+});
 
-registerServiceWorker();
-
-// ports related code
-app.ports.windowTitle.subscribe(function(newTitle) {
-  window.document.title = newTitle;
+app.ports.logger.subscribe(message => {
+  console.log('Port emitted a new message: ' + message);
 });
 ```
 
-Please note the `windowTitle` port in the above example, more about it later.
+Please note the `logger` port in the above example, more about it later.
 
-First let's allow the Main module to use ports and in `Main.elm` file please append `port` to the module declaration:
+First let's allow the Main module to use ports and in `Main.elm` file please prepend `port` to the module declaration:
 
 ```elm
 port module Main exposing (..)
 ```
 
-Do you remember `windowTitle` in JavaScript? Let's declare the port:
+Do you remember `logger` in JavaScript? Let's declare the port:
 
 ```elm
-port windowTitle : String -> Cmd msg
+port logger : String -> Cmd msg
 ```
 
 and use it to call JavaScript in you update function.
@@ -246,16 +243,16 @@ update msg model =
     case msg of
         Inc ->
             ( { model | counter = model.counter + 1}
-            , windowTitle ("Elm-count up " ++ (toString (model.counter + 1)))
+            , logger ("Elm-count up " ++ (toString (model.counter + 1)))
             )
         Dec ->
             ( { model | counter = model.counter - 1}
-            , windowTitle ("Elm-count down " ++ (toString (model.counter - 1))))
+            , logger ("Elm-count down " ++ (toString (model.counter - 1))))
         NoOp ->
             ( model, Cmd.none )
 ```
 
-Please note that for Inc and Dec operations `Cmd.none` was replaced with `windowTitle` port call that is executed on the JavaScript side..
+Please note that for `Inc` and `Dec` operations `Cmd.none` was replaced with `logger` port call which sends a message string to the JavaScript side.
 
 ## Adding a Stylesheet
 
@@ -692,7 +689,7 @@ elm-app test --add-dependencies tests/elm-package.json
 #### Travis CI
 
 1. Following the [Travis Getting started](https://docs.travis-ci.com/user/getting-started/) guide for syncing your GitHub repository with Travis. You may need to initialize some settings manually in your [profile](https://travis-ci.org/profile) page.
-1. Add a `.travis.yml` file to your git repository.
+2. Add a `.travis.yml` file to your git repository.
 
 ```yaml
 language: node_js
