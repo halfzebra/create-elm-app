@@ -24,6 +24,8 @@ const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
+const useDebugger = process.env.ELM_DEBUGGER === 'true' ? true : false;
+
 // Enable users to turn on dead code elimination.
 const deadCodeElimination =
   process.env.DEAD_CODE_ELIMINATION === 'true'
@@ -213,8 +215,8 @@ module.exports = {
             options: {
               // If ELM_DEBUGGER was set to "true", enable it. Otherwise
               // for invalid values, "false" and as a default, disable it
-              debug: process.env.ELM_DEBUGGER === 'true' ? true : false,
-              optimize: true,
+              debug: useDebugger,
+              optimize: !useDebugger,
               pathToElm: paths.elm
             }
           }
