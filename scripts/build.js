@@ -82,7 +82,14 @@ measureFileSizesBeforeBuild(paths.appBuild)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  console.log(`Creating an optimized ${process.env.NODE_ENV} build...`);
+  const withDebugger = process.env.ELM_DEBUGGER === 'true' ? true : false;
+  if (withDebugger) {
+    console.log(
+      `Creating a ${process.env.NODE_ENV} build with debugger enabled...`
+    );
+  } else {
+    console.log(`Creating an optimized ${process.env.NODE_ENV} build...`);
+  }
 
   const compiler = webpack(config);
   return new Promise((resolve, reject) => {
