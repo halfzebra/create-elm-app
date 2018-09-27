@@ -83,7 +83,9 @@ module.exports = {
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
-          ecma: 8,
+          // ES5 is required in the minified code if you want compatibility with IE11,
+          // otherwise you can bump it up to ES8
+          ecma: 5,
           compress: Object.assign(
             {},
             {
