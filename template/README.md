@@ -39,7 +39,6 @@ You can find the most recent version of this guide [here](https://github.com/hal
 * [Setting up API Proxy](#setting-up-api-proxy)
 * [Using HTTPS in Development](#using-https-in-development)
 * [Running tests](#running-tests)
-  * [Dependencies in Tests](#dependencies-in-tests)
   * [Continuous Integration](#continuous-integration)
 * [Making a Progressive Web App](#making-a-progressive-web-app)
   * [Opting Out of Caching](#opting-out-of-caching)
@@ -646,7 +645,7 @@ for a list of files you can use to declare environment variables.
 
 ## Setting up API Proxy
 
-To forward the API ( REST ) calls to backend server, add a proxy to the `elm-package.json` in the top level json object.
+To forward the API ( REST ) calls to backend server, add a proxy to the `elm.json` in the top level json object.
 
 ```json
 {
@@ -673,16 +672,6 @@ Note that the server will use a self-signed certificate, so you will most likely
 ## Running Tests
 
 Create Elm App uses [elm-test](https://github.com/rtfeldman/node-test-runner) as its test runner.
-
-### Dependencies in Tests
-
-To use packages in tests, you also need to install them in `tests` directory.
-
-Please note that you have to pass the path to the `elm-package.json` with your test dependencies.
-
-```bash
-elm-app test --add-dependencies tests/elm-package.json
-```
 
 ### Continuous Integration
 
@@ -778,7 +767,7 @@ will affect your users' experience.
 
 By default, Create Elm App produces a build assuming your app is hosted at the server root.
 
-To override this, specify the `homepage` in your `elm-package.json`, for example:
+To override this, specify the `homepage` in your `elm.json`, for example:
 
 ```js
   "homepage": "http://mywebsite.com/relativepath",
@@ -820,13 +809,13 @@ This step is important to make sure netlify uses the correct build command.
 
 ### GitHub Pages
 
-#### Step 1: Add `homepage` to `elm-package.json`
+#### Step 1: Add `homepage` to `elm.json`
 
 **The step below is important!**
 
 **If you skip it, your app will not deploy correctly.**
 
-Open your `elm-package.json` and add a `homepage` field:
+Open your `elm.json` and add a `homepage` field:
 
 ```js
   "homepage": "https://myusername.github.io/my-app",
