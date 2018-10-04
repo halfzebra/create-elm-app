@@ -89,15 +89,15 @@ Every generated project will contain a readme with guidelines for future develop
 The latest version is available [here](https://github.com/halfzebra/create-elm-app/blob/master/template/README.md)
 
 ## Why use this?
-Developing with [elm-platform](https://github.com/elm-lang/elm-platform) is fun and easy, but at some point, you will hit a couple of limitations.
+Developing with Elm is fun and easy, but at some point, you will hit a couple of limitations.
 
-- [elm-make](https://github.com/elm-lang/elm-make) does not provide an efficient build tool for optimizing your project.
-- [elm-reactor](https://github.com/elm-lang/elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html)
-- You can not use [Hot Module Replacement.](https://webpack.github.io/docs/hot-module-replacement.html)
+- [elm-make](https://guide.elm-lang.org/install.html#elm-make) has a limited support for working with JavaScript and CSS.
+- [elm-reactor](https://guide.elm-lang.org/install.html#elm-reactor) does not work with apps that rely on [ports.](http://guide.elm-lang.org/interop/javascript.html)
+- You can not use [Hot Module Replacement.](https://webpack.js.org/concepts/hot-module-replacement)
 
 Create Elm App adds a tool for optimizing production builds and running a development server with your app, which supports HMR.
 
-All of that, combined with all the basic functionality of [elm-platform](https://github.com/elm-lang/elm-platform) in a single command line tool, which you might use as a dependency or `eject` anytime.
+All of that, combined with all the functionality of [elm](https://guide.elm-lang.org/install.html) in a single command line tool, which you might use as a dependency or `eject` anytime.
 
 ## Want a custom setup?
 
@@ -120,7 +120,7 @@ Inspired by [create-react-app](https://github.com/facebookincubator/create-react
 The tools used by Create Elm App are subject to change.
 Currently it is a thin layer on top of many amazing community projects, such as:
 
-* [elm-platform](https://github.com/elm-lang/elm-platform)
+* [elm](https://github.com/elm/compiler/tree/master/installers/npm)
 * [elm-test](https://github.com/elm-community/elm-test)
 * [webpack](https://webpack.js.org/) with [webpack-dev-server](https://github.com/webpack/webpack-dev-server), [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) and [style-loader](https://github.com/webpack/style-loader)
 * [Babel](http://babeljs.io/) with ES6
@@ -134,9 +134,10 @@ All of them are transitive dependencies of the provided npm package.
 We would love to get you involved! Please check our [Contributing Guide](CONTRIBUTING.md) to get started!
 
 ## Alternatives
-- [elm-webpack-starter](https://github.com/moarwick/elm-webpack-starter)
-- [elm-app-boilerplate](https://github.com/gkubisa/elm-app-boilerplate)
-- [elm-hot-loader-starter](https://github.com/fluxxu/elm-hot-loader-starter)
-- [elm-starter](https://github.com/splodingsocks/elm-starter)
+
+- [elm-webpack-starter](https://github.com/elm-community/elm-webpack-starter)
+- [spades](https://github.com/rogeriochaves/spades)
 - [elm-live](https://github.com/tomekwi/elm-live)
-- [generator-elmlang](https://github.com/Gizra/generator-elmlang)
+- [elm-app-boilerplate](https://github.com/gkubisa/elm-app-boilerplate)
+- [elm-hot-loader-starter](https://github.com/klazuka/example-elm-hot-webpack)
+- [generator-elm](https://github.com/danneu/generator-elm)
