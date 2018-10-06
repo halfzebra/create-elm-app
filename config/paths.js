@@ -21,8 +21,17 @@ function ensureSlash(path, needsSlash) {
   return path;
 }
 
-const getPublicUrl = appPackageJson =>
-  envPublicUrl || require(appPackageJson).homepage;
+const getPublicUrl = appConfig => {
+  if (envPublicUrl) {
+    return envPublicUrl;
+  }
+
+  try {
+    return require(appConfig).homepage;
+  } catch (error) {
+    return;
+  }
+};
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -30,12 +39,23 @@ const getPublicUrl = appPackageJson =>
 // single-page apps that may serve index.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-function getServedPath(appPackageJson) {
-  const publicUrl = getPublicUrl(appPackageJson);
+function getServedPath(appConfig) {
+  const publicUrl = getPublicUrl(appConfig);
   const servedUrl =
     envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
   return ensureSlash(servedUrl, true);
 }
+
+function getProxySettings(appConfig) {
+  try {
+    return require(appConfig).proxy;
+  } catch (error) {
+    return;
+  }
+}
+
+// This file is used to store the configuration such as "homepage" and "proxy"
+const appConfig = resolveApp('./elmapp.config.js');
 
 module.exports = {
   appPath: resolveApp('.'),
@@ -48,6 +68,7 @@ module.exports = {
   appBuild: resolveApp('./build'),
   elmJson: resolveApp('./elm.json'),
   elm: require.resolve('elm/bin/elm'),
-  publicUrl: getPublicUrl(resolveApp('elm.json')),
-  servedPath: getServedPath(resolveApp('elm.json'))
+  publicUrl: getPublicUrl(appConfig),
+  servedPath: getServedPath(appConfig),
+  proxy: getProxySettings(appConfig)
 };

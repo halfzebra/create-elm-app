@@ -47,7 +47,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
-  * [Netlify](#netlify)  
+  * [Netlify](#netlify)
   * [GitHub Pages](#github-pages)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
 
@@ -645,12 +645,12 @@ for a list of files you can use to declare environment variables.
 
 ## Setting up API Proxy
 
-To forward the API ( REST ) calls to backend server, add a proxy to the `elm.json` in the top level json object.
+To forward the API ( REST ) calls to backend server, add a proxy to the `elmapp.config.js` in the top level json object.
 
-```json
-{
+```js
+module.exports = {
     ...
-    "proxy" : "http://localhost:1313",
+    proxy: "http://localhost:1313",
     ...
 }
 ```
@@ -767,10 +767,12 @@ will affect your users' experience.
 
 By default, Create Elm App produces a build assuming your app is hosted at the server root.
 
-To override this, specify the `homepage` in your `elm.json`, for example:
+To override this, specify the `homepage` in your `elmapp.config.js`, for example:
 
 ```js
-  "homepage": "http://mywebsite.com/relativepath",
+module.exports = {
+    homepage: "http://mywebsite.com/relativepath"
+}
 ```
 
 This will let Create Elm App correctly infer the root path to use in the generated HTML file.
@@ -809,16 +811,18 @@ This step is important to make sure netlify uses the correct build command.
 
 ### GitHub Pages
 
-#### Step 1: Add `homepage` to `elm.json`
+#### Step 1: Add `homepage` to `elmapp.config.js`
 
 **The step below is important!**
 
 **If you skip it, your app will not deploy correctly.**
 
-Open your `elm.json` and add a `homepage` field:
+Open your `elmapp.config.js` and add a `homepage` field:
 
 ```js
-  "homepage": "https://myusername.github.io/my-app",
+module.exports = {
+    homepage": "https://myusername.github.io/my-app",
+}
 ```
 
 Create Elm App uses the `homepage` field to determine the root URL in the built HTML file.
