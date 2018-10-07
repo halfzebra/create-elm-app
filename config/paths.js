@@ -3,11 +3,17 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
+const cosmiconfig = require('cosmiconfig');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+
+// We use 'cosmiconfig' to look for the configuration file.
+const explorer = cosmiconfig('elmapp');
+const result = explorer.searchSync(appDirectory);
+const config = result ? result.config : {};
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
@@ -25,12 +31,7 @@ const getPublicUrl = appConfig => {
   if (envPublicUrl) {
     return envPublicUrl;
   }
-
-  try {
-    return require(appConfig).homepage;
-  } catch (error) {
-    return;
-  }
+  return appConfig.homepage;
 };
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
@@ -46,17 +47,6 @@ function getServedPath(appConfig) {
   return ensureSlash(servedUrl, true);
 }
 
-function getProxySettings(appConfig) {
-  try {
-    return require(appConfig).proxy;
-  } catch (error) {
-    return;
-  }
-}
-
-// This file is used to store the configuration such as "homepage" and "proxy"
-const appConfig = resolveApp('./elmapp.config.js');
-
 module.exports = {
   appPath: resolveApp('.'),
   appPublic: resolveApp('./public'),
@@ -68,7 +58,7 @@ module.exports = {
   appBuild: resolveApp('./build'),
   elmJson: resolveApp('./elm.json'),
   elm: require.resolve('elm/bin/elm'),
-  publicUrl: getPublicUrl(appConfig),
-  servedPath: getServedPath(appConfig),
-  proxy: getProxySettings(appConfig)
+  publicUrl: getPublicUrl(config),
+  servedPath: getServedPath(config),
+  proxy: config.proxy
 };
