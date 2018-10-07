@@ -10,10 +10,26 @@ const cosmiconfig = require('cosmiconfig');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
-// We use 'cosmiconfig' to look for the configuration file.
+// We look for configration in files supported by cosmiconfig by default:
+// https://github.com/davidtheclark/cosmiconfig
 const explorer = cosmiconfig('elmapp');
 const result = explorer.searchSync(appDirectory);
-const config = result ? result.config : {};
+const config = result ? result.config : loadElmJson();
+
+// WARNING:
+// We support config in elm.json only for legacy reasons.
+// elm-package removes the settings, so this will be removed in the future.
+function loadElmJson() {
+  try {
+    const elmJson = require(resolveApp('elm.json'));
+    if (elmJson.homepage || elmJson.proxy) {
+      return elmJson;
+    }
+  } catch (error) {
+    return {};
+  }
+  return {};
+}
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
