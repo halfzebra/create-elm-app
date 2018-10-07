@@ -111,7 +111,7 @@ Inspired by [create-react-app](https://github.com/facebookincubator/create-react
 
 * **One Dependency:** There is just one build dependency. It uses  Elm Platform, Webpack, and other amazing projects, but provides a cohesive curated experience on top of them.
 
-* **Zero Configuration:** There are no configuration files or command line options. Configuring both development and production builds is handled for you so you can focus on writing code.
+* **Zero Configuration:** No configuration files or command line options required to start working with Elm. Configuring both development and production builds is handled for you so you can focus on writing code.
 
 * **No Lock-In:** You can “eject” to a custom setup at any time. Run a single command, and all the configuration and build dependencies will be moved directly into your project, so you can pick up right where you left off.
 
