@@ -31,6 +31,7 @@ const openBrowser = require('react-dev-utils/openBrowser');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 const formatElmCompilerErrors = require('./utils/formatElmCompilerErrors');
 const paths = require('../config/paths');
+const warn = require('./utils/warn');
 
 if (fs.existsSync('elm.json') === false) {
   console.log('Please, run the build script from project root directory');
@@ -108,8 +109,10 @@ function createCompiler(webpack, config, appName, urls) {
     if (isSuccessful) {
       console.log(chalk.green('Compiled successfully!'));
     }
+
     if (isSuccessful && (isInteractive || isFirstCompile)) {
       printInstructions(appName, urls);
+      warn(paths.elmJson);
     }
     isFirstCompile = false;
 

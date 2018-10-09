@@ -23,6 +23,7 @@ const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const formatElmCompilerErrors = require('./utils/formatElmCompilerErrors');
+const warn = require('./utils/warn');
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -72,6 +73,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(stats, previousFileSizes, paths.appBuild);
       console.log();
+      warn(paths.elmJson);
     },
     err => {
       console.error(chalk.red('Failed to compile.\n'));
@@ -83,6 +85,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
   const withDebugger = process.env.ELM_DEBUGGER === 'true' ? true : false;
+  console.log();
   if (withDebugger) {
     console.log(
       `Creating a ${process.env.NODE_ENV} build with debugger enabled...`
