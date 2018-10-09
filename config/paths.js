@@ -3,11 +3,33 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
+const cosmiconfig = require('cosmiconfig');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+
+// We look for configration in files supported by cosmiconfig by default:
+// https://github.com/davidtheclark/cosmiconfig
+const explorer = cosmiconfig('elmapp');
+const result = explorer.searchSync(appDirectory);
+const config = result ? result.config : loadElmJson();
+
+// WARNING:
+// We support config in elm.json only for legacy reasons.
+// elm-package removes the settings, so this will be removed in the future.
+function loadElmJson() {
+  try {
+    const elmJson = require(resolveApp('elm.json'));
+    if (elmJson.homepage || elmJson.proxy) {
+      return elmJson;
+    }
+  } catch (error) {
+    return {};
+  }
+  return {};
+}
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
@@ -21,8 +43,12 @@ function ensureSlash(path, needsSlash) {
   return path;
 }
 
-const getPublicUrl = appPackageJson =>
-  envPublicUrl || require(appPackageJson).homepage;
+const getPublicUrl = appConfig => {
+  if (envPublicUrl) {
+    return envPublicUrl;
+  }
+  return appConfig.homepage;
+};
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -30,8 +56,8 @@ const getPublicUrl = appPackageJson =>
 // single-page apps that may serve index.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-function getServedPath(appPackageJson) {
-  const publicUrl = getPublicUrl(appPackageJson);
+function getServedPath(appConfig) {
+  const publicUrl = getPublicUrl(appConfig);
   const servedUrl =
     envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
   return ensureSlash(servedUrl, true);
@@ -48,6 +74,7 @@ module.exports = {
   appBuild: resolveApp('./build'),
   elmJson: resolveApp('./elm.json'),
   elm: require.resolve('elm/bin/elm'),
-  publicUrl: getPublicUrl(resolveApp('elm.json')),
-  servedPath: getServedPath(resolveApp('elm.json'))
+  publicUrl: getPublicUrl(config),
+  servedPath: getServedPath(config),
+  proxy: config.proxy
 };
