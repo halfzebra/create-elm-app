@@ -82,12 +82,14 @@ function performEject(pkg) {
   // Update or create new package.json
   fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
 
-  console.log('\nPlease wait for npm to install all required dependencies...');
+  console.log();
+  console.log('Please wait for npm to install all required dependencies...');
 
   // Install npm packages
   spawn.sync('npm', ['install'], { stdio: 'inherit' });
 
-  console.log(chalk.green('\nEjected successfully!'));
+  console.log();
+  console.log(chalk.green('Ejected successfully!'));
 }
 
 // The following dependencies will be removed:
