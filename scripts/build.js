@@ -94,7 +94,9 @@ function build(previousFileSizes) {
     console.log(`Creating an optimized ${process.env.NODE_ENV} build...`);
   }
 
-  const compiler = webpack(config);
+  const compiler = webpack(
+    paths.configureWebpack(config, process.env.NODE_ENV)
+  );
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) {

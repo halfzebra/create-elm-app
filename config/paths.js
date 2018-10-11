@@ -15,6 +15,9 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const explorer = cosmiconfig('elmapp');
 const result = explorer.searchSync(appDirectory);
 const config = result ? result.config : loadElmJson();
+const id = x => x;
+const configureWebpack =
+  typeof config.configureWebpack === 'function' ? config.configureWebpack : id;
 
 // WARNING:
 // We support config in elm.json only for legacy reasons.
@@ -76,5 +79,6 @@ module.exports = {
   elm: require.resolve('elm/bin/elm'),
   publicUrl: getPublicUrl(config),
   servedPath: getServedPath(config),
-  proxy: config.proxy
+  proxy: config.proxy,
+  configureWebpack
 };
