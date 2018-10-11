@@ -78,12 +78,15 @@ switch (script) {
  * @return {undefined}
  */
 function help(version) {
-  console.log('\nUsage: elm-app <command>\n');
+  console.log();
+  console.log('Usage: elm-app <command>');
+  console.log();
   console.log('where <command> is one of:');
-  console.log(
-    '    build, start, test, eject, ' + elmCommands.join(', ') + '\n'
-  );
-  console.log('\nElm ' + elmVersion + '\n');
+  console.log('    build, start, test, eject, ' + elmCommands.join(', '));
+  console.log();
+  console.log();
+  console.log('Elm ' + elmVersion);
+  console.log();
   console.log(
     'create-elm-app@' + version + ' ' + path.resolve(__dirname, '..')
   );
