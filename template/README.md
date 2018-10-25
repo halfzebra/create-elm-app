@@ -806,7 +806,14 @@ Since netlify runs the build step on their server we need to install create-elm-
     ...
 }
 ```
-#### Step 4: Go to the netlify settings and set the build step to `npm run build`
+#### Step 4: Add a netlify.toml file in the repo's root
+```
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+#### Step 5: Go to the netlify settings and set the publish directory to `build` and the build command to `npm run build`
 This step is important to make sure netlify uses the correct build command.
 
 ### GitHub Pages
