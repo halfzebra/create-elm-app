@@ -21,11 +21,7 @@ describe('Create Elm application with `create-elm-app` command', () => {
   }).timeout(60 * 1000);
 
   it(`'${testAppName}' should have elm.json file`, () => {
-    expect(
-      fs.existsSync(path.join(testAppDir, 'elm.json')),
-      'to be',
-      true
-    );
+    expect(fs.existsSync(path.join(testAppDir, 'elm.json')), 'to be', true);
   });
 
   it(`'${testAppName}' should have .gitignore file`, () => {

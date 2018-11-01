@@ -24,34 +24,7 @@ const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-const useDebugger = process.env.ELM_DEBUGGER === 'true' ? true : false;
-
-// Enable users to turn on dead code elimination.
-const deadCodeElimination =
-  process.env.DEAD_CODE_ELIMINATION === 'true'
-    ? {
-        dead_code: true,
-        pure_funcs: [
-          '_elm_lang$core$Native_Utils.update',
-          'A2',
-          'A3',
-          'A4',
-          'A5',
-          'A6',
-          'A7',
-          'A8',
-          'A9',
-          'F2',
-          'F3',
-          'F4',
-          'F5',
-          'F6',
-          'F7',
-          'F8',
-          'F9'
-        ]
-      }
-    : {};
+const useDebugger = process.env.ELM_DEBUGGER === 'true';
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -86,18 +59,38 @@ module.exports = {
           // ES5 is required in the minified code if you want compatibility with IE11,
           // otherwise you can bump it up to ES8
           ecma: 5,
-          compress: Object.assign(
-            {},
-            {
-              warnings: false,
-              // Disabled because of an issue with Uglify breaking seemingly valid code:
-              // https://github.com/facebook/create-react-app/issues/2376
-              // Pending further investigation:
-              // https://github.com/mishoo/UglifyJS2/issues/2011
-              comparisons: false
-            },
-            deadCodeElimination
-          ),
+          // Compression settings mostly based on <https://guide.elm-lang.org/optimization/asset_size.html>
+          compress: {
+            passes: 2,
+            warnings: false,
+            // Disabled because of an issue with Uglify breaking seemingly valid code:
+            // https://github.com/facebook/create-react-app/issues/2376
+            // Pending further investigation:
+            // https://github.com/mishoo/UglifyJS2/issues/2011
+            comparisons: false,
+            pure_getters: true,
+            keep_fargs: false,
+            unsafe_comps: true,
+            unsafe: true,
+            pure_funcs: [
+              'A2',
+              'A3',
+              'A4',
+              'A5',
+              'A6',
+              'A7',
+              'A8',
+              'A9',
+              'F2',
+              'F3',
+              'F4',
+              'F5',
+              'F6',
+              'F7',
+              'F8',
+              'F9'
+            ]
+          },
           mangle: {
             safari10: true
           },
@@ -129,7 +122,6 @@ module.exports = {
     modules: ['node_modules'],
     extensions: ['.js', '.elm']
   },
-
   module: {
     strictExportPresence: true,
 
@@ -212,7 +204,7 @@ module.exports = {
             }
           },
           {
-            // Use the local installation of elm-make
+            // Use the local installation of elm make
             loader: require.resolve('elm-webpack-loader'),
             options: {
               // If ELM_DEBUGGER was set to "true", enable it. Otherwise
