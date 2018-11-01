@@ -183,9 +183,7 @@ To turn on/off Elm Debugger explicitly, set `ELM_DEBUGGER` environment variable 
 
 ## Dead code elimination
 
-Create Elm App comes with an opinionated setup for dead code elimination which is disabled by default, because it may break your code.
-
-You can enable it by setting `DEAD_CODE_ELIMINATION` environment variable to `true`
+Create Elm App comes with an setup for dead code elimination which relies on the elm compiler flag `--optimize` and `uglifyjs`.
 
 ## Changing the base path of the assets in the HTML
 
