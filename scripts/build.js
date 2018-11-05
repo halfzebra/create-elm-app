@@ -39,6 +39,19 @@ if (!checkRequiredFiles([paths.appIndexJs, paths.appHtml])) {
   process.exit(1);
 }
 
+// TODO: Remove this in the next major release.
+if (typeof process.env.DEAD_CODE_ELIMINATION !== 'undefined') {
+  console.log(chalk.bold.green('Hello friend!'));
+  console.log();
+  console.log(
+    `It seems like you are still using "DEAD_CODE_ELIMINATION" variable`
+  );
+  console.log();
+  console.log('The good news is that it is no longer necessary.');
+  console.log('Create Elm App optimizes the assets by default.');
+  console.log();
+}
+
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
 measureFileSizesBeforeBuild(paths.appBuild)

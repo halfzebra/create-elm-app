@@ -7,7 +7,7 @@ module.exports = function warn(elmJsonPath) {
     console.log(chalk.yellow('Warning:'));
     console.log();
     console.log(
-      '  Using elm.json for configuring "homebage" and "proxy" is deprecated.'
+      '  Using elm.json for configuring "homepage" and "proxy" is deprecated.'
     );
     console.log('  This feature will be removed in the future versions.');
     console.log();
