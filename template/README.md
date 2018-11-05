@@ -44,7 +44,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [Opting Out of Caching](#opting-out-of-caching)
   * [Offline-First Considerations](#offline-first-considerations)
   * [Progressive Web App Metadata](#progressive-web-app-metadata)
-* [Overriding Webpack Config][#overriding-webpack-config]
+* [Overriding Webpack Config](#overriding-webpack-config)
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
