@@ -44,6 +44,7 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [Opting Out of Caching](#opting-out-of-caching)
   * [Offline-First Considerations](#offline-first-considerations)
   * [Progressive Web App Metadata](#progressive-web-app-metadata)
+* [Overriding Webpack Config][#overriding-webpack-config]
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
@@ -756,6 +757,25 @@ icons, names, and branding colors to use when the web app is displayed.
 [The Web App Manifest guide](https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/)
 provides more context about what each field means, and how your customizations
 will affect your users' experience.
+
+## Overriding Webpack Config
+
+Create Elm App allows Webpack config overrides without [ejecting]((#elm-app-eject).
+
+Create a CommonJS module with the name `elmapp.config.js` in the root directory of your project. The module has to export an object with `"configureWebpack"` property as shown in the example.
+
+```js
+module.exports = {
+  configureWebpack: (config, env) => {
+    // Manipulate the config object and return it.
+    return config;
+  }
+}
+```
+
+Mutate the configuration directly or use [webpack-merge](https://www.npmjs.com/package/webpack-merge) to override the config.
+
+`env` variable will help you distinguish `"development"` from `"production"` for environment-specific overrides.
 
 ## Deployment
 
