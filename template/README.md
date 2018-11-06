@@ -760,7 +760,7 @@ will affect your users' experience.
 
 ## Overriding Webpack Config
 
-Create Elm App allows Webpack config overrides without [ejecting]((#elm-app-eject).
+Create Elm App allows Webpack config overrides without [ejecting](#elm-app-eject).
 
 Create a CommonJS module with the name `elmapp.config.js` in the root directory of your project. The module has to export an object with `"configureWebpack"` property as shown in the example.
 
