@@ -211,7 +211,8 @@ module.exports = {
               // for invalid values, "false" and as a default, disable it
               debug: useDebugger,
               optimize: !useDebugger,
-              pathToElm: paths.elm
+              pathToElm: paths.elm,
+              runtimeOptions: '-A128M -H128M -n8m'
             }
           }
         ]
