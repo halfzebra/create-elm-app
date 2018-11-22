@@ -212,7 +212,7 @@ module.exports = {
               debug: useDebugger,
               optimize: !useDebugger,
               pathToElm: paths.elm,
-              runtimeOptions: '-A128M -H128M -n8m'
+              runtimeOptions: ['-A128M', '-H128M', '-n8m']
             }
           }
         ]
