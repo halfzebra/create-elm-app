@@ -12,9 +12,9 @@ Following these guidelines helps to communicate that you respect the time of the
 
 1. Fork the repo and clone with `git clone git@github.com:%YOUR_USERNAME%/create-elm-app.git`
 
-2. Run `yarn install` in the root `create-elm-app` folder to install all dependencies.
+2. Run `npm install` in the root `create-elm-app` folder to install all dependencies.
 
-3. Run `yarn link` in the root `create-elm-app` folder to install local module globally.
+3. Run `npm link` in the root `create-elm-app` folder to install local module globally.
 
 ## Submitting a Pull Request
 
@@ -26,6 +26,6 @@ git checkout -b patch-1
 
 Create Elm App uses [Commitizen](https://github.com/commitizen/cz-cli) and [semantic-release](https://github.com/semantic-release/semantic-release) for release automatization.
 
-Commit changes by running `yarn cz`
+Commit changes by running `npm run cz`
 
 Follow the prompt and try to specify as much information as possible.
