@@ -45,12 +45,50 @@ You can find the most recent version of this guide [here](https://github.com/hal
   * [Offline-First Considerations](#offline-first-considerations)
   * [Progressive Web App Metadata](#progressive-web-app-metadata)
 * [Overriding Webpack Config](#overriding-webpack-config)
+* [Configuring the Proxy Manually](#configuring-the-proxy-manually)
 * [Deployment](#deployment)
   * [Building for Relative Paths](#building-for-relative-paths)
   * [Static Server](#static-server)
   * [Netlify](#netlify)
   * [GitHub Pages](#github-pages)
 * [IDE setup for Hot Module Replacement](#ide-setup-for-hot-module-replacement)
+
+## Configuring the Proxy Manually
+ 
+If the `proxy` option is not flexible enough for you, you can get direct access to the Express app instance and hook up your own proxy middleware.
+
+You can use this feature in conjunction with the `proxy` property in `elmapp.config.js`, but it is recommended you consolidate all of your logic into `setupProxy` property`.
+
+First, install http-proxy-middleware using npm:
+
+```
+$ npm init --yes
+$ npm install http-proxy-middleware --save
+```
+
+Next, create `elmapp.config.js` in the root of your project and place the following contents in it:
+
+```js
+const proxy = require('http-proxy-middleware');
+
+module.exports = {
+  setupProxy: function(app) {
+    // ...
+  }
+};
+```
+
+You can now register proxies as you wish! Here's an example using the above http-proxy-middleware:
+
+```js
+const proxy = require('http-proxy-middleware');
+
+module.exports = {
+  setupProxy: function(app) {
+    app.use(proxy('/api', { target: 'http://localhost:5000/' }));
+  }
+};
+```
 
 ## Sending feedback
 
