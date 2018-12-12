@@ -135,6 +135,7 @@ We would love to get you involved! Please check our [Contributing Guide](CONTRIB
 
 ## Alternatives
 
+- [parcel](http://blog.hercules-ci.com/elm/2018/11/21/using-elm-and-parcel-for-zero-configuration-web-asset-management/)
 - [elm-webpack-starter](https://github.com/elm-community/elm-webpack-starter)
 - [spades](https://github.com/rogeriochaves/spades)
 - [elm-live](https://github.com/tomekwi/elm-live)
