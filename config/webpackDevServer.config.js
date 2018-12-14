@@ -82,9 +82,9 @@ module.exports = function(proxy, allowedHost) {
     public: allowedHost,
     proxy,
     before(app, server) {
-      if (typeof paths.proxySetup === 'function') {
+      if (typeof paths.setupProxy === 'function') {
         // This registers user provided middleware for proxy reasons
-        paths.proxySetup(app);
+        paths.setupProxy(app);
       }
 
       // This lets us fetch source contents from webpack for the error overlay
