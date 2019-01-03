@@ -4,6 +4,10 @@
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 
+const options = JSON.parse(process.argv[process.argv.length - 1]);
+
+process.env.ELM_DEBUGGER = options.debug !== false;
+
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.

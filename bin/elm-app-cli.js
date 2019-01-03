@@ -29,13 +29,18 @@ if (commands.length === 0) {
 
 const script = commands[0];
 const scriptArgs = commands.splice(1);
+const { _, ...options } = argv;
 
 switch (script) {
   case 'create':
   case 'build':
   case 'eject':
   case 'start':
-    spawnSyncNode(path.resolve(__dirname, '../scripts', script), scriptArgs);
+    spawnSyncNode(
+      path.resolve(__dirname, '../scripts', script),
+      scriptArgs,
+      options
+    );
     break;
 
   case 'test': {
@@ -100,9 +105,13 @@ function help(version) {
  * @return {undefined}
  */
 function spawnSyncNode(script, args) {
-  const cp = spawn.sync('node', [script].concat(args || []), {
-    stdio: 'inherit'
-  });
+  const cp = spawn.sync(
+    'node',
+    [script].concat(args || []).concat(JSON.stringify(options)),
+    {
+      stdio: 'inherit'
+    }
+  );
 
   if (cp.status !== 0) {
     process.exit(cp.status);
