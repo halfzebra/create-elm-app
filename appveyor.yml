@@ -26,5 +26,5 @@ test_script:
   - node --version
   - npm --version
   - npm install
-  - npm link -g
+  - npm link
   - npm run test
