@@ -61,6 +61,8 @@
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^7.5.0",
+    "@commitlint/config-conventional": "^7.5.0",
     "babel-eslint": "^8.2.1",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
@@ -112,8 +114,7 @@
     "test:functional": "mocha tests/*.spec.js --reporter spec --timeout 15000",
     "app:build": "cd template && node ../bin/elm-app-cli.js build",
     "app:start": "cd template && node ../bin/elm-app-cli.js start",
-    "app:test": "cd template && node ../bin/elm-app-cli.js test",
-    "precommit": "lint-staged"
+    "app:test": "cd template && node ../bin/elm-app-cli.js test"
   },
   "lint-staged": {
     "*.js": [
@@ -123,5 +124,11 @@
     "package-lock.json": [
       "git rm --cached"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
