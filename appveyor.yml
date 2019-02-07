@@ -10,6 +10,9 @@ environment:
     - nodejs_version: "8"
     - nodejs_version: "9"
 
+matrix:
+  fast_finish: true
+
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
 
@@ -23,5 +26,5 @@ test_script:
   - node --version
   - npm --version
   - npm install
-  - npm link
+  - npm link -g
   - npm run test
