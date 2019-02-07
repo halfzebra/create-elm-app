@@ -99,4 +99,8 @@ template/config/
 # Desktop Services Store on macOS
 .DS_Store
 
+# Exclude test assets
 /test-app/
+
+# Exclude the config
+elmapp.config.js
