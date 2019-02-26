@@ -46,8 +46,10 @@ switch (script) {
       }
     });
 
-    args = args.concat(['--compiler', elmExecutable]);
-
+    args = args.concat([
+      '--compiler',
+      path.join(path.dirname(require.resolve('elm')), '/unpacked_bin/elm')
+    ]);
     const cp = spawn.sync(require.resolve('elm-test/bin/elm-test'), args, {
       stdio: 'inherit'
     });
