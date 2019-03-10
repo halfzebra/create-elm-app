@@ -18,7 +18,7 @@ function stripRedundantInfo(error) {
       // String the error message from the loader.
       .replace(/Module build failed.*\nError.*\n/gm, '')
       // Strip compilation progress-bar.
-      .replace(/\[=+\]\s-\s\d\s\/\s\d[\r\n\s]?/gm, '\n')
+      .replace(/\[[=\s]{3,}\]\s-\s\d+\s\/\s\d+[\r\n\s]+/gm, '')
   );
 }
 
@@ -34,7 +34,9 @@ module.exports = function formatElmCompilerErrors(messages) {
               .replace(/(\n\s*)(\^+)/g, '$1' + error('$2'))
               .replace(/(\d+)(\|>)/g, '$1' + error('$2'))
           )
-          .map(stripRedundantInfo),
+          .map(stripRedundantInfo)
+          // drop errors that only contain whitespace
+          .filter(err => err.trim()),
         warnings: warnings
       }
     : messages;
