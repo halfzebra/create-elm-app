@@ -884,7 +884,7 @@ Open your `elmapp.config.js` and add a `homepage` field:
 
 ```js
 module.exports = {
-    homepage": "https://myusername.github.io/my-app",
+    homepage: "https://myusername.github.io/my-app",
 }
 ```
 
