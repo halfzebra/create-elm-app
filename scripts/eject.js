@@ -125,7 +125,7 @@ if (fs.existsSync('./package.json') === true) {
         if (diff.length !== 0) {
           console.log(diff.toString());
           console.log(
-            'Ejecting wil overwrite your "devDependencies" in package.json\n'
+            'Ejecting will overwrite your "devDependencies" in package.json\n'
           );
           return promptYesOrNo();
         }
