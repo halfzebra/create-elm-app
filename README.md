@@ -62,7 +62,7 @@ my-app/
 │   ├── Main.elm
 │   ├── index.js
 │   ├── main.css
-│   └── registerServiceWorker.js
+│   └── serviceWorker.js
 └── tests
     └── Tests.elm
 ```

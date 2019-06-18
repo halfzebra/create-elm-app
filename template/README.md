@@ -99,7 +99,7 @@ my-app/
 │   ├── Main.elm
 │   ├── index.js
 │   ├── main.css
-│   └── registerServiceWorker.js
+│   └── serviceWorker.js
 └── tests
     └── Tests.elm
 ```
@@ -734,7 +734,7 @@ it may take up to 24 hours for the cache to be invalidated.
 
 1. Service workers [require HTTPS](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers#you_need_https), although to facilitate local testing, that policy[does not apply to `localhost`](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http/34161385#34161385). If your production web server does not support HTTPS, then the service worker registration will fail, but the rest of your web app will remain functional.
 
-1. Service workers are [not currently supported](https://jakearchibald.github.io/isserviceworkerready/) in all web browsers. Service worker registration [won't be attempted](src/registerServiceWorker.js) on browsers that lack support.
+1. Service workers are [not currently supported](https://jakearchibald.github.io/isserviceworkerready/) in all web browsers. Service worker registration [won't be attempted](src/serviceWorker.js) on browsers that lack support.
 
 1. The service worker is only enabled in the [production environment](#deployment), e.g. the output of `npm run build`. It's recommended that you do not enable an offline-first service worker in a development environment, as it can lead to frustration when previously cached assets are used and do not include the latest changes you've made locally.
 
@@ -742,7 +742,7 @@ it may take up to 24 hours for the cache to be invalidated.
 
 1. If possible, configure your production environment to serve the generated `service-worker.js` [with HTTP caching disabled](http://stackoverflow.com/questions/38843970/service-worker-javascript-update-frequency-every-24-hours). If that's not possible—[GitHub Pages](#github-pages), for instance, does not allow you to change the default 10 minute HTTP cache lifetime—then be aware that if you visit your production site, and then revisit again before `service-worker.js` has expired from your HTTP cache, you'll continue to get the previously cached assets from the service worker. If you have an immediate need to view your updated production deployment, performing a shift-refresh will temporarily disable the service worker and retrieve all assets from the network.
 
-1. Users aren't always familiar with offline-first web apps. It can be useful to [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption) when the service worker has finished populating your caches (showing a "This web app works offline!" message) and also let them know when the service worker has fetched the latest updates that will be available the next time they load the page (showing a "New content is available; please refresh." message). Showing this messages is currently left as an exercise to the developer, but as a starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which demonstrates which service worker lifecycle events to listen for to detect each scenario, and which as a default, just logs appropriate messages to the JavaScript console.
+1. Users aren't always familiar with offline-first web apps. It can be useful to [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption) when the service worker has finished populating your caches (showing a "This web app works offline!" message) and also let them know when the service worker has fetched the latest updates that will be available the next time they load the page (showing a "New content is available; please refresh." message). Showing this messages is currently left as an exercise to the developer, but as a starting point, you can make use of the logic included in [`src/serviceWorker.js`](src/serviceWorker.js), which demonstrates which service worker lifecycle events to listen for to detect each scenario, and which as a default, just logs appropriate messages to the JavaScript console.
 
 1. By default, the generated service worker file will not intercept or cache any cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend), images, or embeds loaded from a different domain. If you would like to use a runtime caching strategy for those requests, you can [`eject`](#npm-run-eject) and then configure the [`runtimeCaching`](https://github.com/GoogleChrome/sw-precache#runtimecaching-arrayobject) option in the `SWPrecacheWebpackPlugin` section of [`webpack.config.prod.js`](../config/webpack.config.prod.js).
 
