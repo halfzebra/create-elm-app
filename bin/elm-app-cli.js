@@ -28,14 +28,29 @@ if (commands.length === 0) {
 }
 
 const script = commands[0];
-const scriptArgs = commands.splice(1);
 
 switch (script) {
   case 'create':
   case 'build':
   case 'eject':
   case 'start':
-    spawnSyncNode(path.resolve(__dirname, '../scripts', script), scriptArgs);
+    if (argv['help']) {
+      help(version, 'start');
+      break;
+    }
+
+    let args = [];
+    Object.keys(argv || {}).forEach(key => {
+      if (key === 'browser') {
+        // `--no-browser` turns into `--browser false`
+        // See https://github.com/substack/minimist/issues/123
+        args = args.concat([
+          argv[key] ? '--browser' : '--no-browser'
+        ]);
+      }
+    });
+
+    spawnSyncNode(path.resolve(__dirname, '../scripts', script), args);
     break;
 
   case 'test': {
@@ -76,19 +91,35 @@ switch (script) {
 /**
  *Prints help message
  *
- * @param  {string} version [description]
+ * @param  {string} version Package version
+ * @param  {string} command Name of command for which to print help message
  * @return {undefined}
  */
-function help(version) {
-  console.log();
-  console.log('Usage: elm-app <command>');
-  console.log();
-  console.log('where <command> is one of:');
-  console.log('    build, start, test, eject, ' + elmCommands.join(', '));
-  console.log();
-  console.log();
-  console.log('Elm ' + elmVersion);
-  console.log();
+function help(version, command='') {
+  switch (command) {
+    case 'start':
+      console.log();
+      console.log('Usage: elm-app start [options...]');
+      console.log();
+      console.log('where [options...] is any number of:');
+      console.log('--no-browser\tDo not open the browser automatically');
+      console.log();
+      break;
+    case 'test':
+      // NOTE: Current implementation calls through to `elm-test` for help message
+      break;
+    default:
+      console.log();
+      console.log('Usage: elm-app <command>');
+      console.log();
+      console.log('where <command> is one of:');
+      console.log('    build, start, test, eject, ' + elmCommands.join(', '));
+      console.log();
+      console.log();
+      console.log('Elm ' + elmVersion);
+      console.log();
+  }
+
   console.log(
     'create-elm-app@' + version + ' ' + path.resolve(__dirname, '..')
   );

@@ -33,6 +33,8 @@ const formatElmCompilerErrors = require('./utils/formatElmCompilerErrors');
 const paths = require('../config/paths');
 const warn = require('./utils/warn');
 
+const openBrowserFlag = !process.argv.includes('--no-browser');
+
 if (fs.existsSync('elm.json') === false) {
   console.log('Please, run the build script from project root directory');
   process.exit(0);
@@ -183,7 +185,9 @@ choosePort(HOST, DEFAULT_PORT)
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
+      if (openBrowserFlag) {
+        openBrowser(urls.localUrlForBrowser);
+      }
     });
 
     ['SIGINT', 'SIGTERM'].forEach(sig => {
