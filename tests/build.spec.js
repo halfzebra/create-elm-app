@@ -16,19 +16,24 @@ describe('Creating and making a build of Elm application', function() {
   before(function(done) {
     this.enableTimeouts(false);
     process.env.PUBLIC_URL = './';
-    spawn('node', [createElmAppCmd, testAppName]).on('close', status => {
-      if (status === 0) {
-        spawn('node', [elmAppCmd, 'build'], {
-          cwd: testAppDir
-        }).on('close', status => {
-          if (status === 0) {
-            done();
-          }
-        });
-      } else {
-        done(false);
-      }
+    const { status: createStatus } = spawn.sync('node', [
+      createElmAppCmd,
+      testAppName
+    ]);
+
+    if (createStatus !== 0) {
+      return done(false);
+    }
+
+    const { status: buildStatus } = spawn.sync('node', [elmAppCmd, 'build'], {
+      cwd: testAppDir
     });
+
+    if (buildStatus !== 0) {
+      return done(false);
+    }
+
+    return done();
   });
 
   after(() => {
