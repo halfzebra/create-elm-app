@@ -37,7 +37,7 @@
     "elm": "0.19.0-bugfix6",
     "elm-hot-webpack-loader": "^1.0.2",
     "elm-test": "^0.19.0-rev5",
-    "elm-webpack-loader": "github:halfzebra/elm-webpack-loader#smucode-master",
+    "elm-webpack-loader": "github:halfzebra/elm-webpack-loader#upgrade-node-elm-compiler",
     "file-loader": "^1.1.6",
     "fs-extra": "^6.0.1",
     "html-webpack-plugin": "^4.0.0-alpha.2",
