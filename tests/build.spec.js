@@ -11,15 +11,16 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Creating and making a build of Elm application', function() {
-  this.timeout(1000 * 60 * 2); // 2 minutes.
+  this.timeout(1000 * 60 * 5); // 5 minutes.
 
   before(function(done) {
     this.enableTimeouts(false);
     process.env.PUBLIC_URL = './';
-    const { status: createStatus } = spawn.sync('node', [
-      createElmAppCmd,
-      testAppName
-    ]);
+    const { status: createStatus } = spawn.sync(
+      'node',
+      [createElmAppCmd, testAppName],
+      { cwd: rootDir }
+    );
 
     if (createStatus !== 0) {
       return done(false);
