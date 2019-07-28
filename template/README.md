@@ -649,6 +649,9 @@ Be aware that you cannot override `NODE_ENV` manually. See
 [this list from the `dotenv`-library](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use)
 for a list of files you can use to declare environment variables.
 
+**Note: Changes to your `.env` are only picked up on `elm-app start`. This means that you have to restart your server for your .env file changes to be picked up!**
+
+
 ## Setting up API Proxy
 
 To forward the API ( REST ) calls to backend server, add a proxy to the `elmapp.config.js` in the top level json object.
