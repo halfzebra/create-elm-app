@@ -61,24 +61,24 @@
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.5.0",
-    "@commitlint/config-conventional": "^7.5.0",
-    "babel-eslint": "^8.2.1",
-    "commitizen": "^3.0.5",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "babel-eslint": "^10.0.2",
+    "commitizen": "^4.0.3",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.0.2",
     "dir-compare": "^1.4.0",
-    "eslint": "^4.18.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "husky": "^2.3.0",
-    "lint-staged": "^7.0.0",
-    "mocha": "^5.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.3",
+    "lint-staged": "^9.2.1",
+    "mocha": "^6.2.0",
     "nightmare": "^3.0.1",
     "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
-    "semantic-release": "15.12.4",
+    "semantic-release": "^15.13.19",
     "shelljs": "^0.8.3",
-    "unexpected": "^10.37.2"
+    "unexpected": "^11.7.0"
   },
   "engines": {
     "node": ">=8.0.0"

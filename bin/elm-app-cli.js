@@ -44,9 +44,7 @@ switch (script) {
       if (key === 'browser') {
         // `--no-browser` turns into `--browser false`
         // See https://github.com/substack/minimist/issues/123
-        args = args.concat([
-          argv[key] ? '--browser' : '--no-browser'
-        ]);
+        args = args.concat([argv[key] ? '--browser' : '--no-browser']);
       }
     });
 
@@ -95,7 +93,7 @@ switch (script) {
  * @param  {string} command Name of command for which to print help message
  * @return {undefined}
  */
-function help(version, command='') {
+function help(version, command = '') {
   switch (command) {
     case 'start':
       console.log();
