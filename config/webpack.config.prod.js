@@ -8,8 +8,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const CopyPlugin = require("copy-webpack-plugin");
-const workboxPlugin = require("workbox-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 const paths = require('../config/paths');
 const getClientEnvironment = require('./env');
 
