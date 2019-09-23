@@ -717,7 +717,7 @@ Progressive Web Apps are faster and more reliable than traditional web pages, an
 * Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the Subway.
 * On mobile devices, your app can be added directly to the user's home screen, app icon and all. You can also re-engage users using web **push notifications**. This eliminates the need for the app store.
 
-The [`workbox-webpack-plygin`](https://www.npmjs.com/package/workbox-webpack-plugin)
+The [`workbox-webpack-plugin`](https://www.npmjs.com/package/workbox-webpack-plugin)
 is integrated into production configuration,
 and it will take care of generating a service worker file that will automatically
 precache all of your local assets and keep them up to date as you deploy updates.
