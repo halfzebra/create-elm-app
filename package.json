@@ -30,6 +30,7 @@
     "chalk": "^2.3.1",
     "cli-table": "0.3.1",
     "connect-history-api-fallback": "^1.5.0",
+    "copy-webpack-plugin": "^5.0.4",
     "cosmiconfig": "^5.0.6",
     "cross-spawn": "^6.0.5",
     "css-loader": "^0.28.9",
@@ -58,7 +59,8 @@
     "webpack": "^4.2.0",
     "webpack-dev-server": "^3.1.1",
     "webpack-manifest-plugin": "^2.0.3",
-    "whatwg-fetch": "2.0.4"
+    "whatwg-fetch": "2.0.4",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
