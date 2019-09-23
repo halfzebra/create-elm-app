@@ -717,7 +717,7 @@ Progressive Web Apps are faster and more reliable than traditional web pages, an
 * Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the Subway.
 * On mobile devices, your app can be added directly to the user's home screen, app icon and all. You can also re-engage users using web **push notifications**. This eliminates the need for the app store.
 
-The [`sw-precache-webpack-plugin`](https://github.com/goldhand/sw-precache-webpack-plugin)
+The [`workbox-webpack-plugin`](https://www.npmjs.com/package/workbox-webpack-plugin)
 is integrated into production configuration,
 and it will take care of generating a service worker file that will automatically
 precache all of your local assets and keep them up to date as you deploy updates.
@@ -753,7 +753,7 @@ it may take up to 24 hours for the cache to be invalidated.
 
 1. Users aren't always familiar with offline-first web apps. It can be useful to [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption) when the service worker has finished populating your caches (showing a "This web app works offline!" message) and also let them know when the service worker has fetched the latest updates that will be available the next time they load the page (showing a "New content is available; please refresh." message). Showing this messages is currently left as an exercise to the developer, but as a starting point, you can make use of the logic included in [`src/serviceWorker.js`](src/serviceWorker.js), which demonstrates which service worker lifecycle events to listen for to detect each scenario, and which as a default, just logs appropriate messages to the JavaScript console.
 
-1. By default, the generated service worker file will not intercept or cache any cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend), images, or embeds loaded from a different domain. If you would like to use a runtime caching strategy for those requests, you can [`eject`](#npm-run-eject) and then configure the [`runtimeCaching`](https://github.com/GoogleChrome/sw-precache#runtimecaching-arrayobject) option in the `SWPrecacheWebpackPlugin` section of [`webpack.config.prod.js`](../config/webpack.config.prod.js).
+1. By default, the generated service worker file will not intercept or cache any cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend), images, or embeds loaded from a different domain. If you would like to use a runtime caching strategy for those requests, you can [`eject`](#npm-run-eject) and then configure the [`runtimeCaching`](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin) option in the `WorkboxPlugin` section of [`webpack.config.prod.js`](../config/webpack.config.prod.js).
 
 ### Progressive Web App Metadata
 
