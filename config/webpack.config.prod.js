@@ -12,6 +12,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
 const paths = require('../config/paths');
 const getClientEnvironment = require('./env');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const safePostCssParser = require('postcss-safe-parser');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -108,6 +110,20 @@ module.exports = {
         // Enable file caching
         cache: true,
         sourceMap: shouldUseSourceMap
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcesorOptions: {
+          parser: safePostCssParser,
+          map: shouldUseSourceMap
+            ? {
+                // This forces the sourcemap to be output into a separate file
+                inline: false,
+                // This appends the sourceMappingURL to the end of the css file,
+                // helping the browser find the sourcemap
+                annotation: true
+              }
+            : false
+        }
       })
     ],
     // Automatically split vendor and commons
@@ -232,7 +248,6 @@ module.exports = {
             loader: require.resolve('css-loader'),
             options: {
               importLoaders: 1,
-              minimize: true,
               sourceMap: shouldUseSourceMap
             }
           },
