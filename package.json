@@ -44,6 +44,7 @@
     "http-proxy-middleware": "^0.20.0",
     "mini-css-extract-plugin": "^0.4.0",
     "minimist": "1.2.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-flexbugs-fixes": "^3.3.0",
     "postcss-loader": "2.1.5",
     "promise": "8.0.1",
