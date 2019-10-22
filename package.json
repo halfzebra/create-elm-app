@@ -35,7 +35,7 @@
     "cross-spawn": "^6.0.5",
     "css-loader": "^3.2.0",
     "dotenv": "^5.0.0",
-    "elm": "0.19.1",
+    "elm": "0.19.1-2",
     "elm-hot-webpack-loader": "^1.0.2",
     "elm-test": "0.19.1",
     "elm-webpack-loader": "6.0.0",
