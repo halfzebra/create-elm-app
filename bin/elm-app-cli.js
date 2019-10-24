@@ -2,6 +2,7 @@
 
 'use strict';
 
+
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
@@ -61,7 +62,7 @@ switch (script) {
 
     args = args.concat([
       '--compiler',
-      path.join(path.dirname(require.resolve('elm')), '/unpacked_bin/elm')
+      require.resolve('elm/bin/elm')
     ]);
     const cp = spawn.sync(require.resolve('elm-test/bin/elm-test'), args, {
       stdio: 'inherit'
