@@ -142,8 +142,6 @@ module.exports = {
   module: {
     strictExportPresence: true,
 
-    noParse: /\.elm$/,
-
     rules: [
       {
         test: /\.js$/,
@@ -219,6 +217,9 @@ module.exports = {
               replace: publicUrl,
               flags: 'g'
             }
+          },
+          {
+            loader: require.resolve('elm-asset-webpack-loader')
           },
           {
             // Use the local installation of elm make
@@ -339,16 +340,14 @@ module.exports = {
       publicPath: publicPath
     }),
     // Copies the public folder to the build folder
-    new CopyPlugin([
-      { from: './public/', to: './' },
-    ]),
+    new CopyPlugin([{ from: './public/', to: './' }]),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new workboxPlugin.GenerateSW({
-      swDest: "./service-worker.js",
+      swDest: './service-worker.js',
       skipWaiting: true,
       clientsClaim: true
-    }),
+    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
