@@ -1,7 +1,7 @@
 language: node_js
 sudo: required
 node_js:
-  - '12'
+  - '11'
   - '8'
 addons:
   apt:
