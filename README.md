@@ -142,3 +142,4 @@ We would love to get you involved! Please check our [Contributing Guide](CONTRIB
 - [elm-app-boilerplate](https://github.com/gkubisa/elm-app-boilerplate)
 - [elm-hot-loader-starter](https://github.com/klazuka/example-elm-hot-webpack)
 - [generator-elm](https://github.com/danneu/generator-elm)
+- [elm-boil](https://github.com/GioPat/elm-boil)
