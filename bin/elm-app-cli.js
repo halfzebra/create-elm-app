@@ -2,7 +2,6 @@
 
 'use strict';
 
-
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
@@ -41,15 +40,19 @@ switch (script) {
     }
 
     let args = [];
+    const env = {};
     Object.keys(argv || {}).forEach(key => {
       if (key === 'browser') {
         // `--no-browser` turns into `--browser false`
         // See https://github.com/substack/minimist/issues/123
         args = args.concat([argv[key] ? '--browser' : '--no-browser']);
       }
+      if (key === 'debug' && argv[key] === false) {
+        env.ELM_DEBUGGER = 'false';
+      }
     });
 
-    spawnSyncNode(path.resolve(__dirname, '../scripts', script), args);
+    spawnSyncNode(path.resolve(__dirname, '../scripts', script), args, env);
     break;
 
   case 'test': {
@@ -60,10 +63,7 @@ switch (script) {
       }
     });
 
-    args = args.concat([
-      '--compiler',
-      require.resolve('elm/bin/elm')
-    ]);
+    args = args.concat(['--compiler', require.resolve('elm/bin/elm')]);
     const cp = spawn.sync(require.resolve('elm-test/bin/elm-test'), args, {
       stdio: 'inherit'
     });
@@ -102,6 +102,7 @@ function help(version, command = '') {
       console.log();
       console.log('where [options...] is any number of:');
       console.log('--no-browser\tDo not open the browser automatically');
+      console.log('--no-debug\tDisable the elm time travel debugger');
       console.log();
       break;
     case 'test':
@@ -129,11 +130,13 @@ function help(version, command = '') {
  *
  * @param  {string} script Path to script
  * @param  {Array} args   Script arguments
+ * @param {Object} env Overwrite process.env properties
  * @return {undefined}
  */
-function spawnSyncNode(script, args) {
+function spawnSyncNode(script, args, env) {
   const cp = spawn.sync('node', [script].concat(args || []), {
-    stdio: 'inherit'
+    stdio: 'inherit',
+    env: Object.assign({}, process.env, env)
   });
 
   if (cp.status !== 0) {
