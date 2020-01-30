@@ -30,7 +30,6 @@ if (commands.length === 0) {
 const script = commands[0];
 
 switch (script) {
-  case 'create':
   case 'build':
   case 'eject':
   case 'start':
@@ -53,6 +52,10 @@ switch (script) {
     });
 
     spawnSyncNode(path.resolve(__dirname, '../scripts', script), args, env);
+    break;
+
+  case 'create':
+    spawnSyncNode(path.resolve(__dirname, '../scripts/create'), commands[1]);
     break;
 
   case 'test': {
