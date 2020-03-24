@@ -51,7 +51,7 @@
     "postcss-flexbugs-fixes": "^3.3.0",
     "postcss-loader": "2.1.5",
     "postcss-safe-parser": "^4.0.1",
-    "promise": "8.0.1",
+    "promise": "8.1.0",
     "prompt": "1.0.0",
     "react-dev-utils": "6.1.1",
     "react-error-overlay": "^4.0.0",
