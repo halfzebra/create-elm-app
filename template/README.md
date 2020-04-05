@@ -889,11 +889,12 @@ This step is important to make sure netlify uses the correct build command.
 
 **If you skip it, your app will not deploy correctly.**
 
-Open your `elmapp.config.js` and add a `homepage` field:
+Open your `elmapp.config.js` (if you don't have such a file, then you will need to create one in the root directory of your project) and add a `homepage` field:
 
 ```js
+// and the home page field to the other fields if required:
 module.exports = {
-    homepage: "https://myusername.github.io/my-app",
+    homepage: "https://myusername.github.io/my-app"
 }
 ```
 
