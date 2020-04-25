@@ -84,7 +84,7 @@
     "prettier": "1.19.1",
     "rimraf": "2.7.1",
     "semantic-release": "15.14.0",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.4",
     "unexpected": "11.14.0"
   },
   "engines": {
