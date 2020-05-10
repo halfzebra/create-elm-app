@@ -11,7 +11,8 @@
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
-      "commitMessagePrefix": "chore(package.json): "
+      "commitMessagePrefix": "chore(package.json): ",
+      "automerge": true
     }
   ]
 }
