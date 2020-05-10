@@ -42,7 +42,7 @@
     "elm-webpack-loader": "6.0.1",
     "file-loader": "1.1.11",
     "fs-extra": "6.0.1",
-    "html-webpack-plugin": "4.2.1",
+    "html-webpack-plugin": "4.3.0",
     "http-proxy-middleware": "0.20.0",
     "mini-css-extract-plugin": "0.4.5",
     "minimist": "1.2.5",
