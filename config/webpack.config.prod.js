@@ -52,8 +52,10 @@ module.exports = {
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info =>
-      path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
+    devtoolModuleFilenameTemplate: (info) =>
+      path
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, '/'),
   },
   optimization: {
     minimizer: [
@@ -91,25 +93,25 @@ module.exports = {
               'F6',
               'F7',
               'F8',
-              'F9'
-            ]
+              'F9',
+            ],
           },
           mangle: {
-            safari10: true
+            safari10: true,
           },
           output: {
             comments: false,
             // Turned on because emoji and regex is not minified properly using default
             // https://github.com/facebook/create-react-app/issues/2488
-            ascii_only: true
-          }
+            ascii_only: true,
+          },
         },
         // Use multi-process parallel running to improve the build speed
         // Default number of concurrent runs: os.cpus().length - 1
         parallel: true,
         // Enable file caching
         cache: true,
-        sourceMap: shouldUseSourceMap
+        sourceMap: shouldUseSourceMap,
       }),
       new OptimizeCSSAssetsPlugin({
         cssProcesorOptions: {
@@ -120,24 +122,24 @@ module.exports = {
                 inline: false,
                 // This appends the sourceMappingURL to the end of the css file,
                 // helping the browser find the sourcemap
-                annotation: true
+                annotation: true,
               }
-            : false
-        }
-      })
+            : false,
+        },
+      }),
     ],
     // Automatically split vendor and commons
     // https://twitter.com/wSokra/status/969633336732905474
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
-    runtimeChunk: true
+    runtimeChunk: true,
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.elm']
+    extensions: ['.js', '.elm'],
   },
   module: {
     strictExportPresence: true,
@@ -159,10 +161,12 @@ module.exports = {
                 // This is probably a fine default to help trim down bundles when
                 // end-users inevitably import '@babel/polyfill'.
                 useBuiltIns: 'entry',
+                // Set the corejs version we are using to avoid warnings in console
+                corejs: 3,
                 // Do not transform modules to CJS
-                modules: false
-              }
-            ]
+                modules: false,
+              },
+            ],
           ],
           plugins: [
             // Polyfills the runtime needed for async/await and generators
@@ -170,11 +174,11 @@ module.exports = {
               require('@babel/plugin-transform-runtime').default,
               {
                 helpers: false,
-                regenerator: true
-              }
-            ]
-          ]
-        }
+                regenerator: true,
+              },
+            ],
+          ],
+        },
       },
       // Process any JS outside of the app with Babel.
       // Unlike the application JS, we only compile the standard ES features.
@@ -192,15 +196,15 @@ module.exports = {
                   require('@babel/preset-env').default,
                   {
                     // Do not transform modules to CJS
-                    modules: false
-                  }
-                ]
+                    modules: false,
+                  },
+                ],
               ],
               cacheDirectory: true,
-              highlightCode: true
-            }
-          }
-        ]
+              highlightCode: true,
+            },
+          },
+        ],
       },
       {
         test: /\.elm$/,
@@ -215,11 +219,11 @@ module.exports = {
             query: {
               search: '%PUBLIC_URL%',
               replace: publicUrl,
-              flags: 'g'
-            }
+              flags: 'g',
+            },
           },
           {
-            loader: require.resolve('elm-asset-webpack-loader')
+            loader: require.resolve('elm-asset-webpack-loader'),
           },
           {
             // Use the local installation of elm make
@@ -229,10 +233,10 @@ module.exports = {
               // for invalid values, "false" and as a default, disable it
               debug: useDebugger,
               optimize: !useDebugger,
-              pathToElm: paths.elm
-            }
-          }
-        ]
+              pathToElm: paths.elm,
+            },
+          },
+        ],
       },
 
       // "postcss" loader applies autoprefixer to our CSS.
@@ -249,8 +253,8 @@ module.exports = {
             loader: require.resolve('css-loader'),
             options: {
               importLoaders: 1,
-              sourceMap: shouldUseSourceMap
-            }
+              sourceMap: shouldUseSourceMap,
+            },
           },
           {
             loader: require.resolve('postcss-loader'),
@@ -261,12 +265,12 @@ module.exports = {
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  flexbox: 'no-2009'
-                })
-              ]
-            }
-          }
-        ]
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          },
+        ],
       },
 
       {
@@ -278,23 +282,23 @@ module.exports = {
           /\.scss$/,
           /\.sass$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
         ],
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
       },
       // "file" loader for svg
       {
         test: /\.svg$/,
         loader: require.resolve('file-loader'),
         options: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
-    ]
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
+      },
+    ],
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -311,8 +315,8 @@ module.exports = {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
@@ -330,14 +334,14 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
-      publicPath: publicPath
+      publicPath: publicPath,
     }),
     // Copies the public folder to the build folder
     new CopyPlugin([{ from: './public/', to: './' }]),
@@ -346,8 +350,8 @@ module.exports = {
     new workboxPlugin.GenerateSW({
       swDest: './service-worker.js',
       skipWaiting: true,
-      clientsClaim: true
-    })
+      clientsClaim: true,
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -356,10 +360,10 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
+    child_process: 'empty',
   },
 
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter
-  performance: false
+  performance: false,
 };
