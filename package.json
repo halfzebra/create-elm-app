@@ -32,7 +32,7 @@
     "connect-history-api-fallback": "1.6.0",
     "copy-webpack-plugin": "5.1.1",
     "cosmiconfig": "5.2.1",
-    "cross-spawn": "7.0.2",
+    "cross-spawn": "7.0.3",
     "css-loader": "3.5.3",
     "dotenv": "8.2.0",
     "elm": "latest-0.19.1",
