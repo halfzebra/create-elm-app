@@ -71,7 +71,7 @@
     "@commitlint/cli": "9.1.1",
     "@commitlint/config-conventional": "9.1.1",
     "babel-eslint": "10.1.0",
-    "commitizen": "4.1.2",
+    "commitizen": "4.2.1",
     "cross-env": "7.0.2",
     "cz-conventional-changelog": "3.2.0",
     "dir-compare": "2.3.0",
