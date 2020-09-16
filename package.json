@@ -78,7 +78,7 @@
     "eslint": "7.9.0",
     "eslint-plugin-prettier": "3.1.4",
     "husky": "4.3.0",
-    "lint-staged": "10.3.0",
+    "lint-staged": "10.4.0",
     "mocha": "7.2.0",
     "nightmare": "3.0.2",
     "prettier": "2.1.2",
