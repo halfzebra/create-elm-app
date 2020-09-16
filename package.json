@@ -85,7 +85,7 @@
     "rimraf": "3.0.2",
     "semantic-release": "15.14.0",
     "shelljs": "0.8.3",
-    "unexpected": "11.14.0"
+    "unexpected": "11.15.0"
   },
   "engines": {
     "node": ">=8.0.0"
