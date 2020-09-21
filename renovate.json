@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "schedule": [
     "after 10pm every weekday",
     "before 5am every weekday",
@@ -9,6 +7,11 @@
   ],
   "commitMessagePrefix": "fix(package.json): ",
   "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "commitMessagePrefix": "fix(package.json): ",
+      "automerge": true
+    },
     {
       "depTypeList": ["devDependencies"],
       "commitMessagePrefix": "chore(package.json): ",
