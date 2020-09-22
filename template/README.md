@@ -803,7 +803,7 @@ $ npm install http-proxy-middleware --save
 Next, create `elmapp.config.js` in the root of your project and place the following contents in it:
 
 ```js
-const proxy = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 
 module.exports = {
   setupProxy: function(app) {
@@ -815,11 +815,11 @@ module.exports = {
 You can now register proxies as you wish! Here's an example using the above http-proxy-middleware:
 
 ```js
-const proxy = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 
 module.exports = {
   setupProxy: function(app) {
-    app.use(proxy('/api', { target: 'http://localhost:5000/' }));
+    app.use(createProxyMiddleware('/api', { target: 'http://localhost:5000/' }));
   }
 };
 ```
