@@ -37,7 +37,7 @@
     "dotenv": "8.2.0",
     "elm": "latest-0.19.1",
     "elm-asset-webpack-loader": "1.1.2",
-    "elm-hot-webpack-loader": "1.1.6",
+    "elm-hot-webpack-loader": "1.1.7",
     "elm-test": "latest-0.19.1",
     "elm-webpack-loader": "6.0.1",
     "file-loader": "1.1.11",
