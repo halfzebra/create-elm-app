@@ -8,6 +8,17 @@
   "commitMessagePrefix": "fix(package.json): ",
   "packageRules": [
     {
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["major"],
+      "commitMessagePrefix": "BREAKING CHANGE: "
+    },
+    {
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["minor"],
+      "commitMessagePrefix": "feat(package.json): ",
+      "automerge": true
+    },
+    {
       "updateTypes": ["patch"],
       "commitMessagePrefix": "fix(package.json): ",
       "automerge": true
