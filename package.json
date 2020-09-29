@@ -68,8 +68,8 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "9.1.1",
-    "@commitlint/config-conventional": "9.1.1",
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
     "babel-eslint": "10.1.0",
     "commitizen": "4.2.1",
     "cross-env": "7.0.2",
