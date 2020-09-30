@@ -23,7 +23,7 @@
     "@babel/preset-env": "7.11.5",
     "@babel/runtime": "7.11.2",
     "assets-webpack-plugin": "3.9.12",
-    "autoprefixer": "8.6.5",
+    "autoprefixer": "10.0.1",
     "babel-loader": "8.1.0",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
