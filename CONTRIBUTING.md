@@ -16,6 +16,15 @@ Following these guidelines helps to communicate that you respect the time of the
 
 3. Run `npm link` in the root `create-elm-app` folder to install local module globally.
 
+## Running tests
+
+You can run tests by running `$npm run test`. 
+
+If you run into failures while ugrading dependencies, running `$npm run app:build` will allow you to check the build faster.
+
+_NOTE: Functional tests may take a while to run because they interact with your system_.
+
+
 ## Submitting a Pull Request
 
 When you have a local copy of the project up and running, create a new branch with a name, such as `patch-1`

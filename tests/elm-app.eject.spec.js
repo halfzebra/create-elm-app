@@ -80,7 +80,6 @@ describe('Ejecting Elm application. (Please wait...)', function () {
       .map((out) => (out !== null ? out.toString() : ''))
       .join('');
 
-    console.log(outputString);
     expect(status, 'to be', 0);
     expect(outputString, 'to contain', 'Compiled successfully');
   }).timeout(5 * 60 * 1000);
