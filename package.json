@@ -39,7 +39,7 @@
     "elm-asset-webpack-loader": "1.1.2",
     "elm-hot-webpack-loader": "1.1.7",
     "elm-test": "latest-0.19.1",
-    "elm-webpack-loader": "6.0.1",
+    "elm-webpack-loader": "7.0.1",
     "file-loader": "6.1.0",
     "fs-extra": "6.0.1",
     "html-webpack-plugin": "4.5.0",
