@@ -342,7 +342,9 @@ module.exports = {
       publicPath: publicPath,
     }),
     // Copies the public folder to the build folder
-    new CopyPlugin([{ from: './public/', to: './' }]),
+    new CopyPlugin({
+      patterns: [{ from: './public/', to: './' }],
+    }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new workboxPlugin.GenerateSW({
