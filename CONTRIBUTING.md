@@ -33,7 +33,7 @@ When you have a local copy of the project up and running, create a new branch wi
 git checkout -b patch-1
 ```
 
-Create Elm App uses [Commitizen](https://github.com/commitizen/cz-cli) and [semantic-release](https://github.com/semantic-release/semantic-release) for release automatization.
+Create Elm App uses [Commitizen](https://github.com/commitizen/cz-cli) and [semantic-release](https://github.com/semantic-release/semantic-release) for release automation.
 
 Commit changes by running `npm run cz`
 

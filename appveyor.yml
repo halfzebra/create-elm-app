@@ -7,8 +7,8 @@ platform:
 environment:
   matrix:
   # node.js
-    - nodejs_version: "8"
     - nodejs_version: "12"
+    - nodejs_version: "14"
 
 matrix:
   fast_finish: true
