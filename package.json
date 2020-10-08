@@ -59,7 +59,7 @@
     "string-replace-loader": "2.3.0",
     "strip-ansi": "6.0.0",
     "style-loader": "1.2.1",
-    "uglifyjs-webpack-plugin": "1.3.0",
+    "uglifyjs-webpack-plugin": "2.2.0",
     "url-loader": "4.1.0",
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.0",

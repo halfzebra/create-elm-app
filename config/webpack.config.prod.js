@@ -61,13 +61,13 @@ module.exports = {
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
+          warnings: false,
           // ES5 is required in the minified code if you want compatibility with IE11,
           // otherwise you can bump it up to ES8
           ecma: 5,
           // Compression settings mostly based on <https://guide.elm-lang.org/optimization/asset_size.html>
           compress: {
             passes: 2,
-            warnings: false,
             // Disabled because of an issue with Uglify breaking seemingly valid code:
             // https://github.com/facebook/create-react-app/issues/2376
             // Pending further investigation:
@@ -95,9 +95,6 @@ module.exports = {
               'F8',
               'F9',
             ],
-          },
-          mangle: {
-            safari10: true,
           },
           output: {
             comments: false,
