@@ -80,7 +80,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.elm'],
+    extensions: ['.js', '.mjs', '.elm'],
   },
   module: {
     strictExportPresence: true,
@@ -93,7 +93,7 @@ module.exports = {
         exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
         include: paths.appSrc,
         loader: require.resolve('babel-loader'),
-        query: {
+        options: {
           presets: [
             [
               require.resolve('@babel/preset-env'),
@@ -227,6 +227,7 @@ module.exports = {
         exclude: [
           /\.html$/,
           /\.js$/,
+          /\.mjs$/,
           /\.elm$/,
           /\.css$/,
           /\.scss$/,

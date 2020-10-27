@@ -136,7 +136,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.elm'],
+    extensions: ['.js', '.mjs', '.elm'],
   },
   module: {
     strictExportPresence: true,
@@ -146,7 +146,7 @@ module.exports = {
         test: /\.js$/,
         exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
         loader: require.resolve('babel-loader'),
-        query: {
+        options: {
           // Latest stable ECMAScript features
           presets: [
             [
@@ -275,6 +275,7 @@ module.exports = {
         exclude: [
           /\.html$/,
           /\.js$/,
+          /\.mjs$/,
           /\.elm$/,
           /\.css$/,
           /\.scss$/,
