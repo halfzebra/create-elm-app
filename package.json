@@ -81,7 +81,7 @@
     "lint-staged": "10.5.1",
     "mocha": "8.2.1",
     "nightmare": "3.0.2",
-    "prettier": "2.1.2",
+    "prettier": "2.2.0",
     "rimraf": "3.0.2",
     "semantic-release": "17.2.4",
     "shelljs": "0.8.3",
