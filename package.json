@@ -24,7 +24,7 @@
     "@babel/runtime": "7.12.5",
     "assets-webpack-plugin": "3.9.12",
     "autoprefixer": "10.0.3",
-    "babel-loader": "8.2.1",
+    "babel-loader": "8.2.2",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "chalk": "2.4.2",
