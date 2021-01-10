@@ -627,9 +627,12 @@ Passing the variables to your Elm-code can be done via `flags`:
 // index.js
 import { Main } from './Main.elm';
 
-Main.fullscreen({
-  environment: process.env.NODE_ENV,
-  apiKey: process.env.ELM_APP_API_KEY
+Elm.Main.init({
+  node: document.getElementById('root'),
+  flags: {
+    environment: process.env.NODE_ENV,
+    apiKey: process.env.ELM_APP_API_KEY
+  }
 });
 ```
 
@@ -639,10 +642,17 @@ type alias Flags = { apiKey : String, environment : String }
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-  ...
+    ...
 
+  
+main : Program Flags Model Msg
 main =
-  programWithFlags { init = init, ... }
+    Browser.element
+        { view = view
+        , init = init
+        , update = update
+        , subscriptions = always Sub.none
+        }
 ```
 
 Be aware that you cannot override `NODE_ENV` manually. See
