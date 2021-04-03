@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 platform:
   - x64
@@ -23,8 +23,13 @@ skip_commits:
     - '**/*.md'
 
 test_script:
-  - node --version
-  - npm --version
-  - npm install
-  - npm link
-  - npm run test
+  - ps: node --version
+  - ps: npm --version
+  - ps: npm config set loglevel silent
+  # NPM prefix should be writable by current user.
+  - ps: npm config set prefix "$home\\.npm-prefix"
+  - ps: $env:Path += ";$home\\.npm-prefix\\"
+  - ps: npm install -g elm@latest-0.19.1 elm-test@latest-0.19.1
+  - ps: npm install
+  - ps: npm link
+  - ps: npm run test

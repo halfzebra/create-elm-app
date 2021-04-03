@@ -6,7 +6,9 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
 const version = require('../package.json').version;
-const elmVersion = require('elm/package.json').version;
+const which = require('which');
+const elmExecutable = which.sync('elm', {nothrow: true}) || require.resolve('elm/bin/elm');
+const elmVersion = spawn.sync(elmExecutable, ['--version']).stdout.toString().trim();
 const commands = argv._;
 
 if (commands.length === 0) {

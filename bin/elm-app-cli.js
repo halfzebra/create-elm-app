@@ -5,9 +5,11 @@
 const path = require('path');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
-const elmExecutable = require.resolve('elm/bin/elm');
+const which = require('which');
+const elmExecutable = which.sync('elm', {nothrow: true}) || require.resolve('elm/bin/elm');
+const elmTestExecutable = which.sync('elm-test', {nothrow: true}) || require.resolve('elm-test/bin/elm-test');
 const version = require('../package.json').version;
-const elmVersion = require('elm/package.json').version;
+const elmVersion = spawn.sync(elmExecutable, ['--version']).stdout.toString().trim();
 
 const commands = argv._;
 
@@ -66,8 +68,8 @@ switch (script) {
       }
     });
 
-    args = args.concat(['--compiler', require.resolve('elm/bin/elm')]);
-    const cp = spawn.sync(require.resolve('elm-test/bin/elm-test'), args, {
+    args = args.concat(['--compiler', elmExecutable]);
+    const cp = spawn.sync(elmTestExecutable, args, {
       stdio: 'inherit'
     });
 

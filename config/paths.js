@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 const cosmiconfig = require('cosmiconfig');
+const which = require('which');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
@@ -76,7 +77,7 @@ module.exports = {
   entry: resolveApp('./src/index.js'),
   appBuild: resolveApp('./build'),
   elmJson: resolveApp('./elm.json'),
-  elm: require.resolve('elm/bin/elm'),
+  elm: which.sync('elm', {nothrow: true}) || require.resolve('elm/bin/elm'),
   publicUrl: getPublicUrl(config),
   servedPath: getServedPath(config),
   proxy: config.proxy,
