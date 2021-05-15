@@ -240,7 +240,7 @@ Do you remember `logger` in JavaScript? Let's declare the port:
 port logger : String -> Cmd msg
 ```
 
-and use it to call JavaScript in you update function.
+and use it to call JavaScript in your update function.
 
 ```elm
 update : Msg -> Model -> ( Model, Cmd Msg )
