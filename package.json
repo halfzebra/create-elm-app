@@ -48,7 +48,7 @@
     "minimist": "1.2.5",
     "object-assign": "4.1.1",
     "optimize-css-assets-webpack-plugin": "5.0.3",
-    "postcss-flexbugs-fixes": "4.2.1",
+    "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "4.1.0",
     "postcss-safe-parser": "5.0.2",
     "promise": "8.1.0",
