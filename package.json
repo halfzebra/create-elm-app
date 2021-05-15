@@ -35,10 +35,8 @@
     "cross-spawn": "7.0.3",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
-    "elm": "latest-0.19.1",
     "elm-asset-webpack-loader": "1.1.2",
     "elm-hot-webpack-loader": "1.1.7",
-    "elm-test": "latest-0.19.1",
     "elm-webpack-loader": "6.0.1",
     "file-loader": "6.2.0",
     "fs-extra": "6.0.1",
@@ -65,6 +63,7 @@
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
     "whatwg-fetch": "3.5.0",
+    "which": "^2.0.2",
     "workbox-webpack-plugin": "4.3.1"
   },
   "devDependencies": {
@@ -86,6 +85,10 @@
     "semantic-release": "17.3.0",
     "shelljs": "0.8.3",
     "unexpected": "12.0.0"
+  },
+  "peerDependencies": {
+    "elm": "latest-0.19.1",
+    "elm-test": "latest-0.19.1"
   },
   "engines": {
     "node": ">=8.0.0"
