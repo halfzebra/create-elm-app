@@ -3,19 +3,19 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
-const cosmiconfig = require('cosmiconfig');
+const { cosmiconfigSync } = require('cosmiconfig');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 // We look for configration in files supported by cosmiconfig by default:
 // https://github.com/davidtheclark/cosmiconfig
-const explorer = cosmiconfig('elmapp');
-const result = explorer.searchSync(appDirectory);
+const explorerSync = cosmiconfigSync('elmapp');
+const result = explorerSync.search(appDirectory);
 const config = result ? result.config : loadElmJson();
-const id = x => x;
+const id = (x) => x;
 const configureWebpack =
   typeof config.configureWebpack === 'function' ? config.configureWebpack : id;
 
@@ -46,7 +46,7 @@ function ensureSlash(path, needsSlash) {
   return path;
 }
 
-const getPublicUrl = appConfig => {
+const getPublicUrl = (appConfig) => {
   if (envPublicUrl) {
     return envPublicUrl;
   }
@@ -81,5 +81,5 @@ module.exports = {
   servedPath: getServedPath(config),
   proxy: config.proxy,
   setupProxy: config.setupProxy,
-  configureWebpack
+  configureWebpack,
 };
