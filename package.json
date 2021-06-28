@@ -56,7 +56,7 @@
     "react-dev-utils": "6.1.1",
     "react-error-overlay": "4.0.1",
     "sockjs-client": "1.4.0",
-    "string-replace-loader": "2.3.0",
+    "string-replace-loader": "3.0.3",
     "strip-ansi": "6.0.0",
     "style-loader": "1.3.0",
     "uglifyjs-webpack-plugin": "1.3.0",
