@@ -7,6 +7,8 @@ const chalk = require('chalk');
 const spawn = require('cross-spawn');
 const argv = require('minimist')(process.argv.slice(2));
 const commands = argv._;
+const which = require('which');
+const elmExecutable = which.sync('elm', {nothrow: true}) || require.resolve('elm/bin/elm');
 
 const isWindows = process.platform === 'win32';
 
@@ -44,7 +46,7 @@ function createElmApp(name) {
 
   // Run initial `elm make`
   const spawnElmPkgResult = spawn.sync(
-    path.resolve(__dirname, '../node_modules/.bin/elm'),
+    elmExecutable,
     // Run elm-make to install the dependencies.
     ['make', 'src/Main.elm', '--output=/dev/null'],
     { stdio: 'inherit', cwd: appRoot }
