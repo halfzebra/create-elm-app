@@ -1,7 +1,7 @@
 'use strict';
 
 var chalk = require('chalk');
-var ctx = new chalk.constructor({ enabled: true });
+var ctx = new chalk.Instance({ enabled: true });
 var error = ctx.bold.red;
 var filename = ctx.cyan;
 var isBrowser = typeof window === 'object';
@@ -28,7 +28,7 @@ module.exports = function formatElmCompilerErrors(messages) {
   return errors.length > 0
     ? {
         errors: errors
-          .map(x =>
+          .map((x) =>
             x
               .replace(/(--\s[A-Z\s]+-+\s.*\.elm\r?\n)/g, filename('$1'))
               .replace(/(\n\s*)(\^+)/g, '$1' + error('$2'))
@@ -36,8 +36,8 @@ module.exports = function formatElmCompilerErrors(messages) {
           )
           .map(stripRedundantInfo)
           // drop errors that only contain whitespace
-          .filter(err => err.trim()),
-        warnings: warnings
+          .filter((err) => err.trim()),
+        warnings: warnings,
       }
     : messages;
 };

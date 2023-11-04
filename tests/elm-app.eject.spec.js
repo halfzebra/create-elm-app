@@ -12,10 +12,10 @@ const testAppDir = path.join(rootDir, testAppName);
 const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
-describe('Ejecting Elm application. (Please wait...)', function() {
+describe('Ejecting Elm application. (Please wait...)', function () {
   this.timeout(60000);
 
-  before(done => {
+  before((done) => {
     const { status } = spawn.sync('node', [createElmAppCmd, testAppName]);
     if (status === 0) {
       process.chdir(testAppDir);
@@ -33,7 +33,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
   it(`'elm-app eject' should succeed in '${testAppName}'`, () => {
     const { status, output } = spawn.sync('node', [elmAppCmd, 'eject']);
     const outputString = output
-      .map(out => (out !== null ? out.toString() : ''))
+      .map((out) => (out !== null ? out.toString() : ''))
       .join('');
 
     expect(status, 'to be', 0);
@@ -50,7 +50,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
       start: 'node scripts/start.js',
       make: 'elm make',
       repl: 'elm repl',
-      reactor: 'elm reactor'
+      reactor: 'elm reactor',
     });
   });
 
@@ -77,7 +77,7 @@ describe('Ejecting Elm application. (Please wait...)', function() {
   it('It should be possible to build ejected application, using npm scripts', () => {
     const { status, output } = spawn.sync('npm', ['run', 'build']);
     const outputString = output
-      .map(out => (out !== null ? out.toString() : ''))
+      .map((out) => (out !== null ? out.toString() : ''))
       .join('');
 
     expect(status, 'to be', 0);
