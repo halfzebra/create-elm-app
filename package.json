@@ -28,7 +28,7 @@
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "chalk": "4.1.0",
-    "cli-table": "0.3.4",
+    "cli-table": "0.3.11",
     "connect-history-api-fallback": "1.6.0",
     "copy-webpack-plugin": "6.2.0",
     "cosmiconfig": "7.0.0",
