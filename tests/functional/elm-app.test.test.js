@@ -10,10 +10,10 @@ const createElmAppCmd = path.join(rootDir, 'bin/create-elm-app-cli.js');
 const elmAppCmd = path.join(rootDir, 'bin/elm-app-cli.js');
 
 describe('Testing Elm application with `elm-app test` (Please wait...)', () => {
-  before(done => {
+  before((done) => {
     const { status, stderr } = spawn.sync('node', [
       createElmAppCmd,
-      testAppName
+      testAppName,
     ]);
     if (status === 0) {
       done();
@@ -29,10 +29,10 @@ describe('Testing Elm application with `elm-app test` (Please wait...)', () => {
 
   it('`elm-app test` should succeed in `' + testAppName + '`', () => {
     const { status, output } = spawn.sync('node', [elmAppCmd, 'test'], {
-      cwd: testAppDir
+      cwd: testAppDir,
     });
     const outputString = output
-      .map(out => (out !== null ? out.toString() : ''))
+      .map((out) => (out !== null ? out.toString() : ''))
       .join('');
 
     expect(outputString, 'to contain', 'This test should fail');

@@ -31,7 +31,7 @@ describe('Create Elm application with `elm-app create` command', () => {
   it(`'${testAppName}' should have the same file structure as template`, () => {
     const templateDir = path.join(rootDir, 'template');
     const options = {
-      excludeFilter: 'elm-stuff, elm.json, gitignore, .gitignore, build'
+      excludeFilter: 'elm-stuff, elm.json, gitignore, .gitignore, build',
     };
     const { same } = dircompare.compareSync(templateDir, testAppDir, options);
     expect(same, 'to be', true);
