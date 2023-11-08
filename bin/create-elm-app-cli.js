@@ -22,5 +22,5 @@ if (commands.length === 0) {
 }
 
 spawn.sync('node', [path.resolve(__dirname, '../scripts/create'), commands], {
-  stdio: 'inherit'
+  stdio: 'inherit',
 });

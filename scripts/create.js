@@ -42,6 +42,8 @@ function createElmApp(name) {
     process.exit(1);
   }
 
+  const elmBinaryPath = path.resolve(__dirname, '../node_modules/.bin/elm');
+
   // Run initial `elm make`
   const spawnElmPkgResult = spawn.sync(
     path.resolve(__dirname, '../node_modules/.bin/elm'),
@@ -50,19 +52,32 @@ function createElmApp(name) {
     { stdio: 'inherit', cwd: appRoot }
   );
 
+  console.log({ exist: fs.existsSync(elmBinaryPath) });
+
+  if (!fs.existsSync(elmBinaryPath)) {
+    console.log(`Create Elm App couldn't create an app for you.`);
+    console.log();
+    console.log('It seems like Elm Compiler binary is missing!');
+
+    if (!isWindows) {
+      console.log(
+        'In case if you are running Unix OS,\nyour user might lack permissions to install binaries into default NPM location.'
+      );
+
+      console.log('    mkdir -p $HOME/.npm-global');
+      console.log('    npm config set prefix $HOME/.npm-global');
+      console.log();
+      console.log('    https://github.com/halfzebra/create-elm-app/issues/10');
+    }
+
+    process.exit(1);
+  }
+
   if (spawnElmPkgResult.status !== 0) {
     console.log();
     console.log(chalk.red('Failed to install elm packages'));
     console.log();
     console.log('Please, make sure you have internet connection!');
-    if (!isWindows) {
-      console.log();
-      console.log(
-        'In case if you are running Unix OS, you might look in to this issue:'
-      );
-      console.log();
-      console.log('    https://github.com/halfzebra/create-elm-app/issues/10');
-    }
     process.exit(1);
   }
 
