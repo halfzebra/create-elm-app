@@ -22,6 +22,7 @@
             "elm-explorations/test": "2.1.2"
         },
         "indirect": {
+            "elm/bytes": "1.0.8",
             "elm/random": "1.0.0"
         }
     }

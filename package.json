@@ -2,6 +2,41 @@
   "name": "create-elm-app",
   "description": "Elm apps with zero configuration",
   "version": "0.0.0-development",
+  "scripts": {
+    "cz": "git-cz",
+    "lint": "eslint .",
+    "format": "prettier --write '{bin,config,scripts,template/src,tests}/**/*.js'",
+    "semantic-release": "semantic-release",
+    "test": "npm run test:cli && npm run test:functional",
+    "test:cli": "jest tests/cli.test.js",
+    "test:functional": "jest tests/*",
+    "app:build": "cd template && node ../bin/elm-app-cli.js build",
+    "app:start": "cd template && node ../bin/elm-app-cli.js start",
+    "app:test": "cd template && node ../bin/elm-app-cli.js test"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "package-lock.json": [
+      "git rm --cached"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "bin": {
     "elm-app": "./bin/elm-app-cli.js",
@@ -10,11 +45,6 @@
   "bugs": {
     "url": "https://github.com/halfzebra/create-elm-app/issues",
     "email": "eduard.kyvenko@gmail.com"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "dependencies": {
     "@babel/cli": "7.12.10",
@@ -72,10 +102,10 @@
     "@commitlint/config-conventional": "11.0.0",
     "babel-eslint": "10.1.0",
     "commitizen": "4.2.5",
-    "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
     "dir-compare": "2.4.0",
     "eslint": "7.15.0",
+    "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-prettier": "3.2.0",
     "husky": "4.3.5",
     "jest": "^29.7.0",
@@ -85,9 +115,6 @@
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "semantic-release": "17.3.0"
-  },
-  "engines": {
-    "node": ">=8.0.0"
   },
   "files": [
     "bin",
@@ -111,32 +138,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/halfzebra/create-elm-app"
-  },
-  "scripts": {
-    "cz": "git-cz",
-    "eslint": "eslint .",
-    "format": "prettier --write '{bin,config,scripts,template/src,tests}/**/*.js'",
-    "semantic-release": "semantic-release",
-    "test": "npm run test:cli && npm run test:functional",
-    "test:cli": "jest tests/cli.spec.js",
-    "test:functional": "cross-env UNEXPECTED_FULL_TRACE=true jest tests/functional/*.spec.js",
-    "app:build": "cd template && node ../bin/elm-app-cli.js build",
-    "app:start": "cd template && node ../bin/elm-app-cli.js start",
-    "app:test": "cd template && node ../bin/elm-app-cli.js test"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ],
-    "package-lock.json": [
-      "git rm --cached"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }

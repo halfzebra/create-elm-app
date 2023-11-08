@@ -180,7 +180,7 @@ module.exports = {
               // for invalid values, "true" and as a default, enable it
               debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
               pathToElm: paths.elm,
-              forceWatch: true,
+              // forceWatch: true,
             },
           },
         ],

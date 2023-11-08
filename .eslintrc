@@ -6,12 +6,8 @@
   "parserOptions": {
     "ecmaVersion": 6
   },
-  "extends": [
-    "eslint:recommended"
-  ],
-  "plugins": [
-    "prettier"
-  ],
+  "extends": ["eslint:recommended"],
+  "plugins": ["prettier"],
   "rules": {
     "curly": "error",
     "no-console": "off",
@@ -27,5 +23,17 @@
       }
     ],
     "strict": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["tests/**"],
+      "env": {
+        "node": true,
+        "impliedStrict": true
+      },
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended"],
+      "rules": { "jest/prefer-expect-assertions": "off" }
+    }
+  ]
 }
